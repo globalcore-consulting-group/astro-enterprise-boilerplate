@@ -33,21 +33,25 @@ npm run dev          # Start dev server at localhost:4321
 - [x] Repository created
 - [x] Astro initialized
 - [x] AGENTS.md defined
+- [x] ESLint + Prettier
+- [x] VSCode workspace configuration (Peacock, format on save, recommended extensions)
 
 ### ⏳ Pending Setup
+- [ ] .nvmrc file
+- [ ] Path aliases (@/*)
+- [ ] Husky
+- [ ] lint-staged
+- [ ] commitlint
 - [ ] Tailwind CSS
 - [ ] Starwind UI
-- [ ] ESLint + Prettier
 - [ ] Vitest + Testing Library
 - [ ] Playwright
 - [ ] Zod
-- [ ] commitlint + lint-staged + semantic-release
-- [ ] GitHub Action for deploy
+- [ ] semantic-release
 - [ ] Folder structure (domain/, application/, infrastructure/)
 - [ ] i18n configuration
-- [ ] Path aliases (@/*)
-- [ ] .nvmrc file
 - [ ] Content Collections setup
+- [ ] GitHub Action for deploy
 
 > ⚠️ **Note:** Sections in this document describe the target setup. Check this checklist to know what's actually available.
 
@@ -604,9 +608,12 @@ chore: update dependencies
 - Keep commit messages clean and professional
 - Focus on **what** changed and **why**, not **who** (human or AI) made the change
 - Commits should look indistinguishable from human-written commits
+- Make **atomic commits** - one logical change per commit
+- Commit completed work before moving to the next task
 
-### Commit Tools
+### Commit Tools (Pending Setup)
 
+- **Husky** - Git hooks management
 - **commitlint** - Enforce conventional commits
 - **lint-staged** - Run linters on staged files
 - **semantic-release** - Automated versioning and changelog
