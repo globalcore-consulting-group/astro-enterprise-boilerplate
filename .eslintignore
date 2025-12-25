@@ -1,0 +1,14 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+.astro/
+
+# Configuration files
+*.config.js
+*.config.mjs
+*.config.ts
+
+# Type definitions
+*.d.ts
