@@ -125,6 +125,8 @@ npm run typecheck        # Run TypeScript compiler check
 - Add TypeScript types for all function parameters and returns
 - Use i18n for all user-facing text
 - Update AGENTS.md when discovering new project conventions
+- **Before installing packages**: Check official documentation for latest recommended installation methods and integration patterns
+- **When configuring tools**: Ask user preferences for opinionated settings (line width, quotes, etc.)
 
 ### ⚠️ Ask First
 - Before modifying `astro.config.mjs` or `tailwind.config.mjs`
@@ -162,6 +164,7 @@ npm run typecheck        # Run TypeScript compiler check
 - **Log all actions** - Document what was done and why
 - **Document decisions** - Create ADRs for architectural decisions (always in English)
 - **Code in English** - All code, comments, and documentation in English
+- **Commit atomically** - Make small, focused commits for each logical change. Commit completed work before moving to the next task.
 
 ### Session Start Checklist
 1. Review recent code changes (human may have coded without the agent)
