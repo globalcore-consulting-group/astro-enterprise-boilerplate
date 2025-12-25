@@ -107,10 +107,40 @@ This document contains the resources and references used to configure ESLint and
 - ESLint focuses on code quality and error detection
 
 ### Format on Save (VSCode)
-Requires VSCode settings for `.astro` files:
-- Set `eslint.validate` to include `astro`
-- Set `prettier.documentSelectors` for Astro files
-- Set default formatter for Astro files
+Configured in `.vscode/settings.json`:
+
+```json
+{
+    // Editor: Format and Lint on Save
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit"
+    },
+
+    // Prettier: Default Formatter (fallback)
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+    // Prettier: Enable Astro file formatting
+    "prettier.documentSelectors": ["**/*.astro"],
+
+    // Language-Specific Formatters
+    "[astro]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
+}
+```
+
+**Key Settings Explained:**
+- `editor.formatOnSave`: Automatically formats code on file save
+- `editor.codeActionsOnSave`: Runs ESLint fixes on save
+- `editor.defaultFormatter`: Sets Prettier as the fallback formatter for all file types
+- `prettier.documentSelectors`: Explicitly enables Prettier for `.astro` files
+- `[astro]`: Language-specific formatter setting (takes priority over global setting)
+
+**Resources:**
+- [Correctly Configuring Prettier in VS Code (2025)](https://www.olivare.net/blog/2025/prettier-vscode)
+- [Astro Editor Setup - Official Docs](https://docs.astro.build/en/editor-setup/)
+- [Get VSCode, eslint & prettier working with Astro](https://patheticgeek.dev/blog/astro-prettier-eslint-vscode)
 
 ---
 

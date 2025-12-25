@@ -1,4 +1,23 @@
 {
+    // Editor: Format and Lint on Save
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit"
+    },
+
+    // Prettier: Default Formatter (fallback)
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+    // Prettier: Enable Astro file formatting
+    "prettier.documentSelectors": ["**/*.astro"],
+
+    // Language-Specific Formatters
+    "[astro]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+
+    // Visual Customizations (Peacock)
+    "peacock.color": "#FF5D01",
     "workbench.colorCustomizations": {
         "activityBar.activeBackground": "#ff7e34",
         "activityBar.background": "#ff7e34",
@@ -17,6 +36,5 @@
         "titleBar.activeForeground": "#15202b",
         "titleBar.inactiveBackground": "#ff5d0199",
         "titleBar.inactiveForeground": "#15202b99"
-    },
-    "peacock.color": "#FF5D01"
+    }
 }
