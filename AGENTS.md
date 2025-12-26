@@ -41,11 +41,11 @@ npm run dev          # Start dev server at localhost:4321
 - [x] commitlint
 - [x] .nvmrc file
 - [x] Path aliases (@/\*)
+- [x] Tailwind CSS v4
+- [x] Starwind UI (Button component)
 
 ### ⏳ Pending Setup
 
-- [ ] Tailwind CSS
-- [ ] Starwind UI
 - [ ] Vitest + Testing Library
 - [ ] Playwright
 - [ ] Zod
@@ -103,8 +103,8 @@ npm run typecheck        # Run TypeScript compiler check
 | --------------- | ------- | ------------------------------------------ |
 | Astro           | ^5.16.6 | Framework                                  |
 | TypeScript      | ^5.x    | Type safety                                |
-| Tailwind CSS    | TBD     | Styling (pending install)                  |
-| Starwind UI     | TBD     | UI Components (pending install)            |
+| Tailwind CSS    | ^4.1.18 | Styling framework                          |
+| Starwind UI     | 2.2.0   | UI Components (Button installed)           |
 | Zod             | TBD     | Schema validation (pending install)        |
 | Vitest          | TBD     | Unit & Integration tests (pending install) |
 | Playwright      | TBD     | E2E tests (pending install)                |
