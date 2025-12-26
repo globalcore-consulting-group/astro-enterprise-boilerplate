@@ -1,0 +1,2 @@
+# Husky pre-commit hook
+# Will be configured with lint-staged in next commit
