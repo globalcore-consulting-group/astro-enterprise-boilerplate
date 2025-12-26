@@ -3,7 +3,8 @@
     "astro-build.astro-vscode",
     "johnpapa.vscode-peacock",
     "dbaeumer.vscode-eslint",
-    "esbenp.prettier-vscode"
+    "esbenp.prettier-vscode",
+    "bradlc.vscode-tailwindcss"
   ],
   "unwantedRecommendations": []
 }
