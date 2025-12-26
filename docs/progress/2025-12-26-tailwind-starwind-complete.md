@@ -593,6 +593,51 @@ Edit `src/styles/starwind.css`:
 
 ---
 
+## Follow-up: Setup Documentation Created
+
+**Date:** 2025-12-26 (Later in session)
+**Commits:** c997aa5, 5617898
+
+### ✅ Setup Resource Documentation
+
+Created comprehensive setup guides in `docs/setup-resources/`:
+
+1. **tailwind-setup.md**
+   - Installation and configuration steps
+   - CSS-based configuration examples
+   - Brand color customization guide
+   - Dark mode implementation
+   - Best practices
+   - VS Code IntelliSense setup
+   - Troubleshooting section
+
+2. **starwind-ui-setup.md**
+   - CLI installation method (`npx starwind@latest init/add`)
+   - Button component usage examples
+   - All 9 variant documentation
+   - Color customization guide
+   - Best practices
+   - Accessibility guidelines
+   - Common use cases
+
+### ✅ VSCode Extensions Updated
+
+Added `bradlc.vscode-tailwindcss` to recommended extensions:
+
+- Autocomplete for Tailwind classes in .astro files
+- Support for tailwind-variants
+- Color previews and linting
+
+**Note:** Research confirmed no official Starwind UI VSCode extension exists (it's a component library, not tooling).
+
+### Files Created/Modified
+
+- `docs/setup-resources/tailwind-setup.md` (new)
+- `docs/setup-resources/starwind-ui-setup.md` (new)
+- `.vscode/extensions.json` (updated)
+
+---
+
 **End of Session Document**
-**Status:** UI Framework Phase Complete ✅
-**Next Session:** Testing infrastructure or additional UI components
+**Status:** UI Framework Phase Complete ✅ + Documentation Complete ✅
+**Next Session:** Vitest + Testing Library setup (ready to begin)

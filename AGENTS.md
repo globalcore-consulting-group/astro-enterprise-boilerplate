@@ -61,6 +61,8 @@ npm run dev          # Start dev server at localhost:4321
 
 ## Resources
 
+### External Documentation
+
 - [Astro Docs](https://docs.astro.build)
 - [Tailwind CSS Docs](https://tailwindcss.com/docs)
 - [Starwind UI](https://starwind.dev)
@@ -68,6 +70,22 @@ npm run dev          # Start dev server at localhost:4321
 - [Clean Architecture on Frontend](https://dev.to/bespoyasov/clean-architecture-on-frontend-4311)
 - [Conventional Commits](https://www.conventionalcommits.org)
 - [Web Vitals](https://web.dev/vitals/)
+
+### Setup Documentation
+
+Detailed setup guides in `docs/setup-resources/`:
+
+- `eslint-prettier-setup.md` - ESLint and Prettier configuration
+- `git-hooks-setup.md` - Husky, lint-staged, commitlint setup
+- `tailwind-setup.md` - Tailwind CSS v4 installation and customization
+- `starwind-ui-setup.md` - Starwind UI components and CLI usage
+
+### Progress Tracking
+
+Session handoff documents in `docs/progress/`:
+
+- `2025-12-26-foundation-complete.md` - Foundation setup (ESLint, hooks, etc.)
+- `2025-12-26-tailwind-starwind-complete.md` - UI framework setup
 
 ---
 
