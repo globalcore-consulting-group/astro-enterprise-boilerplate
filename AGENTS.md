@@ -30,18 +30,20 @@ npm run dev          # Start dev server at localhost:4321
 > 🚧 **Project in initial setup phase**
 
 ### ✅ Done
+
 - [x] Repository created
 - [x] Astro initialized
 - [x] AGENTS.md defined
 - [x] ESLint + Prettier
 - [x] VSCode workspace configuration (Peacock, format on save, recommended extensions)
+- [x] Husky
+- [x] lint-staged
+- [x] commitlint
 
 ### ⏳ Pending Setup
+
 - [ ] .nvmrc file
-- [ ] Path aliases (@/*)
-- [ ] Husky
-- [ ] lint-staged
-- [ ] commitlint
+- [ ] Path aliases (@/\*)
 - [ ] Tailwind CSS
 - [ ] Starwind UI
 - [ ] Vitest + Testing Library
@@ -97,16 +99,16 @@ npm run typecheck        # Run TypeScript compiler check
 
 ## Tech Stack
 
-| Technology | Version | Purpose |
-|------------|---------|---------|
-| Astro | ^5.16.6 | Framework |
-| TypeScript | ^5.x | Type safety |
-| Tailwind CSS | TBD | Styling (pending install) |
-| Starwind UI | TBD | UI Components (pending install) |
-| Zod | TBD | Schema validation (pending install) |
-| Vitest | TBD | Unit & Integration tests (pending install) |
-| Playwright | TBD | E2E tests (pending install) |
-| Testing Library | TBD | Component testing (pending install) |
+| Technology      | Version | Purpose                                    |
+| --------------- | ------- | ------------------------------------------ |
+| Astro           | ^5.16.6 | Framework                                  |
+| TypeScript      | ^5.x    | Type safety                                |
+| Tailwind CSS    | TBD     | Styling (pending install)                  |
+| Starwind UI     | TBD     | UI Components (pending install)            |
+| Zod             | TBD     | Schema validation (pending install)        |
+| Vitest          | TBD     | Unit & Integration tests (pending install) |
+| Playwright      | TBD     | E2E tests (pending install)                |
+| Testing Library | TBD     | Component testing (pending install)        |
 
 > ⚠️ **Note:** Update versions in this table as dependencies are installed. All dependencies must be compatible with Astro 5.x.
 
@@ -123,6 +125,7 @@ npm run typecheck        # Run TypeScript compiler check
 ## Boundaries
 
 ### ✅ Always Do
+
 - Run `npm run lint` and `npm run typecheck` before considering work complete
 - Write tests for new use-cases and mappers
 - Use semantic HTML elements
@@ -133,6 +136,7 @@ npm run typecheck        # Run TypeScript compiler check
 - **When configuring tools**: Ask user preferences for opinionated settings (line width, quotes, etc.)
 
 ### ⚠️ Ask First
+
 - Before modifying `astro.config.mjs` or `tailwind.config.mjs`
 - Before adding new dependencies
 - Before changing the project structure
@@ -140,6 +144,7 @@ npm run typecheck        # Run TypeScript compiler check
 - Before making architectural decisions (document in ADR after approval)
 
 ### 🚫 Never Do
+
 - Never commit without running tests
 - Never use `any` type without explicit justification in comments
 - Never hardcode text (use i18n)
@@ -150,6 +155,7 @@ npm run typecheck        # Run TypeScript compiler check
 - Never push directly to main without testing locally
 
 ### 📁 Protected Paths
+
 - `.env*` - Environment files
 - `node_modules/` - Dependencies
 - `dist/` - Build output
@@ -161,6 +167,7 @@ npm run typecheck        # Run TypeScript compiler check
 ## Agent Behavior
 
 ### Core Principles
+
 - **Human in the loop always** - Ask before making significant changes
 - **Never assume** - If context or arguments are missing, ask or investigate first
 - **Be strict** - Enforce best practices, don't cut corners
@@ -171,15 +178,18 @@ npm run typecheck        # Run TypeScript compiler check
 - **Commit atomically** - Make small, focused commits for each logical change. Commit completed work before moving to the next task.
 
 ### Session Start Checklist
+
 1. Review recent code changes (human may have coded without the agent)
 2. Check current plans in `docs/plans/`
 3. Review progress in `docs/progress/`
 4. Verify no uncommitted changes
 
 ### Context Management
+
 ⚠️ **Alert at 20% context remaining**
 
 When context is running low:
+
 1. Save current progress to `docs/progress/`
 2. Update active plans in `docs/plans/`
 3. Summarize pending tasks
@@ -257,10 +267,10 @@ docs/
 
 ## i18n Configuration
 
-| Language | Code | URL Pattern |
-|----------|------|-------------|
-| English (default) | `en` | `/about`, `/services`, `/contact` |
-| German | `de` | `/de/ueber-uns`, `/de/dienstleistungen`, `/de/kontakt` |
+| Language          | Code | URL Pattern                                            |
+| ----------------- | ---- | ------------------------------------------------------ |
+| English (default) | `en` | `/about`, `/services`, `/contact`                      |
+| German            | `de` | `/de/ueber-uns`, `/de/dienstleistungen`, `/de/kontakt` |
 
 - Default language (EN) has no prefix in URL
 - All other languages use `/{lang}/` prefix
@@ -275,7 +285,7 @@ src/
     about.astro                     ← /about (EN)
     services.astro                  ← /services (EN)
     contact.astro                   ← /contact (EN)
-    
+
     [lang]/
       index.astro                   ← /de (DE home)
       [...slug].astro               ← Catch-all for translated slugs
@@ -290,14 +300,14 @@ src/
 // src/i18n/routes.ts
 export const routeTranslations = {
   en: {
-    about: 'about',
-    services: 'services',
-    contact: 'contact',
+    about: "about",
+    services: "services",
+    contact: "contact",
   },
   de: {
-    about: 'ueber-uns',
-    services: 'dienstleistungen',
-    contact: 'kontakt',
+    about: "ueber-uns",
+    services: "dienstleistungen",
+    contact: "kontakt",
   },
 } as const;
 ```
@@ -327,11 +337,11 @@ src/components/sections/Hero/
 
 ## Testing Strategy
 
-| Type | Tool | Location | What to Test |
-|------|------|----------|--------------|
-| Unit | Vitest | `*.test.ts` (colocated) | Mappers, use-cases, utils, Zod schemas |
-| Integration | Vitest | `tests/integration/` | Repositories with mock data |
-| E2E | Playwright | `tests/e2e/` | Critical flows (contact form, language switch) |
+| Type        | Tool       | Location                | What to Test                                   |
+| ----------- | ---------- | ----------------------- | ---------------------------------------------- |
+| Unit        | Vitest     | `*.test.ts` (colocated) | Mappers, use-cases, utils, Zod schemas         |
+| Integration | Vitest     | `tests/integration/`    | Repositories with mock data                    |
+| E2E         | Playwright | `tests/e2e/`            | Critical flows (contact form, language switch) |
 
 ### Testing Priority
 
@@ -345,20 +355,20 @@ src/components/sections/Hero/
 
 ### File Naming
 
-| Type | Convention | Example |
-|------|------------|---------|
-| Components | PascalCase | `HeroSection.astro` |
-| Utils/Helpers | kebab-case | `format-date.ts` |
-| Types/Interfaces | PascalCase | `Service.ts` |
-| Tests | Same as source + `.test` | `Button.test.ts` |
-| Constants | SCREAMING_SNAKE_CASE | `API_ENDPOINTS.ts` |
+| Type             | Convention               | Example             |
+| ---------------- | ------------------------ | ------------------- |
+| Components       | PascalCase               | `HeroSection.astro` |
+| Utils/Helpers    | kebab-case               | `format-date.ts`    |
+| Types/Interfaces | PascalCase               | `Service.ts`        |
+| Tests            | Same as source + `.test` | `Button.test.ts`    |
+| Constants        | SCREAMING_SNAKE_CASE     | `API_ENDPOINTS.ts`  |
 
 ### Exports
 
-| Type | Export Style |
-|------|--------------|
-| Astro Components | `export default` |
-| Utils, hooks, types, use-cases | Named exports |
+| Type                           | Export Style     |
+| ------------------------------ | ---------------- |
+| Astro Components               | `export default` |
+| Utils, hooks, types, use-cases | Named exports    |
 
 ### Code Style
 
@@ -404,34 +414,30 @@ export async function getServicesByCategory(category: string): Promise<Service[]
 ---
 // src/components/ui/Button/Button.astro
 interface Props {
-  variant?: 'primary' | 'secondary' | 'ghost';
-  size?: 'sm' | 'md' | 'lg';
+  variant?: "primary" | "secondary" | "ghost";
+  size?: "sm" | "md" | "lg";
   href?: string;
   disabled?: boolean;
 }
 
-const { 
-  variant = 'primary', 
-  size = 'md', 
-  href, 
-  disabled = false 
-} = Astro.props;
+const { variant = "primary", size = "md", href, disabled = false } = Astro.props;
 
-const baseStyles = 'inline-flex items-center justify-center font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2';
+const baseStyles =
+  "inline-flex items-center justify-center font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2";
 
 const variants = {
-  primary: 'bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-500',
-  secondary: 'bg-gray-100 text-gray-900 hover:bg-gray-200 focus:ring-gray-500',
-  ghost: 'bg-transparent hover:bg-gray-100 focus:ring-gray-500',
+  primary: "bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-500",
+  secondary: "bg-gray-100 text-gray-900 hover:bg-gray-200 focus:ring-gray-500",
+  ghost: "bg-transparent hover:bg-gray-100 focus:ring-gray-500",
 };
 
 const sizes = {
-  sm: 'px-3 py-1.5 text-sm',
-  md: 'px-4 py-2 text-base',
-  lg: 'px-6 py-3 text-lg',
+  sm: "px-3 py-1.5 text-sm",
+  md: "px-4 py-2 text-base",
+  lg: "px-6 py-3 text-lg",
 };
 
-const Element = href ? 'a' : 'button';
+const Element = href ? "a" : "button";
 ---
 
 <Element
@@ -448,8 +454,8 @@ const Element = href ? 'a' : 'button';
 
 ```typescript
 // src/application/use-cases/getServices.ts
-import type { Service } from '@/domain/entities/Service';
-import type { ServiceRepository } from '@/application/ports/ServiceRepository';
+import type { Service } from "@/domain/entities/Service";
+import type { ServiceRepository } from "@/application/ports/ServiceRepository";
 
 interface GetServicesParams {
   locale: string;
@@ -459,18 +465,15 @@ interface GetServicesParams {
 /**
  * Retrieves services filtered by locale and optional category
  */
-export async function getServices(
-  repository: ServiceRepository,
-  params: GetServicesParams
-): Promise<Service[]> {
+export async function getServices(repository: ServiceRepository, params: GetServicesParams): Promise<Service[]> {
   const { locale, category } = params;
-  
+
   const services = await repository.findAll(locale);
-  
+
   if (!category) {
     return services;
   }
-  
+
   return services.filter((service) => service.category === category);
 }
 ```
@@ -479,15 +482,15 @@ export async function getServices(
 
 ```typescript
 // src/infrastructure/mappers/ServiceMapper.ts
-import type { Service } from '@/domain/entities/Service';
-import type { StrapiService } from '@/infrastructure/types/strapi';
+import type { Service } from "@/domain/entities/Service";
+import type { StrapiService } from "@/infrastructure/types/strapi";
 
 /**
  * Maps Strapi service response to domain entity
  */
 export function toService(raw: StrapiService): Service {
   const { id, attributes } = raw;
-  
+
   return {
     id,
     title: attributes.title,
@@ -513,30 +516,30 @@ export function toServices(raw: StrapiService[]): Service[] {
 export const translations = {
   en: {
     nav: {
-      home: 'Home',
-      about: 'About',
-      services: 'Services',
-      contact: 'Contact',
+      home: "Home",
+      about: "About",
+      services: "Services",
+      contact: "Contact",
     },
     ui: {
-      readMore: 'Read more',
-      sendMessage: 'Send message',
-      loading: 'Loading...',
-      error: 'Something went wrong',
+      readMore: "Read more",
+      sendMessage: "Send message",
+      loading: "Loading...",
+      error: "Something went wrong",
     },
   },
   de: {
     nav: {
-      home: 'Startseite',
-      about: 'Über uns',
-      services: 'Dienstleistungen',
-      contact: 'Kontakt',
+      home: "Startseite",
+      about: "Über uns",
+      services: "Dienstleistungen",
+      contact: "Kontakt",
     },
     ui: {
-      readMore: 'Mehr lesen',
-      sendMessage: 'Nachricht senden',
-      loading: 'Laden...',
-      error: 'Etwas ist schief gelaufen',
+      readMore: "Mehr lesen",
+      sendMessage: "Nachricht senden",
+      loading: "Laden...",
+      error: "Etwas ist schief gelaufen",
     },
   },
 } as const;
@@ -547,11 +550,7 @@ type Sections = typeof translations.en;
 /**
  * Type-safe translation helper with full autocompletion
  */
-export function t<S extends keyof Sections>(
-  locale: Locale,
-  section: S,
-  key: keyof Sections[S]
-): string {
+export function t<S extends keyof Sections>(locale: Locale, section: S, key: keyof Sections[S]): string {
   return translations[locale][section][key] as string;
 }
 ```
@@ -559,19 +558,19 @@ export function t<S extends keyof Sections>(
 ```astro
 ---
 // src/pages/about.astro
-import { t } from '@/i18n/translations';
-import Layout from '@/layouts/Layout.astro';
+import { t } from "@/i18n/translations";
+import Layout from "@/layouts/Layout.astro";
 
-const locale = Astro.currentLocale as 'en' | 'de';
+const locale = Astro.currentLocale as "en" | "de";
 ---
 
-<Layout title={t(locale, 'nav', 'about')}>
+<Layout title={t(locale, "nav", "about")}>
   <nav>
-    <a href="/">{t(locale, 'nav', 'home')}</a>
-    <a href="/about">{t(locale, 'nav', 'about')}</a>
+    <a href="/">{t(locale, "nav", "home")}</a>
+    <a href="/about">{t(locale, "nav", "about")}</a>
   </nav>
   <main>
-    <button>{t(locale, 'ui', 'sendMessage')}</button>
+    <button>{t(locale, "ui", "sendMessage")}</button>
   </main>
 </Layout>
 ```
@@ -604,6 +603,7 @@ chore: update dependencies
 ```
 
 **AI Agent Commit Guidelines:**
+
 - **DO NOT** add AI attribution footers (e.g., "🤖 Generated with...", "Co-Authored-By: AI...")
 - Keep commit messages clean and professional
 - Focus on **what** changed and **why**, not **who** (human or AI) made the change
@@ -634,11 +634,11 @@ chore: update dependencies
 
 ### Core Web Vitals Targets
 
-| Metric | Target | How to Achieve |
-|--------|--------|----------------|
-| LCP | < 2.5s | Optimize images, preload critical assets |
-| INP | < 200ms | Minimize JS, avoid blocking operations |
-| CLS | < 0.1 | Reserve space for images, no layout shifts |
+| Metric | Target  | How to Achieve                             |
+| ------ | ------- | ------------------------------------------ |
+| LCP    | < 2.5s  | Optimize images, preload critical assets   |
+| INP    | < 200ms | Minimize JS, avoid blocking operations     |
+| CLS    | < 0.1   | Reserve space for images, no layout shifts |
 
 ### Implementation Checklist
 
@@ -653,11 +653,11 @@ chore: update dependencies
 
 ### Fonts
 
-| Font | Usage |
-|------|-------|
-| Aspekta Variable | Headings |
-| Roboto | Body text |
-| Roboto Mono | Numbers/counters |
+| Font             | Usage            |
+| ---------------- | ---------------- |
+| Aspekta Variable | Headings         |
+| Roboto           | Body text        |
+| Roboto Mono      | Numbers/counters |
 
 ---
 
@@ -725,12 +725,12 @@ npm run preview
 
 ## Deployment
 
-| Item | Value |
-|------|-------|
-| **Platform** | VPS with Docker |
-| **CI/CD** | GitHub Actions (pending setup) |
-| **Trigger** | Push to `main` branch |
-| **Container** | `globalcore-website:local` |
+| Item            | Value                           |
+| --------------- | ------------------------------- |
+| **Platform**    | VPS with Docker                 |
+| **CI/CD**       | GitHub Actions (pending setup)  |
+| **Trigger**     | Push to `main` branch           |
+| **Container**   | `globalcore-website:local`      |
 | **Server path** | `/srv/stack/globalcore-website` |
 
 > ⚠️ **Note:** GitHub Action workflow pending creation. Currently deployed manually.
@@ -768,15 +768,19 @@ Location: `docs/adr/NNNN-title.md`
 # NNNN - Title
 
 ## Status
+
 Accepted | Proposed | Deprecated
 
 ## Context
+
 Why we need to make this decision.
 
 ## Decision
+
 What we decided to do.
 
 ## Consequences
+
 What are the trade-offs.
 ```
 
@@ -784,16 +788,16 @@ What are the trade-offs.
 
 ## Key Files
 
-| File | Purpose |
-|------|---------|
-| `astro.config.mjs` | Astro configuration |
-| `tailwind.config.mjs` | Tailwind configuration |
-| `tsconfig.json` | TypeScript configuration |
-| `.nvmrc` | Node version |
-| `AGENTS.md` | This file |
+| File                  | Purpose                  |
+| --------------------- | ------------------------ |
+| `astro.config.mjs`    | Astro configuration      |
+| `tailwind.config.mjs` | Tailwind configuration   |
+| `tsconfig.json`       | TypeScript configuration |
+| `.nvmrc`              | Node version             |
+| `AGENTS.md`           | This file                |
 
 ### Path Aliases
 
-| Alias | Path |
-|-------|------|
+| Alias | Path    |
+| ----- | ------- |
 | `@/*` | `src/*` |
