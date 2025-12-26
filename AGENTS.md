@@ -39,11 +39,11 @@ npm run dev          # Start dev server at localhost:4321
 - [x] Husky
 - [x] lint-staged
 - [x] commitlint
+- [x] .nvmrc file
+- [x] Path aliases (@/\*)
 
 ### ⏳ Pending Setup
 
-- [ ] .nvmrc file
-- [ ] Path aliases (@/\*)
 - [ ] Tailwind CSS
 - [ ] Starwind UI
 - [ ] Vitest + Testing Library
