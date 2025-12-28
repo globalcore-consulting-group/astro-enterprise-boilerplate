@@ -140,6 +140,48 @@ npm run typecheck        # Run TypeScript compiler check
 
 ---
 
+## Testing Strategy
+
+**Philosophy:** Test real data flows, not mocked approximations
+
+### Tools & Responsibilities
+
+| Tool              | Purpose            | What to Test                                     |
+| ----------------- | ------------------ | ------------------------------------------------ |
+| **Vitest**        | Unit & Integration | Mappers, use-cases, schemas, Content Collections |
+| **Playwright**    | End-to-End         | Language switching, forms, responsive design     |
+| **Content Layer** | Test Data Source   | Astro Content Collections (no mocks needed)      |
+
+### Coverage Target
+
+- **Goal:** 60-80% coverage
+- **Focus:** application/, infrastructure/, domain/ layers
+- **Skip:** Simple presentational components
+
+### Test Priority
+
+1. **HIGH (Must Test):** Domain entities, use-cases, mappers, Zod schemas
+2. **MEDIUM (Should Test):** Content Collections, complex components
+3. **LOW (Optional):** Simple presentational components, utilities
+
+### Data Migration Strategy
+
+The testing approach supports seamless migration:
+
+1. **Phase 1 (Current):** JSON files in `src/content/` with Zod validation
+2. **Phase 2 (Future):** Swap to Strapi loader - tests unchanged
+3. **Phase 3 (Optional):** Add custom BFF - Content Layer still works
+
+**Key Insight:** Tests use `getCollection()` API. Data source is abstracted.
+
+### Resources
+
+- [Vitest Setup Guide](docs/setup-resources/vitest-setup.md)
+- [Complete Testing Strategy](docs/setup-resources/testing-strategy.md)
+- [Playwright Setup Guide](docs/setup-resources/playwright-setup.md) (pending)
+
+---
+
 ## Boundaries
 
 ### ✅ Always Do
