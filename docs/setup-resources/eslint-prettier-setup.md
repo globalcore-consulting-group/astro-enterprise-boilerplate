@@ -10,11 +10,13 @@ This document contains the resources and references used to configure ESLint and
 ## Official Documentation
 
 ### Astro
+
 - [Astro Editor Setup - Official Docs](https://docs.astro.build/en/editor-setup/)
   - Official recommendations for setting up code editors with Astro
   - Prettier plugin configuration for `.astro` files
 
 ### ESLint Plugin for Astro
+
 - [eslint-plugin-astro User Guide](https://ota-meshi.github.io/eslint-plugin-astro/user-guide/)
   - Installation and configuration instructions
   - Flat config format setup (`eslint.config.mjs`)
@@ -22,6 +24,7 @@ This document contains the resources and references used to configure ESLint and
   - TypeScript parser setup
 
 ### Prettier
+
 - [Prettier Installation Guide](https://prettier.io/docs/install.html)
   - Official installation instructions
   - Configuration options
@@ -31,6 +34,7 @@ This document contains the resources and references used to configure ESLint and
 ## Community Guides
 
 ### ESLint + Prettier Integration
+
 - [How to setup ESLint and Prettier in your Astro projects](https://cosmicthemes.com/blog/astro-eslint-prettier-setup/)
   - Complete setup guide with all required packages
   - `eslint-config-prettier` integration to prevent conflicts
@@ -80,12 +84,14 @@ This document contains the resources and references used to configure ESLint and
 ## Configuration Files Created
 
 ### `eslint.config.mjs`
+
 - Uses flat config format (ESLint 9.x)
 - Includes Astro recommended rules
 - Includes accessibility rules
 - Integrates with Prettier via `eslint-config-prettier`
 
 ### `.prettierrc.mjs`
+
 - Line width: 120 characters
 - Semicolons: yes
 - Quotes: double
@@ -94,6 +100,7 @@ This document contains the resources and references used to configure ESLint and
 - Astro parser for `.astro` files
 
 ### `.eslintignore` & `.prettierignore`
+
 - Excludes `node_modules/`, `dist/`, `.astro/`
 - Excludes lock files and generated files
 
@@ -102,35 +109,38 @@ This document contains the resources and references used to configure ESLint and
 ## Key Integration Points
 
 ### Avoiding ESLint/Prettier Conflicts
+
 - `eslint-config-prettier` disables all ESLint formatting rules
 - Prettier handles all code formatting
 - ESLint focuses on code quality and error detection
 
 ### Format on Save (VSCode)
+
 Configured in `.vscode/settings.json`:
 
 ```json
 {
-    // Editor: Format and Lint on Save
-    "editor.formatOnSave": true,
-    "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": "explicit"
-    },
+  // Editor: Format and Lint on Save
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
 
-    // Prettier: Default Formatter (fallback)
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+  // Prettier: Default Formatter (fallback)
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
 
-    // Prettier: Enable Astro file formatting
-    "prettier.documentSelectors": ["**/*.astro"],
+  // Prettier: Enable Astro file formatting
+  "prettier.documentSelectors": ["**/*.astro"],
 
-    // Language-Specific Formatters
-    "[astro]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    }
+  // Language-Specific Formatters
+  "[astro]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }
 ```
 
 **Key Settings Explained:**
+
 - `editor.formatOnSave`: Automatically formats code on file save
 - `editor.codeActionsOnSave`: Runs ESLint fixes on save
 - `editor.defaultFormatter`: Sets Prettier as the fallback formatter for all file types
@@ -138,6 +148,7 @@ Configured in `.vscode/settings.json`:
 - `[astro]`: Language-specific formatter setting (takes priority over global setting)
 
 **Resources:**
+
 - [Correctly Configuring Prettier in VS Code (2025)](https://www.olivare.net/blog/2025/prettier-vscode)
 - [Astro Editor Setup - Official Docs](https://docs.astro.build/en/editor-setup/)
 - [Get VSCode, eslint & prettier working with Astro](https://patheticgeek.dev/blog/astro-prettier-eslint-vscode)
