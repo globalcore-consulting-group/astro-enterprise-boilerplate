@@ -2,7 +2,7 @@
 
 > **This file provides context and guidelines for AI coding agents working on this project.**
 >
-> **Last updated:** 2025-12-24 | **Version:** 1.0.0
+> **Last updated:** 2025-12-28 | **Version:** 1.0.0
 
 ---
 
@@ -82,10 +82,15 @@ Detailed setup guides in `docs/setup-resources/`:
 
 ### Progress Tracking
 
-Session handoff documents in `docs/progress/`:
+**Stakeholder Summary:**
+
+- `STAKEHOLDER-SUMMARY.md` - Living document for stakeholder communication (always update when completing major milestones)
+
+**Session handoff documents in `docs/progress/`:**
 
 - `2025-12-26-foundation-complete.md` - Foundation setup (ESLint, hooks, etc.)
 - `2025-12-26-tailwind-starwind-complete.md` - UI framework setup
+- `2025-12-28-testing-strategy-complete.md` - Testing strategy documentation
 
 ---
 
@@ -242,7 +247,8 @@ The testing approach supports seamless migration:
 1. Review recent code changes (human may have coded without the agent)
 2. Check current plans in `docs/plans/`
 3. Review progress in `docs/progress/`
-4. Verify no uncommitted changes
+4. Review `docs/STAKEHOLDER-SUMMARY.md` to understand current project state
+5. Verify no uncommitted changes
 
 ### Context Management
 
@@ -254,6 +260,22 @@ When context is running low:
 2. Update active plans in `docs/plans/`
 3. Summarize pending tasks
 4. Prepare handoff notes for next session
+
+### When Completing Major Milestones
+
+After completing any major milestone (testing setup, architecture implementation, feature completion):
+
+1. Update `docs/STAKEHOLDER-SUMMARY.md` with new progress
+2. Update the checklist in AGENTS.md (Project Status section)
+3. Create session handoff document in `docs/progress/`
+4. Commit changes with descriptive conventional commit message
+
+**Major milestones include:**
+
+- Completing any item from the v1.0.0 checklist
+- Implementing new architecture layers
+- Adding new framework integrations
+- Completing documentation for new features
 
 ---
 
