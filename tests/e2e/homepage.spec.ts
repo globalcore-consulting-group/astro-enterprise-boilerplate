@@ -76,3 +76,42 @@ test.describe("Homepage", () => {
     await expect(h1).toHaveText("Welcome to GlobalCore");
   });
 });
+
+test.describe("Homepage (German /de)", () => {
+  test("loads successfully", async ({ page }) => {
+    await page.goto("/de");
+    await expect(page).toHaveTitle(/Willkommen bei GlobalCore/);
+  });
+
+  test("displays German heading and subtitle", async ({ page }) => {
+    await page.goto("/de");
+
+    const heading = page.getByRole("heading", { name: "Willkommen bei GlobalCore" });
+    await expect(heading).toBeVisible();
+
+    const subtitle = page.getByText(
+      "Professionelle Beratungsdienstleistungen für digitale Transformation und Geschäftswachstum"
+    );
+    await expect(subtitle).toBeVisible();
+  });
+
+  test("renders German CTA buttons", async ({ page }) => {
+    await page.goto("/de");
+
+    const primaryCta = page.getByRole("link", { name: "Kontakt aufnehmen" });
+    const secondaryCta = page.getByRole("link", { name: "Mehr erfahren" });
+
+    await expect(primaryCta).toBeVisible();
+    await expect(secondaryCta).toBeVisible();
+  });
+
+  test("German CTA buttons link to correct pages", async ({ page }) => {
+    await page.goto("/de");
+
+    const primaryCta = page.getByRole("link", { name: "Kontakt aufnehmen" });
+    const secondaryCta = page.getByRole("link", { name: "Mehr erfahren" });
+
+    await expect(primaryCta).toHaveAttribute("href", "/de/kontakt");
+    await expect(secondaryCta).toHaveAttribute("href", "/de/ueber-uns");
+  });
+});
