@@ -1,0 +1,12 @@
+{
+  "title": "Welcome to GlobalCore",
+  "subtitle": "Professional consulting services for digital transformation and business growth",
+  "primaryCta": {
+    "text": "Get in touch",
+    "href": "/contact"
+  },
+  "secondaryCta": {
+    "text": "Learn more",
+    "href": "/about"
+  }
+}

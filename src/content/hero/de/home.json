@@ -1,0 +1,12 @@
+{
+  "title": "Willkommen bei GlobalCore",
+  "subtitle": "Professionelle Beratungsdienstleistungen für digitale Transformation und Geschäftswachstum",
+  "primaryCta": {
+    "text": "Kontakt aufnehmen",
+    "href": "/de/kontakt"
+  },
+  "secondaryCta": {
+    "text": "Mehr erfahren",
+    "href": "/de/ueber-uns"
+  }
+}
