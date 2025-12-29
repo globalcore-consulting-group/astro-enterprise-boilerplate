@@ -2,7 +2,7 @@
 
 > **This file provides context and guidelines for AI coding agents working on this project.**
 >
-> **Last updated:** 2025-12-28 | **Version:** 1.0.0
+> **Last updated:** 2025-12-29 | **Version:** 1.0.0
 
 ---
 
@@ -44,7 +44,7 @@ npm run dev          # Start dev server at localhost:4321
 - [x] Tailwind CSS v4
 - [x] Starwind UI (Button component)
 - [x] Vitest + Testing Library (15 unit tests, 83% coverage)
-- [x] Playwright (7 E2E tests)
+- [x] Playwright (15 E2E tests: 11 EN, 4 DE)
 - [x] **Zod** (transitive dependency from Astro 3.25.76)
 - [x] **Clean Architecture folder structure** (domain/, application/, infrastructure/)
 - [x] **Content Collections** (Hero collection with EN/DE content)
@@ -184,6 +184,26 @@ The testing approach supports seamless migration:
 3. **Phase 3 (Optional):** Add custom BFF - Content Layer still works
 
 **Key Insight:** Tests use `getCollection()` API. Data source is abstracted.
+
+### Testing Conventions
+
+**Playwright E2E Tests:**
+
+- **Test function naming:** Use `test()` for Playwright E2E tests (not `it()` - that's for Vitest unit tests)
+- **Selector priority:** Always prefer in this order:
+  1. Role-based selectors (`getByRole`) for user-facing elements
+  2. Text content (`getByText`) for visible text
+  3. Test IDs (`getByTestId`) for layout containers and implementation details
+  4. CSS selectors (last resort)
+- **data-testid usage:** Add `data-testid` attributes to elements that need testing but lack semantic meaning (layout containers, wrappers)
+- **Hardcoded expectations:** E2E tests should hardcode expected text - intentional content changes should fail tests
+- **Test organization:** Use nested `describe` blocks to organize tests by feature, locale, or device type
+
+**Vitest Unit Tests:**
+
+- **Test function naming:** Use `test()` or `it()` for Vitest unit tests
+- **Container API:** Use Astro's Container API to render real components (no mocking)
+- **Coverage:** Maintain 60%+ coverage threshold (lines, functions, branches, statements)
 
 ### Resources
 
