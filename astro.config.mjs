@@ -10,4 +10,13 @@ export default defineConfig({
       allowedHosts: ["website.myhelix.io"],
     },
   },
+
+  // i18n configuration
+  i18n: {
+    defaultLocale: "en",
+    locales: ["en", "de"],
+    routing: {
+      prefixDefaultLocale: false, // EN has no prefix (/about), DE has prefix (/de/ueber-uns)
+    },
+  },
 });
