@@ -1,11 +1,89 @@
 # Session Summary - 2025-12-29
 
 **Last Updated:** 2025-12-29
-**Session Focus:** Clean Architecture Setup & i18n Implementation
+**Session Focus:** Clean Architecture Documentation (Session 2)
 
 ---
 
 ## ✅ Completed This Session
+
+### Session 2 (2025-12-29): Documentation
+
+**Goal:** Document Clean Architecture layers and architectural decisions
+
+#### Layer READMEs Created
+
+1. **Domain Layer README** (`src/domain/README.md`)
+   - Purpose and architecture principles
+   - What goes in domain layer (entities, value objects, business rules)
+   - Guidelines for new entities
+   - Testing strategies
+   - Current entities documented (Locale)
+   - ~350 lines of documentation
+
+2. **Application Layer README** (`src/application/README.md`)
+   - Use-cases and ports explanation
+   - When to add use-cases
+   - Dependency injection pattern
+   - Testing use-cases with mocks
+   - Migration strategy examples
+   - Integration with Astro pages
+   - ~300 lines of documentation
+
+3. **Infrastructure Layer README** (`src/infrastructure/README.md`)
+   - Repositories and mappers explanation
+   - When to add repositories
+   - Repository patterns (Collection-based, API-based, Hybrid)
+   - Error handling strategies
+   - Testing infrastructure
+   - Migration examples (Content Collections → Strapi)
+   - ~350 lines of documentation
+
+4. **i18n README** (`src/i18n/README.md`)
+   - i18n architecture overview
+   - UI translations vs content separation
+   - Type-safe translation helper usage
+   - Adding new languages
+   - Best practices and patterns
+   - Testing i18n
+   - Future enhancements
+   - ~400 lines of documentation
+
+#### Architecture Decision Records Created
+
+1. **ADR 0001: Adopt Clean Architecture** (`docs/adr/0001-clean-architecture.md`)
+   - Context: Why Clean Architecture for Astro frontend
+   - Decision: Layer structure and principles
+   - Alternatives considered (no architecture, service layer, full DDD)
+   - Migration path (gradual adoption)
+   - Success metrics
+   - ~400 lines
+
+2. **ADR 0002: Content Collections with Locale Folders** (`docs/adr/0002-content-collections-i18n.md`)
+   - Context: How to organize multilingual content
+   - Decision: Locale folders within collections
+   - Alternatives considered (locale suffix, collection-level, single with field)
+   - Implementation examples
+   - Strapi migration strategy
+   - ~350 lines
+
+3. **ADR 0003: Separate UI Translations from CMS Content** (`docs/adr/0003-translations-vs-content.md`)
+   - Context: Where to put UI text vs content
+   - Decision: translations.ts for UI, Content Collections for content
+   - Rationale: Different ownership, validation, tooling
+   - Alternatives considered (everything in one place)
+   - Guidelines for edge cases
+   - ~400 lines
+
+#### Project Tracking Updated
+
+- Updated AGENTS.md progress: 80% → 87% (13 of 15 items complete)
+- Marked documentation as complete in checklist
+- Updated SESSION-SUMMARY.md
+
+---
+
+## ✅ Completed Session 1 (2025-12-29): Clean Architecture Setup & i18n
 
 ### 1. Clean Architecture Scaffolding
 
@@ -81,38 +159,58 @@
 - [x] **Clean Architecture folder structure**
 - [x] **Content Collections** (Hero with EN/DE)
 - [x] **i18n configuration** (EN/DE routing)
+- [x] **Documentation** (Layer READMEs + 3 ADRs)
 
-### Progress: 80% to v1.0.0 (12 of 15 items complete)
+### Progress: 87% to v1.0.0 (13 of 15 items complete)
 
 ### Next Up for v1.0.0
 
-- [ ] Documentation (layer READMEs, ADRs)
 - [ ] semantic-release
 - [ ] GitHub Actions (CI/CD)
 
 ---
 
-## 🎯 Next Session: Documentation & Optional Testing
+## 🎯 Next Session: Feature Development or CI/CD
 
-**Ready to begin:** Layer documentation and optional testing
+**Documentation Complete!** ✅ Clean Architecture foundation is fully documented.
 
-**Key tasks:**
+**Options for next session:**
 
-1. **Layer READMEs** (Optional but recommended)
-   - `src/domain/README.md` - Explain domain layer purpose, entity patterns
-   - `src/application/README.md` - Document use-case patterns (when we add them)
-   - `src/infrastructure/README.md` - Repository/mapper patterns (when we add them)
-   - `src/i18n/README.md` - Document i18n strategy
+### Option 1: Feature Development (Recommended)
 
-2. **Architecture Decision Records** (Optional)
-   - `docs/adr/0001-clean-architecture.md` - Why Clean Architecture
-   - `docs/adr/0002-content-collections-i18n.md` - Content organization strategy
-   - `docs/adr/0003-translations-vs-content.md` - UI translations vs CMS content
+Add new content sections following Clean Architecture patterns:
 
-3. **Tests** (Optional - for when we add business logic)
-   - E2E tests for i18n (language switching, translated content)
-   - Unit tests for Locale entity validation
-   - Integration tests when adding use-cases/repositories
+1. **Services Section**
+   - Create Service entity in domain layer
+   - Add services content collection (EN/DE)
+   - Build Services page and ServiceCard components
+   - Practice Clean Architecture with real feature
+
+2. **About Section**
+   - Add about content collection
+   - Create About page with team/company info
+   - Implement timeline or stats components
+
+3. **Contact Section**
+   - Create contact form with validation
+   - Add form submission use-case
+   - Implement error handling and success states
+
+### Option 2: Testing Enhancement
+
+Add tests for existing i18n implementation:
+
+- E2E tests for language switching
+- Unit tests for Locale entity validation
+- Integration tests for Content Collections queries
+
+### Option 3: CI/CD Setup
+
+Complete the v1.0.0 checklist:
+
+- Setup semantic-release
+- Create GitHub Actions workflow
+- Configure automated deployment
 
 **What's working:**
 

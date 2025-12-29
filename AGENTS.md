@@ -27,7 +27,7 @@ npm run dev          # Start dev server at localhost:4321
 
 ## Project Status
 
-> 🚀 **Progress: 80% to v1.0.0** (12 of 15 core items complete)
+> 🚀 **Progress: 87% to v1.0.0** (13 of 15 core items complete)
 
 ### ✅ Done
 
@@ -49,12 +49,12 @@ npm run dev          # Start dev server at localhost:4321
 - [x] **Clean Architecture folder structure** (domain/, application/, infrastructure/)
 - [x] **Content Collections** (Hero collection with EN/DE content)
 - [x] **i18n configuration** (EN default, DE with /de prefix)
+- [x] **Documentation** (Layer READMEs: domain, application, infrastructure, i18n + 3 ADRs)
 
 ### ⏳ Pending Setup
 
 - [ ] semantic-release
 - [ ] GitHub Action for deploy
-- [ ] Additional documentation (ADRs, layer READMEs)
 
 > ⚠️ **Note:** Sections in this document describe the target setup. Check this checklist to know what's actually available.
 
