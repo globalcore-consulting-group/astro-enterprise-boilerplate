@@ -16,19 +16,15 @@ test.describe("Homepage", () => {
     await expect(subtitle).toBeVisible();
   });
 
-  test("renders all button variants", async ({ page }) => {
+  test("renders CTA buttons", async ({ page }) => {
     await page.goto("/");
 
-    // Check all button variants are present
-    const primaryButton = page.getByRole("button", { name: "Primary Button" });
-    const secondaryButton = page.getByRole("button", { name: "Secondary Button" });
-    const outlineButton = page.getByRole("button", { name: "Outline Button" });
-    const ghostButton = page.getByRole("button", { name: "Ghost Button" });
+    // Check both CTA buttons are present
+    const primaryCta = page.getByRole("link", { name: "Get in touch" });
+    const secondaryCta = page.getByRole("link", { name: "Learn more" });
 
-    await expect(primaryButton).toBeVisible();
-    await expect(secondaryButton).toBeVisible();
-    await expect(outlineButton).toBeVisible();
-    await expect(ghostButton).toBeVisible();
+    await expect(primaryCta).toBeVisible();
+    await expect(secondaryCta).toBeVisible();
   });
 
   test("buttons have correct styling classes", async ({ page }) => {
