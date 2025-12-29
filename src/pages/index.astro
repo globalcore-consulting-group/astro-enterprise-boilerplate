@@ -1,20 +1,20 @@
 ---
+import { getEntry } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
-import { Button } from "@/components/starwind/button";
+import { Hero } from "@/components/sections/Hero";
+
+// Fetch hero content for EN locale
+const heroContent = await getEntry("hero", "en/home");
+
+if (!heroContent) {
+  throw new Error("Hero content not found for EN locale");
+}
+
+const { title, subtitle, primaryCta, secondaryCta } = heroContent.data;
 ---
 
-<Layout title="GlobalCore Website">
-  <main class="min-h-screen bg-background text-foreground">
-    <div class="container mx-auto px-4 py-16">
-      <h1 class="text-4xl font-bold">Welcome to GlobalCore</h1>
-      <p class="mt-4 text-muted-foreground">Tailwind CSS v4 + Starwind UI is ready to use!</p>
-
-      <div class="mt-8 flex flex-wrap gap-4">
-        <Button variant="primary">Primary Button</Button>
-        <Button variant="secondary">Secondary Button</Button>
-        <Button variant="outline">Outline Button</Button>
-        <Button variant="ghost">Ghost Button</Button>
-      </div>
-    </div>
+<Layout title={title}>
+  <main>
+    <Hero title={title} subtitle={subtitle} primaryCta={primaryCta} secondaryCta={secondaryCta} />
   </main>
 </Layout>
