@@ -12,7 +12,7 @@ test.describe("Homepage", () => {
     const heading = page.getByRole("heading", { name: "Welcome to GlobalCore" });
     await expect(heading).toBeVisible();
 
-    const subtitle = page.getByText("Tailwind CSS v4 + Starwind UI is ready to use!");
+    const subtitle = page.getByText("Professional consulting services for digital transformation and business growth");
     await expect(subtitle).toBeVisible();
   });
 
