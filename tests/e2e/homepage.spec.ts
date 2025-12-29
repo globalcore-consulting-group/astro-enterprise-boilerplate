@@ -48,19 +48,46 @@ test.describe("Homepage", () => {
     await expect(secondaryCta).toHaveAttribute("href", "/about");
   });
 
-  test("page is responsive", async ({ page }) => {
-    // Test desktop viewport
-    await page.setViewportSize({ width: 1920, height: 1080 });
-    await page.goto("/");
-    await expect(page.getByRole("heading", { name: "Welcome to GlobalCore" })).toBeVisible();
+  test.describe("Responsive Design", () => {
+    test.describe("Mobile (375x667)", () => {
+      test("displays content correctly", async ({ page }) => {
+        await page.setViewportSize({ width: 375, height: 667 });
+        await page.goto("/");
+        await expect(page.getByRole("heading", { name: "Welcome to GlobalCore" })).toBeVisible();
+      });
 
-    // Test tablet viewport
-    await page.setViewportSize({ width: 768, height: 1024 });
-    await expect(page.getByRole("heading", { name: "Welcome to GlobalCore" })).toBeVisible();
+      test("CTA buttons are stacked vertically", async ({ page }) => {
+        await page.setViewportSize({ width: 375, height: 667 });
+        await page.goto("/");
 
-    // Test mobile viewport
-    await page.setViewportSize({ width: 375, height: 667 });
-    await expect(page.getByRole("heading", { name: "Welcome to GlobalCore" })).toBeVisible();
+        const ctaContainer = page.getByTestId("hero-cta-container");
+        await expect(ctaContainer).toHaveCSS("flex-direction", "column");
+      });
+    });
+
+    test.describe("Tablet (768x1024)", () => {
+      test("displays content correctly", async ({ page }) => {
+        await page.setViewportSize({ width: 768, height: 1024 });
+        await page.goto("/");
+        await expect(page.getByRole("heading", { name: "Welcome to GlobalCore" })).toBeVisible();
+      });
+    });
+
+    test.describe("Desktop (1920x1080)", () => {
+      test("displays content correctly", async ({ page }) => {
+        await page.setViewportSize({ width: 1920, height: 1080 });
+        await page.goto("/");
+        await expect(page.getByRole("heading", { name: "Welcome to GlobalCore" })).toBeVisible();
+      });
+
+      test("CTA buttons are displayed inline", async ({ page }) => {
+        await page.setViewportSize({ width: 1920, height: 1080 });
+        await page.goto("/");
+
+        const ctaContainer = page.getByTestId("hero-cta-container");
+        await expect(ctaContainer).toHaveCSS("flex-direction", "row");
+      });
+    });
   });
 
   test("has proper semantic HTML structure", async ({ page }) => {
