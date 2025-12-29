@@ -27,7 +27,7 @@ npm run dev          # Start dev server at localhost:4321
 
 ## Project Status
 
-> 🚧 **Project in initial setup phase**
+> 🚀 **Progress: 53% to v1.0.0** (8 of 15 core items complete)
 
 ### ✅ Done
 
@@ -43,16 +43,16 @@ npm run dev          # Start dev server at localhost:4321
 - [x] Path aliases (@/\*)
 - [x] Tailwind CSS v4
 - [x] Starwind UI (Button component)
+- [x] Vitest + Testing Library (15 unit tests, 83% coverage)
+- [x] Playwright (7 E2E tests)
 
 ### ⏳ Pending Setup
 
-- [ ] Vitest + Testing Library
-- [ ] Playwright
 - [ ] Zod
-- [ ] semantic-release
 - [ ] Folder structure (domain/, application/, infrastructure/)
-- [ ] i18n configuration
 - [ ] Content Collections setup
+- [ ] i18n configuration
+- [ ] semantic-release
 - [ ] GitHub Action for deploy
 
 > ⚠️ **Note:** Sections in this document describe the target setup. Check this checklist to know what's actually available.
@@ -79,6 +79,8 @@ Detailed setup guides in `docs/setup-resources/`:
 - `git-hooks-setup.md` - Husky, lint-staged, commitlint setup
 - `tailwind-setup.md` - Tailwind CSS v4 installation and customization
 - `starwind-ui-setup.md` - Starwind UI components and CLI usage
+- `vitest-setup.md` - Vitest testing framework guide (~1,188 lines)
+- `testing-strategy.md` - Complete testing approach (~700 lines)
 
 ### Progress Tracking
 
@@ -90,7 +92,7 @@ Detailed setup guides in `docs/setup-resources/`:
 
 - `2025-12-26-foundation-complete.md` - Foundation setup (ESLint, hooks, etc.)
 - `2025-12-26-tailwind-starwind-complete.md` - UI framework setup
-- `2025-12-28-testing-strategy-complete.md` - Testing strategy documentation
+- `2025-12-28-testing-infrastructure-complete.md` - Testing infrastructure implementation (~487 lines)
 
 ---
 
@@ -122,16 +124,19 @@ npm run typecheck        # Run TypeScript compiler check
 
 ## Tech Stack
 
-| Technology      | Version | Purpose                                    |
-| --------------- | ------- | ------------------------------------------ |
-| Astro           | ^5.16.6 | Framework                                  |
-| TypeScript      | ^5.x    | Type safety                                |
-| Tailwind CSS    | ^4.1.18 | Styling framework                          |
-| Starwind UI     | 2.2.0   | UI Components (Button installed)           |
-| Zod             | TBD     | Schema validation (pending install)        |
-| Vitest          | TBD     | Unit & Integration tests (pending install) |
-| Playwright      | TBD     | E2E tests (pending install)                |
-| Testing Library | TBD     | Component testing (pending install)        |
+| Technology                | Version | Purpose                             |
+| ------------------------- | ------- | ----------------------------------- |
+| Astro                     | ^5.16.6 | Framework                           |
+| TypeScript                | ^5.x    | Type safety                         |
+| Tailwind CSS              | ^4.1.18 | Styling framework                   |
+| Starwind UI               | 2.2.0   | UI Components (Button installed)    |
+| Vitest                    | 4.0.16  | Unit & Integration tests            |
+| Playwright                | 1.57.0  | E2E tests                           |
+| @testing-library/dom      | 10.4.1  | Component testing utilities         |
+| @testing-library/jest-dom | 6.9.1   | DOM assertion matchers              |
+| happy-dom                 | 20.0.11 | Lightweight DOM environment         |
+| @vitest/coverage-v8       | 4.0.16  | Coverage reporting                  |
+| Zod                       | TBD     | Schema validation (pending install) |
 
 > ⚠️ **Note:** Update versions in this table as dependencies are installed. All dependencies must be compatible with Astro 5.x.
 
@@ -181,9 +186,9 @@ The testing approach supports seamless migration:
 
 ### Resources
 
-- [Vitest Setup Guide](docs/setup-resources/vitest-setup.md)
-- [Complete Testing Strategy](docs/setup-resources/testing-strategy.md)
-- [Playwright Setup Guide](docs/setup-resources/playwright-setup.md) (pending)
+- [Vitest Setup Guide](docs/setup-resources/vitest-setup.md) - Complete guide with Container API examples
+- [Complete Testing Strategy](docs/setup-resources/testing-strategy.md) - No-mocks philosophy and migration strategy
+- [Testing Infrastructure Handoff](docs/progress/2025-12-28-testing-infrastructure-complete.md) - Implementation session details
 
 ---
 
