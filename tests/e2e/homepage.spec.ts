@@ -27,15 +27,15 @@ test.describe("Homepage", () => {
     await expect(secondaryCta).toBeVisible();
   });
 
-  test("buttons have correct styling classes", async ({ page }) => {
+  test("CTA buttons have correct styling", async ({ page }) => {
     await page.goto("/");
 
-    const primaryButton = page.getByRole("button", { name: "Primary Button" });
-    await expect(primaryButton).toHaveAttribute("class", /bg-primary/);
-    await expect(primaryButton).toHaveAttribute("data-slot", "button");
+    const primaryCta = page.getByRole("link", { name: "Get in touch" });
+    await expect(primaryCta).toHaveAttribute("class", /bg-primary/);
+    await expect(primaryCta).toHaveAttribute("data-slot", "button");
 
-    const outlineButton = page.getByRole("button", { name: "Outline Button" });
-    await expect(outlineButton).toHaveAttribute("class", /border/);
+    const secondaryCta = page.getByRole("link", { name: "Learn more" });
+    await expect(secondaryCta).toHaveAttribute("class", /border/);
   });
 
   test("buttons are interactive", async ({ page }) => {
