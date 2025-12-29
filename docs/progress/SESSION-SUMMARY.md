@@ -1,11 +1,77 @@
 # Session Summary - 2025-12-29
 
 **Last Updated:** 2025-12-29
-**Session Focus:** Clean Architecture Documentation (Session 2)
+**Session Focus:** E2E Testing Infrastructure (Session 3)
 
 ---
 
 ## ✅ Completed This Session
+
+### Session 3 (2025-12-29): E2E Testing Infrastructure
+
+**Goal:** Fix failing E2E tests and add comprehensive test coverage for Hero homepage
+
+#### E2E Tests Fixed (5 atomic commits)
+
+1. **Page title expectation** (`1b2271c`)
+   - Updated from `/GlobalCore Website/` to `/Welcome to GlobalCore/`
+   - Now matches actual page title from Hero content
+
+2. **Subtitle text expectation** (`66e64a1`)
+   - Updated from demo text to actual Hero subtitle
+   - Tests real content: "Professional consulting services for digital transformation and business growth"
+
+3. **CTA buttons rendering** (`5eb1d26`)
+   - Replaced button variants showcase test with actual CTA buttons test
+   - Tests "Get in touch" and "Learn more" links
+
+4. **CTA button styling** (`2d67073`)
+   - Updated to test actual CTA button classes
+   - Validates primary (bg-primary) and outline (border) variants
+
+5. **CTA navigation links** (`cc3948e`)
+   - Tests button href attributes instead of hover/click
+   - Validates navigation to `/contact` and `/about`
+
+#### German Homepage Tests Added (`588f07c`)
+
+Created separate `describe` block for German homepage tests:
+
+- Loads successfully at `/de` route
+- Displays German hero title "Willkommen bei GlobalCore"
+- Displays German subtitle
+- Renders German CTAs ("Kontakt aufnehmen", "Mehr erfahren")
+- German CTAs link correctly (`/de/kontakt`, `/de/ueber-uns`)
+
+#### Responsive Layout Tests Added (`e9b8244`)
+
+**Added `data-testid` to Hero component:**
+
+- `data-testid="hero-cta-container"` on CTA container div
+
+**Tests organized by device:**
+
+- **Mobile (375x667):** Content visible + buttons stacked vertically (`flex-direction: column`)
+- **Tablet (768x1024):** Content visible
+- **Desktop (1920x1080):** Content visible + buttons inline (`flex-direction: row`)
+
+#### Testing Conventions Established
+
+**Playwright best practices adopted:**
+
+- Use `test()` for E2E tests (not `it()` - that's for Vitest unit tests)
+- Selector priority: role > text > testid > CSS
+- Use `data-testid` for implementation details (layout containers)
+- Hardcode expected text in E2E tests (tests fail when content changes intentionally)
+- Nested `describe` blocks for organization (device types, locales)
+
+**Test Coverage:**
+
+- **15 E2E tests passing** (11 EN + 4 DE)
+- All tests validate real user-facing behavior
+- Responsive design validated across 3 viewports
+
+---
 
 ### Session 2 (2025-12-29): Documentation
 
@@ -163,6 +229,11 @@
 
 ### Progress: 87% to v1.0.0 (13 of 15 items complete)
 
+**E2E Test Status:**
+
+- 15 tests passing (11 EN, 4 DE)
+- Coverage: Content rendering, navigation, responsive layout, i18n
+
 ### Next Up for v1.0.0
 
 - [ ] semantic-release
@@ -170,11 +241,25 @@
 
 ---
 
-## 🎯 Next Session: Feature Development or CI/CD
+## 🎯 Next Session: Continue E2E Tests or Feature Development
 
-**Documentation Complete!** ✅ Clean Architecture foundation is fully documented.
+**E2E Test Foundation Complete!** ✅ Homepage has solid test coverage (15 tests passing)
 
-**Options for next session:**
+**Remaining test options (from Session 3 planning):**
+
+**Option B: Keyboard Navigation Tests**
+
+- Tab to focus CTA buttons
+- Enter key activates links
+- Focus visible indicators
+
+**Option D: Accessibility Tests**
+
+- Heading hierarchy validation
+- ARIA attributes
+- Semantic HTML structure (partially done)
+
+**Or move to Feature Development:**
 
 ### Option 1: Feature Development (Recommended)
 
@@ -298,7 +383,7 @@ globalcore-website/
 │   └── test-setup.ts
 ├── tests/
 │   ├── e2e/
-│   │   └── homepage.spec.ts (7 tests)
+│   │   └── homepage.spec.ts (15 tests: 11 EN, 4 DE)
 │   └── fixtures/
 │       └── .gitkeep
 ├── astro.config.mjs                     # i18n configuration added
@@ -318,7 +403,17 @@ globalcore-website/
 - [docs/setup-resources/](../setup-resources/) - Detailed setup guides
 - [docs/progress/](.) - Session handoff documents
 
-**Key Commits (This Session):**
+**Key Commits (Session 3 - E2E Testing):**
+
+- 1b2271c - test(e2e): fix page title expectation for Hero homepage
+- 66e64a1 - test(e2e): update subtitle text expectation for Hero section
+- 5eb1d26 - test(e2e): replace button variants test with CTA buttons test
+- 2d67073 - test(e2e): update button styling test for CTA buttons
+- cc3948e - test(e2e): verify CTA buttons link to correct pages
+- 588f07c - test(e2e): add German homepage tests for /de route
+- e9b8244 - test(e2e): add responsive layout tests with data-testid
+
+**Key Commits (Session 1 & 2):**
 
 - b89fd13 - chore(arch): scaffold Clean Architecture folder structure
 - 4cd491e - feat(i18n): configure Astro i18n routing for EN/DE
@@ -327,19 +422,25 @@ globalcore-website/
 - 22857f6 - feat(content): configure Content Collections for Hero section
 - eab2513 - feat(components): add Hero section component
 - 3ef43fb - feat(pages): update homepage with Hero section and i18n
+- (Session 2: Documentation commits for ADRs and Layer READMEs)
 
 **Dev Server:** http://localhost:4321
 **EN Homepage:** http://localhost:4321/
 **DE Homepage:** http://localhost:4321/de
 **Branch:** main
-**All changes committed:** ✅ (not pushed yet)
+**All changes committed:** ✅
+**All changes pushed:** ✅
 
 ---
 
 ## 💡 Important Notes for Next Session
 
-1. **Push to remote:** `git push` to sync commits to GitHub
-2. **Documentation:** Layer READMEs and ADRs are optional but recommended
+1. **E2E Testing Conventions:**
+   - Use `test()` for Playwright (not `it()` - that's for Vitest)
+   - Prefer role-based selectors (`getByRole`) over CSS
+   - Use `data-testid` for layout/implementation testing
+   - Hardcode expected text (intentional content changes should fail tests)
+2. **Testing Organization:** Nested `describe` blocks for grouping (devices, locales)
 3. **Testing:** Add E2E tests for i18n when time permits
 4. **Atomic commits:** Continue one logical change per commit
 5. **No AI attribution:** Per AGENTS.md guidelines
