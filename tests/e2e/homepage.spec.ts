@@ -38,19 +38,14 @@ test.describe("Homepage", () => {
     await expect(secondaryCta).toHaveAttribute("class", /border/);
   });
 
-  test("buttons are interactive", async ({ page }) => {
+  test("CTA buttons link to correct pages", async ({ page }) => {
     await page.goto("/");
 
-    const primaryButton = page.getByRole("button", { name: "Primary Button" });
+    const primaryCta = page.getByRole("link", { name: "Get in touch" });
+    const secondaryCta = page.getByRole("link", { name: "Learn more" });
 
-    // Hover over button
-    await primaryButton.hover();
-    await expect(primaryButton).toBeVisible();
-
-    // Click button
-    await primaryButton.click();
-    // Button should still be visible after click
-    await expect(primaryButton).toBeVisible();
+    await expect(primaryCta).toHaveAttribute("href", "/contact");
+    await expect(secondaryCta).toHaveAttribute("href", "/about");
   });
 
   test("page is responsive", async ({ page }) => {
