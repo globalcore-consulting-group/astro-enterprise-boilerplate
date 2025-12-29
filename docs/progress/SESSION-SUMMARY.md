@@ -5,6 +5,28 @@
 
 ---
 
+## 🎯 Tasks for Next Session (PRIORITY)
+
+**Complete these FIRST before continuing with testing work:**
+
+1. **Update STAKEHOLDER-SUMMARY.md**
+   - Change date from 2025-12-28 to 2025-12-29
+   - Update progress from 53% (8/15) to 87% (13/15)
+   - Mark as complete (✅): Clean Architecture, Type-Safe i18n, Content Collections
+   - Update E2E test count from 7 to 15 (11 EN, 4 DE)
+   - Add Session 3 accomplishments (E2E testing, i18n implementation, Clean Architecture)
+
+2. **Update CLAUDE.md**
+   - Add note about data-testid testing convention to "Context Efficiency Tips" or relevant section
+   - Document Playwright selector priority pattern established in Session 3
+
+3. **Update AGENTS.md**
+   - Update progress percentage to 87% (13 of 15 items complete)
+   - Update E2E test count from 7 to 15
+   - Add testing conventions established (test() vs it(), data-testid usage)
+
+---
+
 ## ✅ Completed This Session
 
 ### Session 3 (2025-12-29): E2E Testing Infrastructure
