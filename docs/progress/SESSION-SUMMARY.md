@@ -1,44 +1,66 @@
-# Session Summary - 2025-12-28
+# Session Summary - 2025-12-29
 
-**Last Updated:** 2025-12-28
-**Session Focus:** Testing Infrastructure Implementation
+**Last Updated:** 2025-12-29
+**Session Focus:** Clean Architecture Setup & i18n Implementation
 
 ---
 
 ## ✅ Completed This Session
 
-### 1. Vitest Unit Testing Setup
+### 1. Clean Architecture Scaffolding
 
-- Installed Vitest 4.0.16 with Testing Library integration
-- Configured vitest.config.ts with Astro's getViteConfig() helper
-- Created test setup file with jest-dom matchers
-- Wrote 15 comprehensive unit tests for Button component
-- Achieved 83% code coverage (exceeds 60% threshold)
-- **Commits:** 0706430, cad269f, bdcd280
+- Created folder structure (domain/, application/, infrastructure/)
+- Added .gitkeep files for empty folders
+- Set up docs/adr/ and docs/guides/ directories
+- **Commit:** b89fd13
 
-### 2. Playwright E2E Testing Setup
+### 2. i18n Configuration
 
-- Installed Playwright 1.57.0 with Chromium browser
-- Configured playwright.config.ts for CI optimization
-- Wrote 7 E2E tests for homepage (responsive, interactive, semantic HTML)
-- All tests passing in ~4.5 seconds total
-- **Commits:** cad269f, bdcd280
+- Configured Astro i18n for EN/DE routing
+- EN as default (no URL prefix: `/`)
+- DE with `/de` prefix
+- **Commit:** 4cd491e
 
-### 3. Testing Scripts & Configuration
+### 3. Domain Layer - Locale Entity
 
-- Added 11 npm scripts (test, test:watch, test:coverage, test:e2e, lint, format, typecheck)
-- Updated .gitignore to exclude test artifacts
-- Added VSCode extensions (vitest.explorer, ms-playwright.playwright)
-- **Commits:** cad269f, 11e8c9c
+- Created Locale entity with Zod validation
+- Defined supported locales enum (en, de)
+- Added type guards: `isValidLocale()`, `getLocaleOrDefault()`
+- Exported constants: `DEFAULT_LOCALE`, `SUPPORTED_LOCALES`
+- **Commit:** ac79f19
 
-### 4. Documentation
+### 4. i18n Translations System
 
-- Created comprehensive testing strategy guide (700 lines)
-- Created Vitest setup guide (1,188 lines)
-- Created session handoff document (487 lines)
-- Updated STAKEHOLDER-SUMMARY.md to 53% progress
-- Updated AGENTS.md with testing completion
-- **Commits:** 9dad48f, bacfde7, 0344381, 0586bef
+- Created type-safe translations with namespace pattern
+- Added `t()` helper with full TypeScript autocomplete
+- Added `getNamespace()` for iterating over translation groups
+- Separated UI translations from content (Content Collections)
+- Includes config for locale names and date formats
+- **Commit:** 3ead833
+
+### 5. Content Collections Setup
+
+- Configured Hero collection with Zod schema
+- Organized content by locale folders (en/, de/)
+- Created EN and DE hero content for homepage
+- Schema includes: title, subtitle, primaryCta, secondaryCta (optional)
+- **Commit:** 22857f6
+
+### 6. Hero Section Component
+
+- Built responsive Hero component
+- Uses Starwind UI Button component
+- Supports primary and secondary CTAs
+- Mobile-first design (stacked on mobile, inline on desktop)
+- **Commit:** eab2513
+
+### 7. Homepage Implementation
+
+- Updated EN homepage (/) to use Content Collections
+- Created DE homepage (/de) with `getStaticPaths()`
+- Integrated Hero component for both locales
+- Page title matches H1 for SEO consistency
+- **Commit:** 3ef43fb
 
 ---
 
@@ -53,47 +75,52 @@
 - [x] .nvmrc + path aliases
 - [x] Tailwind CSS v4
 - [x] Starwind UI (Button component)
-- [x] **Vitest + Testing Library (15 unit tests, 83% coverage)**
-- [x] **Playwright (7 E2E tests)**
+- [x] Vitest + Testing Library (15 unit tests, 83% coverage)
+- [x] Playwright (7 E2E tests)
+- [x] **Zod** (transitive dependency)
+- [x] **Clean Architecture folder structure**
+- [x] **Content Collections** (Hero with EN/DE)
+- [x] **i18n configuration** (EN/DE routing)
 
-### Progress: 53% to v1.0.0 (8 of 15 items complete)
+### Progress: 80% to v1.0.0 (12 of 15 items complete)
 
 ### Next Up for v1.0.0
 
-- [ ] **Clean Architecture Setup** ← NEXT
-  - Install Zod
-  - Create folder structure (domain/, application/, infrastructure/)
-  - Set up Content Collections
-  - Write example entities, use-cases, mappers with tests
-- [ ] i18n configuration (EN/DE routing)
+- [ ] Documentation (layer READMEs, ADRs)
 - [ ] semantic-release
 - [ ] GitHub Actions (CI/CD)
 
 ---
 
-## 🎯 Next Session: Clean Architecture Setup
+## 🎯 Next Session: Documentation & Optional Testing
 
-**Ready to begin:** Clean Architecture implementation
+**Ready to begin:** Layer documentation and optional testing
 
 **Key tasks:**
 
-1. Install Zod package (`npm install zod`)
-2. Create folder structure:
-   - `src/domain/entities/` - Entity type definitions
-   - `src/application/use-cases/` - Business logic
-   - `src/application/ports/` - Interface definitions
-   - `src/infrastructure/repositories/` - Data access
-   - `src/infrastructure/mappers/` - Data transformations
-   - `src/lib/` - Shared utilities
-3. Configure Content Collections with Zod schemas
-4. Create example implementations with tests
-5. Document architecture patterns
+1. **Layer READMEs** (Optional but recommended)
+   - `src/domain/README.md` - Explain domain layer purpose, entity patterns
+   - `src/application/README.md` - Document use-case patterns (when we add them)
+   - `src/infrastructure/README.md` - Repository/mapper patterns (when we add them)
+   - `src/i18n/README.md` - Document i18n strategy
 
-**Documentation references:**
+2. **Architecture Decision Records** (Optional)
+   - `docs/adr/0001-clean-architecture.md` - Why Clean Architecture
+   - `docs/adr/0002-content-collections-i18n.md` - Content organization strategy
+   - `docs/adr/0003-translations-vs-content.md` - UI translations vs CMS content
 
-- [Clean Architecture on Frontend](https://dev.to/bespoyasov/clean-architecture-on-frontend-4311)
-- [Astro Content Collections](https://docs.astro.build/en/guides/content-collections/)
-- [Zod Documentation](https://zod.dev/)
+3. **Tests** (Optional - for when we add business logic)
+   - E2E tests for i18n (language switching, translated content)
+   - Unit tests for Locale entity validation
+   - Integration tests when adding use-cases/repositories
+
+**What's working:**
+
+- ✅ EN homepage at `/` with Hero content from Content Collections
+- ✅ DE homepage at `/de` with localized Hero content
+- ✅ Type-safe translations with full autocomplete
+- ✅ Content organized by locale folders (en/, de/)
+- ✅ Astro's built-in i18n routing
 
 ---
 
@@ -102,6 +129,10 @@
 ```
 globalcore-website/
 ├── docs/
+│   ├── adr/                              # Architecture Decision Records
+│   │   └── .gitkeep
+│   ├── guides/                           # Implementation guides
+│   │   └── .gitkeep
 │   ├── progress/
 │   │   ├── 2025-12-26-foundation-complete.md
 │   │   ├── 2025-12-26-tailwind-starwind-complete.md
@@ -116,25 +147,66 @@ globalcore-website/
 │   │   └── testing-strategy.md
 │   └── STAKEHOLDER-SUMMARY.md
 ├── src/
+│   ├── application/                      # Clean Architecture - Application Layer
+│   │   ├── ports/
+│   │   │   └── .gitkeep
+│   │   └── use-cases/
+│   │       └── .gitkeep
 │   ├── components/
-│   │   └── starwind/
-│   │       └── button/
-│   │           ├── Button.astro
-│   │           ├── Button.test.ts (15 tests)
-│   │           └── index.ts
+│   │   ├── sections/
+│   │   │   └── Hero/
+│   │   │       ├── Hero.astro           # Hero section component
+│   │   │       └── index.ts
+│   │   ├── starwind/
+│   │   │   └── button/
+│   │   │       ├── Button.astro
+│   │   │       ├── Button.test.ts (15 tests)
+│   │   │       └── index.ts
+│   │   └── ui/                          # Base UI components (Card, Container, Heading)
+│   │       ├── Card/
+│   │       │   └── .gitkeep
+│   │       ├── Container/
+│   │       │   └── .gitkeep
+│   │       └── Heading/
+│   │           └── .gitkeep
+│   ├── content/                         # Content Collections
+│   │   ├── config.ts                    # Collection schemas
+│   │   └── hero/
+│   │       ├── en/
+│   │       │   └── home.json
+│   │       └── de/
+│   │           └── home.json
+│   ├── domain/                          # Clean Architecture - Domain Layer
+│   │   └── entities/
+│   │       ├── Locale.ts                # Locale entity with Zod validation
+│   │       └── index.ts
+│   ├── i18n/                            # Internationalization
+│   │   ├── config.ts                    # i18n configuration
+│   │   ├── translations.ts              # Type-safe UI translations
+│   │   └── index.ts
+│   ├── infrastructure/                  # Clean Architecture - Infrastructure Layer
+│   │   ├── mappers/
+│   │   │   └── .gitkeep
+│   │   └── repositories/
+│   │       └── .gitkeep
 │   ├── layouts/
 │   │   └── Layout.astro
 │   ├── pages/
-│   │   └── index.astro
+│   │   ├── index.astro                  # EN homepage (/)
+│   │   └── [lang]/
+│   │       └── index.astro              # Localized homepage (/de)
 │   ├── styles/
 │   │   └── starwind.css
 │   └── test-setup.ts
 ├── tests/
-│   └── e2e/
-│       └── homepage.spec.ts (7 tests)
+│   ├── e2e/
+│   │   └── homepage.spec.ts (7 tests)
+│   └── fixtures/
+│       └── .gitkeep
+├── astro.config.mjs                     # i18n configuration added
 ├── vitest.config.ts
 ├── playwright.config.ts
-└── AGENTS.md
+└── AGENTS.md                            # Updated to 80% progress
 ```
 
 ---
@@ -150,65 +222,58 @@ globalcore-website/
 
 **Key Commits (This Session):**
 
-- 0706430 - chore(git): ignore test artifacts
-- cad269f - feat(test): add Vitest and Playwright infrastructure
-- bdcd280 - test: add comprehensive unit and E2E tests
-- 9dad48f - style: apply prettier formatting
-- bacfde7 - docs(test): add testing infrastructure session handoff
-- 0344381 - docs(stakeholder): update summary to reflect testing completion
-- 11e8c9c - chore(vscode): add testing extensions to recommendations
-- 0586bef - docs(agents): update with testing infrastructure completion
+- b89fd13 - chore(arch): scaffold Clean Architecture folder structure
+- 4cd491e - feat(i18n): configure Astro i18n routing for EN/DE
+- ac79f19 - feat(domain): add Locale entity with Zod validation
+- 3ead833 - feat(i18n): add type-safe translations system
+- 22857f6 - feat(content): configure Content Collections for Hero section
+- eab2513 - feat(components): add Hero section component
+- 3ef43fb - feat(pages): update homepage with Hero section and i18n
 
 **Dev Server:** http://localhost:4321
+**EN Homepage:** http://localhost:4321/
+**DE Homepage:** http://localhost:4321/de
 **Branch:** main
-**All changes pushed:** ✅
+**All changes committed:** ✅ (not pushed yet)
 
 ---
 
 ## 💡 Important Notes for Next Session
 
-1. **Clean Architecture Focus:** Establish scalable folder structure before adding features
-2. **Test-Driven Development:** Write tests for entities, use-cases, and mappers
-3. **No-Mocks Philosophy:** Continue using real data (Content Collections) for tests
-4. **Commit Atomically:** One logical change per commit
-5. **No AI Attribution:** Per AGENTS.md guidelines
-6. **Update Documentation:** Update AGENTS.md and STAKEHOLDER-SUMMARY.md when completing Clean Architecture
+1. **Push to remote:** `git push` to sync commits to GitHub
+2. **Documentation:** Layer READMEs and ADRs are optional but recommended
+3. **Testing:** Add E2E tests for i18n when time permits
+4. **Atomic commits:** Continue one logical change per commit
+5. **No AI attribution:** Per AGENTS.md guidelines
+6. **Leverage Astro:** Always check Astro's built-in features before custom solutions
+7. **Content vs UI:** Content comes from Content Collections, UI text from translations.ts
 
 ---
 
-## 📈 Testing Infrastructure Results
+## 🏗️ Clean Architecture Implementation
 
-### Test Coverage: 83.33% ✅
+### Layers Created
 
-- **Unit Tests:** 15 tests in 1.6s (106ms avg)
-- **E2E Tests:** 7 tests in 2.9s (414ms avg)
-- **Total:** 22 tests in ~4.5s (CI-ready)
+1. **Domain Layer** (`src/domain/`)
+   - Locale entity with Zod validation
+   - Type guards and helper functions
+   - Framework-agnostic business types
 
-### Packages Installed
+2. **Application Layer** (`src/application/`)
+   - Scaffolded (use-cases/, ports/)
+   - Ready for business logic when needed
 
-- vitest@4.0.16
-- @playwright/test@1.57.0
-- @testing-library/dom@10.4.1
-- @testing-library/jest-dom@6.9.1
-- happy-dom@20.0.11
-- @vitest/coverage-v8@4.0.16
+3. **Infrastructure Layer** (`src/infrastructure/`)
+   - Scaffolded (repositories/, mappers/)
+   - Ready for data access implementations
 
-### npm Scripts Added
+### i18n Architecture
 
-```bash
-npm run test              # Run unit tests
-npm run test:watch        # Watch mode
-npm run test:coverage     # Coverage report
-npm run test:ui           # Vitest UI
-npm run test:e2e          # E2E tests
-npm run test:e2e:ui       # Playwright UI
-npm run lint              # Run linter
-npm run lint:fix          # Fix lint issues
-npm run format            # Format code
-npm run format:check      # Check formatting
-npm run typecheck         # Type checking
-```
+- **Astro i18n routing:** EN (no prefix), DE (/de prefix)
+- **Type-safe translations:** `t()` helper with full autocomplete
+- **Content organization:** Locale folders (en/, de/) in Content Collections
+- **Separation:** UI translations vs content (CMS-ready)
 
 ---
 
-**Ready to continue with Clean Architecture Setup!** 🚀
+**Clean Architecture foundation complete! Ready for additional content types or documentation.** 🚀

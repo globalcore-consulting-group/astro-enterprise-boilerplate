@@ -27,7 +27,7 @@ npm run dev          # Start dev server at localhost:4321
 
 ## Project Status
 
-> 🚀 **Progress: 53% to v1.0.0** (8 of 15 core items complete)
+> 🚀 **Progress: 80% to v1.0.0** (12 of 15 core items complete)
 
 ### ✅ Done
 
@@ -45,15 +45,16 @@ npm run dev          # Start dev server at localhost:4321
 - [x] Starwind UI (Button component)
 - [x] Vitest + Testing Library (15 unit tests, 83% coverage)
 - [x] Playwright (7 E2E tests)
+- [x] **Zod** (transitive dependency from Astro 3.25.76)
+- [x] **Clean Architecture folder structure** (domain/, application/, infrastructure/)
+- [x] **Content Collections** (Hero collection with EN/DE content)
+- [x] **i18n configuration** (EN default, DE with /de prefix)
 
 ### ⏳ Pending Setup
 
-- [ ] Zod
-- [ ] Folder structure (domain/, application/, infrastructure/)
-- [ ] Content Collections setup
-- [ ] i18n configuration
 - [ ] semantic-release
 - [ ] GitHub Action for deploy
+- [ ] Additional documentation (ADRs, layer READMEs)
 
 > ⚠️ **Note:** Sections in this document describe the target setup. Check this checklist to know what's actually available.
 
