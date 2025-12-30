@@ -49,7 +49,8 @@ npm run dev          # Start dev server at localhost:4321
 - [x] **Clean Architecture folder structure** (domain/, application/, infrastructure/)
 - [x] **Content Collections** (Hero collection with EN/DE content)
 - [x] **i18n configuration** (EN default, DE with /de prefix)
-- [x] **Documentation** (Layer READMEs: domain, application, infrastructure, i18n + 3 ADRs)
+- [x] **Documentation** (Layer READMEs: domain, application, infrastructure, i18n + 4 ADRs)
+- [x] **Pre-push hook** (typecheck + unit tests + E2E tests, ~9s total)
 
 ### ⏳ Pending Setup
 
@@ -440,6 +441,64 @@ src/components/sections/Hero/
 - Tests colocated with components
 - Props interface defined with TypeScript
 - Use Starwind UI as base when applicable
+
+### Component Import Conventions
+
+**IMPORTANT:** Astro components (`.astro` files) cannot be exported via barrel exports (index.ts files). This is a limitation of Astro's TypeScript plugin, which only works in editors, not in the CLI.
+
+**✅ Correct - Direct imports:**
+
+```typescript
+// Import .astro components directly
+import Button from "@/components/starwind/button/Button.astro";
+import Hero from "@/components/sections/Hero/Hero.astro";
+
+// Import utilities from barrel exports
+import { button, type ButtonProps } from "@/components/starwind/button";
+```
+
+**❌ Wrong - Barrel exports for .astro files:**
+
+```typescript
+// This breaks TypeScript checking
+import { Button } from "@/components/starwind/button";
+import { Hero } from "@/components/sections/Hero";
+```
+
+**Component structure with utilities:**
+
+```
+src/components/starwind/button/
+├── Button.astro          # Import directly (no barrel export)
+├── Button.variants.ts    # Tailwind variants (exported via barrel)
+├── Button.types.ts       # TypeScript types (exported via barrel)
+├── index.ts             # Barrel for .ts files ONLY
+└── Button.test.ts       # Tests
+```
+
+**index.ts pattern:**
+
+```typescript
+/**
+ * Button component utilities
+ *
+ * Import the component directly:
+ * import Button from '@/components/starwind/button/Button.astro'
+ *
+ * This file exports variants and types only (not the component).
+ * Reason: Astro components don't support barrel exports.
+ */
+
+export { button } from "./Button.variants";
+export type { ButtonProps, ButtonVariant, ButtonSize } from "./Button.types";
+```
+
+**Why this pattern?**
+
+- Astro's `@astrojs/ts-plugin` only works in editors (VS Code), not when running `tsc` or `astro check` from CLI
+- Attempting to re-export `.astro` components causes TypeScript errors
+- See [ADR 0004](docs/adr/0004-typescript-testing-strategy.md) for full details
+- GitHub Issues: [#6858](https://github.com/withastro/astro/issues/6858), [#7264](https://github.com/withastro/astro/issues/7264)
 
 ---
 
@@ -847,7 +906,9 @@ npm run preview
 
 ## Gotchas
 
-- **Astro components can't be imported in .ts files** - Use them only in .astro files
+- **Astro components cannot use barrel exports** - Import `.astro` files directly, never via `index.ts` barrel exports. See [Component Import Conventions](#component-import-conventions) above.
+- **Split type-checking strategy** - `tsc` checks app code, Vitest checks test code. Test files are excluded from `tsconfig.json`. See [ADR 0004](docs/adr/0004-typescript-testing-strategy.md) for details.
+- **Pre-push hook runs full test suite** - Pushing takes ~9 seconds due to typecheck + unit tests + E2E tests. This is intentional to prevent broken code from reaching remote.
 - **Props must be serializable** - No functions or classes in component props
 - **Content Collections require restart** - After modifying collection schemas, restart dev server
 - **i18n translations.ts changes require restart** - TypeScript types are cached
