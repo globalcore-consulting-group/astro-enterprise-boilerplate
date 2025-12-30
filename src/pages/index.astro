@@ -1,7 +1,7 @@
 ---
 import { getEntry } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
-import { Hero } from "@/components/sections/Hero";
+import Hero from "@/components/sections/Hero/Hero.astro";
 
 // Fetch hero content for EN locale
 const heroContent = await getEntry("hero", "en/home");
