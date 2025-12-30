@@ -51,7 +51,9 @@ type TranslationKey<N extends NamespaceKey> = keyof TranslationSchema[N];
  * t("de", "ui", "loading") // "Wird geladen..."
  */
 export function t<N extends NamespaceKey>(locale: Locale, namespace: N, key: TranslationKey<N>): string {
-  return translations[locale][namespace][key] as string;
+  const localeData = translations[locale];
+  const namespaceData = localeData[namespace];
+  return namespaceData[key as keyof typeof namespaceData] as string;
 }
 
 /**
@@ -61,6 +63,6 @@ export function t<N extends NamespaceKey>(locale: Locale, namespace: N, key: Tra
  * @example
  * Object.entries(getNamespace("en", "nav")).map(([key, label]) => ...)
  */
-export function getNamespace<N extends NamespaceKey>(locale: Locale, namespace: N): TranslationSchema[N] {
-  return translations[locale][namespace];
+export function getNamespace<N extends NamespaceKey>(locale: Locale, namespace: N): Record<string, string> {
+  return translations[locale][namespace] as Record<string, string>;
 }
