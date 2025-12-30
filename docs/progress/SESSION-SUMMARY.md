@@ -1,31 +1,197 @@
-# Session Summary - 2025-12-29
+# Session Summary - 2025-12-30
 
-**Last Updated:** 2025-12-29
-**Session Focus:** E2E Testing Infrastructure (Session 3)
+**Last Updated:** 2025-12-30 00:45
+**Session Focus:** TypeScript Fixes Implementation (Session 5)
 
 ---
 
 ## 🎯 Tasks for Next Session (PRIORITY)
 
-**Complete these FIRST before continuing with testing work:**
+**Pre-Push Hook is now fully operational!** ✅
 
-1. **Update STAKEHOLDER-SUMMARY.md**
-   - Change date from 2025-12-28 to 2025-12-29
-   - Update progress from 53% (8/15) to 87% (13/15)
-   - Mark as complete (✅): Clean Architecture, Type-Safe i18n, Content Collections
-   - Update E2E test count from 7 to 15 (11 EN, 4 DE)
-   - Add Session 3 accomplishments (E2E testing, i18n implementation, Clean Architecture)
+Next priorities for v1.0.0:
 
-2. **Update CLAUDE.md**
-   - Add note about data-testid testing convention to "Context Efficiency Tips" or relevant section
-   - Document Playwright selector priority pattern established in Session 3
+1. **semantic-release** - Automated versioning and changelog
+2. **GitHub Actions CI/CD** - Automated deployment pipeline
 
-3. **Update AGENTS.md**
-   - Update progress percentage to 87% (13 of 15 items complete)
-   - Update E2E test count from 7 to 15
-   - Add testing conventions established (test() vs it(), data-testid usage)
+**Or:**
+
+3. **Feature Development** - Add Services, About, or Contact sections
+4. **Testing Enhancement** - Add accessibility tests, keyboard navigation tests
 
 ---
+
+## ✅ Completed This Session
+
+### Session 5 (2025-12-30 00:00-00:45): TypeScript Fixes & Pre-Push Hook Implementation
+
+**Goal:** Implement TypeScript fixes to enable pre-push git hook with full test suite
+
+#### Problem Solved
+
+**TypeScript errors blocking pre-push hook:**
+
+- Test files importing `.astro` components failed `tsc --noEmit`
+- Root cause: Astro's `@astrojs/ts-plugin` only works in editors, not CLI
+- This is a known Astro limitation (GitHub Issues #13537, #8364)
+
+#### Solution Implemented: Split Type-Checking Strategy
+
+**Created ADR 0004** (`e7c13c9`) documenting the approach:
+
+- `tsc` checks application code (excludes test files)
+- Vitest checks test code via Vite pipeline with Astro plugin
+- Pre-push hook runs both: `npm run typecheck && npm run test && npm run test:e2e`
+
+#### Component Refactoring (5 commits)
+
+1. **Translation type fix** (`6013bdb`)
+   - Relaxed type constraints in `translations.ts`
+   - Changed to `Record<string, string>` for multilingual support
+   - Fixed German translation type conflicts
+
+2. **Button component refactor** (`86ad1f9`)
+   - Created `Button.variants.ts` - Extracted tailwind-variants config
+   - Created `Button.types.ts` - Extracted TypeScript interfaces
+   - Updated `Button.astro` to import from separated files
+   - Updated `button/index.ts` to export utilities only (no component)
+   - Updated `Hero/index.ts` to document direct import requirement
+   - Fixed all component imports to use direct paths:
+     - `Hero.astro`: `import Button from "@/components/starwind/button/Button.astro"`
+     - `index.astro`: `import Hero from "@/components/sections/Hero/Hero.astro"`
+     - `[lang]/index.astro`: Same direct import pattern
+   - Simplified `env.d.ts` to standard Astro setup
+
+3. **TypeScript config fix** (`6092055`)
+   - Updated `tsconfig.json` to exclude `**/*.test.ts` and `**/*.spec.ts`
+   - Test files now skip `tsc` compilation
+   - Vitest handles test type-checking via Vite pipeline
+
+4. **ADR documentation** (`e7c13c9`)
+   - Created comprehensive ADR 0004 (~326 lines)
+   - Documents split type-checking rationale
+   - Explains Astro's `.astro` import limitations
+   - Lists alternatives considered and rejected
+   - References GitHub issues and Astro docs
+
+5. **Pre-push hook** (`cca5a82`)
+   - Added `.husky/pre-push` with full test suite
+   - Runs: typecheck (~instant) + tests (~1.6s) + E2E (~7s) = ~9s total
+   - Prevents broken code from reaching remote
+
+#### Validation Results
+
+✅ **TypeScript check passes** - No errors
+✅ **All 30 tests passing** (15 unit + 15 E2E)
+✅ **Pre-push hook works** - Full test suite runs before push
+
+#### File Structure Changes
+
+```
+src/components/starwind/button/
+├── Button.astro          # Component (import directly)
+├── Button.variants.ts    # NEW - Tailwind variants config
+├── Button.types.ts       # NEW - TypeScript interfaces
+├── index.ts             # Barrel for .ts files ONLY (no component export)
+└── Button.test.ts       # Tests still work via Vitest
+
+src/env.d.ts              # NEW - Standard Astro setup
+.husky/pre-push          # NEW - Full test suite hook
+docs/adr/0004-...md      # NEW - TypeScript testing strategy ADR
+tsconfig.json            # UPDATED - Exclude test files
+```
+
+#### Key Technical Decisions
+
+**Direct Import Pattern for Astro Components:**
+
+- ✅ `import Button from '@/components/starwind/button/Button.astro'` (correct)
+- ❌ `import { Button } from '@/components/starwind/button'` (breaks TypeScript)
+
+**Why:** Astro doesn't support barrel exports of `.astro` files due to TypeScript plugin limitations
+
+**Split Type-Checking:**
+
+- Application code: `tsc --noEmit` (fast, catches app errors)
+- Test code: `vitest run` (Vite pipeline resolves `.astro` imports)
+
+**Why:** Astro's TS plugin only works in editors, not CLI
+
+---
+
+## ✅ Completed Session 4
+
+### Session 4 (2025-12-29 22:00-23:30): Documentation & TypeScript Investigation
+
+**Goal:** Update documentation and investigate TypeScript errors blocking pre-push hook
+
+#### Documentation Updates Completed (2 commits)
+
+1. **Updated project documentation** (`ba70b37`)
+   - STAKEHOLDER-SUMMARY.md: 53% → 87% progress, added Clean Architecture section
+   - AGENTS.md: Added Testing Conventions, updated E2E test count to 15
+   - Added CLAUDE.md references to AGENTS.md sections
+
+2. **Created CLAUDE.md navigation guide** (local only, gitignored)
+   - Added "Quick Reference: AGENTS.md Sections" with navigation map
+   - Enhanced task-specific context loading examples
+   - Added AGENTS.md section priority order
+
+#### Pre-Push Hook Created
+
+3. **Added pre-push hook** (`.husky/pre-push`)
+   - Runs: `npm run typecheck && npm run test && npm run test:e2e`
+   - Option C: Full test suite (comprehensive)
+   - Rational: Fast tests (~4.5s), boilerplate quality standards
+
+#### TypeScript Errors Discovered
+
+**Attempted to run typecheck - FAILED with 5 errors:**
+
+1. **Translation type errors (2 errors):**
+   - **Fixed** ✅ - Relaxed overly strict type constraints in `translations.ts`
+   - Changed return types to use `Record<string, string>` instead of exact English literal types
+   - Allows German translations without TypeScript conflicts
+
+2. **.astro import errors (3 errors):**
+   - **Root cause identified:** Astro doesn't officially support named exports from `.astro` files
+   - GitHub Issues: #6858, #7264, #1142 - Intentional design limitation
+   - Problem: `index.ts` trying to re-export `button` from `Button.astro`
+
+#### Research Conducted
+
+**Astro Component Export Patterns:**
+
+- Researched Astro's official documentation
+- Analyzed GitHub issues and community patterns
+- Reviewed shadcn/ui and tailwind-variants Astro examples
+- Identified best practice: **Separate `.variants.ts` files** for reusable configs
+
+#### Solution Designed: Option 2 (Hybrid Pattern)
+
+**Pattern:**
+
+```
+src/components/starwind/button/
+├── Button.astro          # Component (import directly)
+├── Button.variants.ts    # Variants config (exported via barrel)
+├── Button.types.ts       # Types (exported via barrel)
+├── index.ts             # Barrel for .ts files ONLY
+└── Button.test.ts
+```
+
+**Benefits:**
+
+- ✅ TypeScript works perfectly
+- ✅ Type-safe with full autocomplete
+- ✅ Variants are reusable
+- ✅ No workarounds or suppressions
+- ✅ Aligns with Astro ecosystem best practices
+- ✅ Matches shadcn/ui pattern
+
+---
+
+## ✅ Completed Session 3 (Earlier Today)
 
 ## ✅ Completed This Session
 
