@@ -1,8 +1,9 @@
-import type { Locale } from "@/domain/entities/Locale";
+import type { Locale } from "@/domain";
+import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "@/domain";
 
 export const i18nConfig = {
-  defaultLocale: "en" as Locale,
-  locales: ["en", "de"] as Locale[],
+  defaultLocale: DEFAULT_LOCALE,
+  locales: [...SUPPORTED_LOCALES],
 
   // Routing configuration
   routing: {
@@ -13,11 +14,11 @@ export const i18nConfig = {
   localeNames: {
     en: "English",
     de: "Deutsch",
-  } as Record<Locale, string>,
+  } satisfies Record<Locale, string>,
 
   // Date formatting
   dateFormats: {
     en: "en-US",
     de: "de-DE",
-  } as Record<Locale, string>,
+  } satisfies Record<Locale, string>,
 } as const;

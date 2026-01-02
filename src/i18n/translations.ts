@@ -1,4 +1,4 @@
-import type { Locale } from "@/domain/entities/Locale";
+import type { Locale } from "@/domain";
 
 /**
  * UI-level translations (buttons, navigation, states)
@@ -37,7 +37,7 @@ export const translations = {
       notFound: "Seite nicht gefunden",
     },
   },
-} as const;
+} as const satisfies Record<Locale, unknown>;
 
 type TranslationSchema = typeof translations.en;
 type NamespaceKey = keyof TranslationSchema;

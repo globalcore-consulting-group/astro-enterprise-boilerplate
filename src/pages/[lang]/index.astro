@@ -2,12 +2,10 @@
 import { getEntry } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Hero from "@/components/sections/Hero/Hero.astro";
-import { SUPPORTED_LOCALES, DEFAULT_LOCALE } from "@/domain/entities/Locale";
-import type { Locale } from "@/domain/entities/Locale";
+import { SUPPORTED_LOCALES, DEFAULT_LOCALE, getLocaleOrDefault } from "@/domain";
+import type { Locale } from "@/domain";
 
 export async function getStaticPaths() {
-  // Generate paths for all non-default locales
-  // Default locale (EN) is handled by /index.astro
   const locales = SUPPORTED_LOCALES.filter((locale) => locale !== DEFAULT_LOCALE);
 
   return locales.map((locale) => ({
@@ -15,14 +13,12 @@ export async function getStaticPaths() {
   }));
 }
 
-// Get locale from params
-const locale = Astro.params.lang as Locale;
+const locale: Locale = getLocaleOrDefault(Astro.params.lang);
 
-// Fetch hero content for the current locale
 const heroContent = await getEntry("hero", `${locale}/home`);
 
 if (!heroContent) {
-  throw new Error(`Hero content not found for ${locale} locale`);
+  throw new Error(`Hero content not found: hero/${locale}/home.json`);
 }
 
 const { title, subtitle, primaryCta, secondaryCta } = heroContent.data;
