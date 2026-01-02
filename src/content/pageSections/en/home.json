@@ -1,0 +1,108 @@
+{
+  "sections": [
+    {
+      "type": "cards",
+      "id": "pillars",
+      "anchor": "what-we-do",
+      "title": "What we do",
+      "intro": "A clear path from uncertainty to decision-ready architecture—independent by design.",
+      "items": [
+        {
+          "title": "Target architecture",
+          "text": "Define the future state with clear guardrails and sequencing—so delivery teams can build without ambiguity."
+        },
+        {
+          "title": "Proof before scale",
+          "text": "Validate critical architecture slices with scenarios and evidence—before major investment and rollout."
+        },
+        {
+          "title": "Integrity steering",
+          "text": "Keep programs aligned through decision governance, traceable architecture decisions, and stage-gates."
+        }
+      ]
+    },
+    {
+      "type": "cards",
+      "id": "offerings",
+      "anchor": "offerings",
+      "title": "Offerings",
+      "intro": "Four productized engagement formats that map to FRAS™.",
+      "items": [
+        {
+          "title": "FRAME Sprint",
+          "text": "Fast orientation: dependencies, constraints, priorities, and decision context.",
+          "href": "/offerings#frame-sprint"
+        },
+        {
+          "title": "ARCHITECT Blueprint",
+          "text": "Target architecture (FRAB) with principles, guardrails, governance, and sequencing.",
+          "href": "/offerings#architect-blueprint"
+        },
+        {
+          "title": "MODEL Validation",
+          "text": "Scenario-based validation of critical architecture slices—evidence for decision readiness.",
+          "href": "/offerings#model-validation"
+        },
+        {
+          "title": "STEER Retainer",
+          "text": "Architecture integrity assurance: stage-gates, ADRs, dashboards, and steering signals.",
+          "href": "/offerings#steer-retainer"
+        }
+      ]
+    },
+    {
+      "type": "cards",
+      "id": "domains",
+      "anchor": "domains",
+      "title": "Domains we cover",
+      "intro": "If you operate in one of these domains, you’re covered.",
+      "items": [
+        {
+          "title": "Energy & Infrastructure Resilience",
+          "text": "Power, cooling, grid constraints, microgrids—architecture for high-impact infrastructure.",
+          "href": "/domains#energy-infrastructure"
+        },
+        {
+          "title": "Digital & Cyber Resilience",
+          "text": "Operational resilience and cyber requirements in complex digital service landscapes.",
+          "href": "/domains#digital-cyber"
+        },
+        {
+          "title": "Finance Resilience",
+          "text": "Decision-ready finance and risk architectures under stress and data constraints.",
+          "href": "/domains#finance"
+        },
+        {
+          "title": "Customer Value & Revenue Resilience",
+          "text": "Architecture that protects value creation when channels, data, or markets shift.",
+          "href": "/domains#customer-value"
+        },
+        {
+          "title": "Regulated Operations / Health",
+          "text": "Resilience and integrity in regulated, safety-critical operational environments.",
+          "href": "/domains#health"
+        },
+        {
+          "title": "ESG Data Resilience & Auditability",
+          "text": "Audit-ready ESG data architecture: traceability, controls, and evidence.",
+          "href": "/domains#esg"
+        }
+      ]
+    },
+    {
+      "type": "oneLiner",
+      "id": "fras",
+      "anchor": "fras",
+      "title": "How we work",
+      "oneLiner": "FRAS™ = Orientation → Target Architecture → Proof → Integrity Steering",
+      "body": "A pragmatic framework that connects Business × Technology × Environment—built for clarity, evidence, and integrity."
+    },
+    {
+      "type": "ctaStrip",
+      "id": "home-cta",
+      "title": "Ready to align architecture and decisions?",
+      "primary": { "label": "Book an Intro Call", "href": "/contact" },
+      "secondary": { "label": "Explore Offerings", "href": "/offerings" }
+    }
+  ]
+}

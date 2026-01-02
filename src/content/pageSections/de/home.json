@@ -1,0 +1,108 @@
+{
+  "sections": [
+    {
+      "type": "cards",
+      "id": "saeulen",
+      "anchor": "was-wir-tun",
+      "title": "Was wir tun",
+      "intro": "Ein klarer Weg von Unsicherheit zu entscheidungsreifer Architektur—unabhängig by design.",
+      "items": [
+        {
+          "title": "Zielarchitektur",
+          "text": "Zukunftsbild mit klaren Guardrails und Sequencing—damit Delivery ohne Unschärfe bauen kann."
+        },
+        {
+          "title": "Proof vor Skalierung",
+          "text": "Validierung kritischer Architekturslices mit Szenarien und Evidenz—bevor groß investiert und ausgerollt wird."
+        },
+        {
+          "title": "Integritäts-Steuerung",
+          "text": "Programme bleiben aligned durch Entscheidungs-Governance, nachvollziehbare Architekturentscheidungen und Stage-Gates."
+        }
+      ]
+    },
+    {
+      "type": "cards",
+      "id": "leistungen",
+      "anchor": "leistungen",
+      "title": "Leistungen",
+      "intro": "Vier produktisierte Formate—gemappt auf FRAS™.",
+      "items": [
+        {
+          "title": "FRAME Sprint",
+          "text": "Schnelle Orientierung: Abhängigkeiten, Constraints, Prioritäten und Entscheidungskontext.",
+          "href": "/de/offerings#frame-sprint"
+        },
+        {
+          "title": "ARCHITECT Blueprint",
+          "text": "Zielarchitektur (FRAB) mit Prinzipien, Guardrails, Governance und Sequencing.",
+          "href": "/de/offerings#architect-blueprint"
+        },
+        {
+          "title": "MODEL Validierung",
+          "text": "Szenariobasierte Validierung kritischer Architekturslices—Evidenz für Decision Readiness.",
+          "href": "/de/offerings#model-validation"
+        },
+        {
+          "title": "STEER Retainer",
+          "text": "Architecture Integrity Assurance: Stage-Gates, ADRs, Dashboards und Steering-Signale.",
+          "href": "/de/offerings#steer-retainer"
+        }
+      ]
+    },
+    {
+      "type": "cards",
+      "id": "domaenen",
+      "anchor": "domaenen",
+      "title": "Domänen",
+      "intro": "Wenn Sie in einer dieser Domänen arbeiten, sind Sie abgedeckt.",
+      "items": [
+        {
+          "title": "Energy & Infrastructure Resilience",
+          "text": "Power, Cooling, Grid-Constraints, Microgrids—Architektur für hochkritische Infrastruktur.",
+          "href": "/de/domains#energy-infrastructure"
+        },
+        {
+          "title": "Digital & Cyber Resilience",
+          "text": "Operational Resilience und Cyber-Anforderungen in komplexen Service-Landschaften.",
+          "href": "/de/domains#digital-cyber"
+        },
+        {
+          "title": "Finance Resilience",
+          "text": "Entscheidungsreife Finance- und Risk-Architekturen unter Stress und Daten-Constraints.",
+          "href": "/de/domains#finance"
+        },
+        {
+          "title": "Customer Value & Revenue Resilience",
+          "text": "Architektur, die Wertschöpfung schützt, wenn Kanäle, Daten oder Märkte kippen.",
+          "href": "/de/domains#customer-value"
+        },
+        {
+          "title": "Regulated Operations / Health",
+          "text": "Resilienz und Integrität in regulierten, sicherheitskritischen Operations-Umfeldern.",
+          "href": "/de/domains#health"
+        },
+        {
+          "title": "ESG Data Resilience & Auditability",
+          "text": "Auditierbare ESG-Datenarchitektur: Traceability, Controls und Evidence.",
+          "href": "/de/domains#esg"
+        }
+      ]
+    },
+    {
+      "type": "oneLiner",
+      "id": "fras",
+      "anchor": "fras",
+      "title": "So arbeiten wir",
+      "oneLiner": "FRAS™ = Orientierung → Zielarchitektur → Proof → Integritätssteuerung",
+      "body": "Ein pragmatisches Framework, das Business × Technology × Environment verbindet—für Klarheit, Evidenz und Integrität."
+    },
+    {
+      "type": "ctaStrip",
+      "id": "home-cta",
+      "title": "Bereit für Klarheit und Integrität?",
+      "primary": { "label": "Erstgespräch vereinbaren", "href": "/de/contact" },
+      "secondary": { "label": "Leistungen ansehen", "href": "/de/offerings" }
+    }
+  ]
+}
