@@ -1,27 +1,107 @@
-# Session Summary - 2025-12-30
+# Session Summary - 2026-01-02
 
-**Last Updated:** 2025-12-30 00:45
-**Session Focus:** TypeScript Fixes Implementation (Session 5)
+**Last Updated:** 2026-01-02
+**Session Focus:** Content Collections Modularization (Session 6)
 
 ---
 
 ## 🎯 Tasks for Next Session (PRIORITY)
 
-**Pre-Push Hook is now fully operational!** ✅
+**Content Collections are now modular and production-ready!** ✅
 
 Next priorities for v1.0.0:
 
-1. **semantic-release** - Automated versioning and changelog
-2. **GitHub Actions CI/CD** - Automated deployment pipeline
+1. **Render PageSections Content** - Create components for cards, oneLiner, ctaStrip sections
+2. **Implement SEO Component** - Use SEO collection data for dynamic meta tags
+3. **semantic-release** - Automated versioning and changelog
+4. **GitHub Actions CI/CD** - Automated deployment pipeline
 
 **Or:**
 
-3. **Feature Development** - Add Services, About, or Contact sections
-4. **Testing Enhancement** - Add accessibility tests, keyboard navigation tests
+5. **Feature Development** - Add Services, About, or Contact pages
+6. **Testing Enhancement** - Add accessibility tests, keyboard navigation tests
 
 ---
 
 ## ✅ Completed This Session
+
+### Session 6 (2026-01-02): Content Collections Modularization
+
+**Goal:** Organize Content Collections into maintainable, modular structure ready for CMS migration
+
+#### Modular Structure Created
+
+**Created `_schemas/` folder:**
+
+- `shared.ts` - Shared `ctaSchema` reused across collections
+- `hero.ts` - Hero section schema
+- `seo.ts` - SEO metadata schema
+- `pageSections.ts` - Page sections with discriminated unions
+
+**Created `_collections/` folder:**
+
+- `hero.ts` - Hero collection definition
+- `seo.ts` - SEO collection definition
+- `pageSections.ts` - PageSections collection definition
+
+**Updated `config.ts`:**
+
+- Clean imports only, no inline schemas
+- Exports all three collections
+
+#### Standardized CTA Field Naming
+
+**Changed from `"text"` to `"label"`:**
+
+- Updated Hero schema to use shared `ctaSchema`
+- Updated Hero component Props and template
+- Updated EN/DE hero content files
+
+#### New Collections Added
+
+**SEO Collection:**
+
+- Simple schema: `title`, `description`, `noIndex`
+- Content created for EN/DE homepages
+
+**PageSections Collection:**
+
+- Discriminated union: `cards`, `oneLiner`, `ctaStrip`
+- Content with 5 sections created (What we do, Offerings, Domains, FRAS™, CTA)
+
+#### Content Updates
+
+**Hero content updated with new messaging:**
+
+- EN: "Resilience Architecture for Critical Systems"
+- DE: "Resilienz Architektur für kritische Systeme"
+- New CTAs: "Book an Intro Call", "How We Work (FRAS™)"
+
+**Layout enhancement:**
+
+- Added "Globalcore | " prefix to page titles
+
+#### E2E Tests Updated
+
+**All 15 tests updated to match new content:**
+
+- Updated title/heading expectations
+- Updated CTA button labels and hrefs
+- All tests passing ✅
+
+#### Commits Made (5 total)
+
+1. `refactor(content): modularize Content Collections` (18f6a55)
+2. `refactor(hero): standardize CTA field name` (4a08709)
+3. `feat(content): add SEO and pageSections content` (651f9dc)
+4. `feat(layout): add 'Globalcore |' prefix` (a1de4d0)
+5. `test(e2e): update homepage tests` (f048493)
+
+**Detailed session documentation:** [2026-01-02-content-collections-modular.md](./2026-01-02-content-collections-modular.md)
+
+---
+
+## ✅ Completed Session 5
 
 ### Session 5 (2025-12-30 00:00-00:45): TypeScript Fixes & Pre-Push Hook Implementation
 

@@ -2,7 +2,7 @@
 
 > **This file provides context and guidelines for AI coding agents working on this project.**
 >
-> **Last updated:** 2025-12-29 | **Version:** 1.0.0
+> **Last updated:** 2026-01-02 | **Version:** 1.1.0
 
 ---
 
@@ -47,10 +47,11 @@ npm run dev          # Start dev server at localhost:4321
 - [x] Playwright (15 E2E tests: 11 EN, 4 DE)
 - [x] **Zod** (transitive dependency from Astro 3.25.76)
 - [x] **Clean Architecture folder structure** (domain/, application/, infrastructure/)
-- [x] **Content Collections** (Hero collection with EN/DE content)
+- [x] **Content Collections** (Modular structure: hero, seo, pageSections with EN/DE content)
 - [x] **i18n configuration** (EN default, DE with /de prefix)
 - [x] **Documentation** (Layer READMEs: domain, application, infrastructure, i18n + 4 ADRs)
 - [x] **Pre-push hook** (typecheck + unit tests + E2E tests, ~9s total)
+- [x] **Modular Content Collections** (\_schemas/ and \_collections/ structure)
 
 ### ⏳ Pending Setup
 
@@ -330,6 +331,10 @@ src/
     sections/                 ← Page sections (Hero, Services, Testimonials...)
     common/                 ← Project-specific shared (Header, Footer, LanguageSwitcher...)
   content/                  ← Content Collections (Astro)
+    _schemas/               ← Zod schemas (modular, ignored by Astro)
+    _collections/           ← Collection definitions (modular)
+    config.ts               ← Collection registration (imports only)
+    hero/, seo/, pageSections/  ← Content data (EN/DE)
 
   // === CLEAN ARCHITECTURE ===
   domain/
@@ -499,6 +504,116 @@ export type { ButtonProps, ButtonVariant, ButtonSize } from "./Button.types";
 - Attempting to re-export `.astro` components causes TypeScript errors
 - See [ADR 0004](docs/adr/0004-typescript-testing-strategy.md) for full details
 - GitHub Issues: [#6858](https://github.com/withastro/astro/issues/6858), [#7264](https://github.com/withastro/astro/issues/7264)
+
+---
+
+## Content Collections Structure
+
+**Modular organization for maintainability and future Strapi migration.**
+
+```
+src/content/
+├── _schemas/              # Zod schemas (underscore = Astro ignores)
+│   ├── shared.ts         # Shared schemas (ctaSchema)
+│   ├── hero.ts
+│   ├── seo.ts
+│   └── pageSections.ts
+├── _collections/         # Collection definitions
+│   ├── hero.ts
+│   ├── seo.ts
+│   └── pageSections.ts
+├── config.ts             # Imports and exports collections
+├── hero/
+│   ├── en/home.json
+│   └── de/home.json
+├── seo/
+│   ├── en/home.json
+│   └── de/home.json
+└── pageSections/
+    ├── en/home.json
+    └── de/home.json
+```
+
+### Why Modular?
+
+1. **Maintainability** - Each schema in its own file
+2. **Reusability** - Shared schemas like `ctaSchema` used across collections
+3. **Clean config** - `config.ts` is just imports, no inline schemas
+4. **Migration ready** - Easy to swap loaders when moving to Strapi
+
+### Shared Schemas
+
+**Example: `src/content/_schemas/shared.ts`**
+
+```typescript
+import { z } from "astro:content";
+
+/**
+ * Shared CTA button schema
+ * Used across all collections for call-to-action buttons
+ */
+export const ctaSchema = z.object({
+  label: z.string().min(1, "CTA label is required"),
+  href: z.string().min(1, "CTA href is required"),
+});
+```
+
+### Collection Schemas
+
+**Example: `src/content/_schemas/hero.ts`**
+
+```typescript
+import { z } from "astro:content";
+import { ctaSchema } from "./shared";
+
+export const heroSchema = z.object({
+  title: z.string().min(1),
+  subtitle: z.string().min(1),
+  primaryCta: ctaSchema,
+  secondaryCta: ctaSchema.optional(),
+  image: z.string().optional(),
+});
+```
+
+### Collection Definitions
+
+**Example: `src/content/_collections/hero.ts`**
+
+```typescript
+import { defineCollection } from "astro:content";
+import { heroSchema } from "../_schemas/hero";
+
+export const heroCollection = defineCollection({
+  type: "data",
+  schema: heroSchema,
+});
+```
+
+### Config File
+
+**`src/content/config.ts`** - Clean imports only:
+
+```typescript
+import { heroCollection } from "./_collections/hero";
+import { seoCollection } from "./_collections/seo";
+import { pageSectionsCollection } from "./_collections/pageSections";
+
+export const collections = {
+  hero: heroCollection,
+  seo: seoCollection,
+  pageSections: pageSectionsCollection,
+};
+```
+
+### Current Collections
+
+| Collection     | Purpose                                     | Status       |
+| -------------- | ------------------------------------------- | ------------ |
+| `hero`         | Hero sections with CTAs                     | ✅ In use    |
+| `seo`          | Page-level SEO metadata                     | 📝 Data only |
+| `pageSections` | Structured page content (cards, CTAs, etc.) | 📝 Data only |
+
+**Note:** Collections marked "Data only" have schemas and content but are not yet rendered in pages.
 
 ---
 

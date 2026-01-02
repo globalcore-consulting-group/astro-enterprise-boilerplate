@@ -1,8 +1,8 @@
 # GlobalCore Website Boilerplate - Stakeholder Summary
 
 **Project:** GlobalCore Astro Website Boilerplate
-**Status:** Clean Architecture & i18n Complete (87% Progress to v1.0.0)
-**Last Updated:** 2025-12-29
+**Status:** Content Collections Modularized (87% Progress to v1.0.0)
+**Last Updated:** 2026-01-02
 
 ---
 
@@ -158,6 +158,50 @@ We're building a **production-ready, enterprise-grade Astro website boilerplate*
 - Testable business logic isolated from UI
 
 **Documentation:** [src/domain/README.md](../src/domain/README.md), [src/application/README.md](../src/application/README.md), [src/infrastructure/README.md](../src/infrastructure/README.md), [src/i18n/README.md](../src/i18n/README.md), [ADR 0001](adr/0001-clean-architecture.md), [ADR 0002](adr/0002-content-collections-i18n.md), [ADR 0003](adr/0003-translations-vs-content.md)
+
+---
+
+### 5. **Modular Content Collections** ✅
+
+**Purpose:** Maintainable, reusable content structure ready for CMS migration
+
+**Completed:**
+
+- ✅ **Modular Schema Organization**
+  - `_schemas/` folder for Zod schemas (underscore = Astro ignores)
+  - `_collections/` folder for collection definitions
+  - Clean `config.ts` with imports only (no inline schemas)
+  - Shared `ctaSchema` reused across collections
+- ✅ **Three Collections Configured**
+  - **hero** - Hero sections with CTAs (✅ in use)
+  - **seo** - Page-level SEO metadata (📝 data only)
+  - **pageSections** - Structured content with discriminated unions (📝 data only)
+- ✅ **Standardized CTA Structure**
+  - Unified `label` field across all collections
+  - Hero component updated to use shared schema
+  - All content files updated to new structure
+- ✅ **Content Data Created**
+  - SEO metadata for EN/DE homepages
+  - PageSections with 5 section types (What we do, Offerings, Domains, FRAS™, CTA strip)
+  - All content available in EN and DE
+
+**Business Value:**
+
+- Easy to maintain and extend schemas
+- Reusable components reduce duplication
+- Ready for Strapi loader integration (just swap implementations)
+- Type-safe content with full autocomplete
+- Clean separation of schema logic from data
+
+**Structure:**
+
+```
+src/content/
+├── _schemas/         # Modular Zod schemas
+├── _collections/     # Collection definitions
+├── config.ts         # Clean imports
+└── hero/, seo/, pageSections/  # Content data (EN/DE)
+```
 
 ---
 
