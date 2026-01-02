@@ -306,8 +306,8 @@ export async function getHeroContent(locale: string) {
 **4. Code review standards**
 
 - Enforce "business logic in use-cases, not pages"
-- Ensure mappers transform external data
-- Validate domain entities with Zod
+- Ensure mappers transform and validate external data (use Zod at boundaries, not in domain)
+- Keep domain layer zero-dependency (pure TypeScript, no npm packages)
 
 ---
 
