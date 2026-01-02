@@ -3,13 +3,13 @@ import { test, expect } from "@playwright/test";
 test.describe("Homepage", () => {
   test("loads successfully", async ({ page }) => {
     await page.goto("/");
-    await expect(page).toHaveTitle(/Welcome to GlobalCore/);
+    await expect(page).toHaveTitle(/Resilience Architecture for Critical Systems/);
   });
 
   test("displays welcome heading and subtitle", async ({ page }) => {
     await page.goto("/");
 
-    const heading = page.getByRole("heading", { name: "Welcome to GlobalCore" });
+    const heading = page.getByRole("heading", { name: "Resilience Architecture for Critical Systems" });
     await expect(heading).toBeVisible();
 
     const subtitle = page.getByText("Professional consulting services for digital transformation and business growth");
@@ -20,8 +20,8 @@ test.describe("Homepage", () => {
     await page.goto("/");
 
     // Check both CTA buttons are present
-    const primaryCta = page.getByRole("link", { name: "Get in touch" });
-    const secondaryCta = page.getByRole("link", { name: "Learn more" });
+    const primaryCta = page.getByRole("link", { name: "Book an Intro Call" });
+    const secondaryCta = page.getByRole("link", { name: "How We Work (FRAS™)" });
 
     await expect(primaryCta).toBeVisible();
     await expect(secondaryCta).toBeVisible();
@@ -30,22 +30,22 @@ test.describe("Homepage", () => {
   test("CTA buttons have correct styling", async ({ page }) => {
     await page.goto("/");
 
-    const primaryCta = page.getByRole("link", { name: "Get in touch" });
+    const primaryCta = page.getByRole("link", { name: "Book an Intro Call" });
     await expect(primaryCta).toHaveAttribute("class", /bg-primary/);
     await expect(primaryCta).toHaveAttribute("data-slot", "button");
 
-    const secondaryCta = page.getByRole("link", { name: "Learn more" });
+    const secondaryCta = page.getByRole("link", { name: "How We Work (FRAS™)" });
     await expect(secondaryCta).toHaveAttribute("class", /border/);
   });
 
   test("CTA buttons link to correct pages", async ({ page }) => {
     await page.goto("/");
 
-    const primaryCta = page.getByRole("link", { name: "Get in touch" });
-    const secondaryCta = page.getByRole("link", { name: "Learn more" });
+    const primaryCta = page.getByRole("link", { name: "Book an Intro Call" });
+    const secondaryCta = page.getByRole("link", { name: "How We Work (FRAS™)" });
 
     await expect(primaryCta).toHaveAttribute("href", "/contact");
-    await expect(secondaryCta).toHaveAttribute("href", "/about");
+    await expect(secondaryCta).toHaveAttribute("href", "/how-we-work");
   });
 
   test.describe("Responsive Design", () => {
@@ -53,7 +53,7 @@ test.describe("Homepage", () => {
       test("displays content correctly", async ({ page }) => {
         await page.setViewportSize({ width: 375, height: 667 });
         await page.goto("/");
-        await expect(page.getByRole("heading", { name: "Welcome to GlobalCore" })).toBeVisible();
+        await expect(page.getByRole("heading", { name: "Resilience Architecture for Critical Systems" })).toBeVisible();
       });
 
       test("CTA buttons are stacked vertically", async ({ page }) => {
@@ -69,7 +69,7 @@ test.describe("Homepage", () => {
       test("displays content correctly", async ({ page }) => {
         await page.setViewportSize({ width: 768, height: 1024 });
         await page.goto("/");
-        await expect(page.getByRole("heading", { name: "Welcome to GlobalCore" })).toBeVisible();
+        await expect(page.getByRole("heading", { name: "Resilience Architecture for Critical Systems" })).toBeVisible();
       });
     });
 
@@ -77,7 +77,7 @@ test.describe("Homepage", () => {
       test("displays content correctly", async ({ page }) => {
         await page.setViewportSize({ width: 1920, height: 1080 });
         await page.goto("/");
-        await expect(page.getByRole("heading", { name: "Welcome to GlobalCore" })).toBeVisible();
+        await expect(page.getByRole("heading", { name: "Resilience Architecture for Critical Systems" })).toBeVisible();
       });
 
       test("CTA buttons are displayed inline", async ({ page }) => {
@@ -100,24 +100,24 @@ test.describe("Homepage", () => {
     // Check heading hierarchy
     const h1 = page.locator("h1");
     await expect(h1).toHaveCount(1);
-    await expect(h1).toHaveText("Welcome to GlobalCore");
+    await expect(h1).toHaveText("Resilience Architecture for Critical Systems");
   });
 });
 
 test.describe("Homepage (German /de)", () => {
   test("loads successfully", async ({ page }) => {
     await page.goto("/de");
-    await expect(page).toHaveTitle(/Willkommen bei GlobalCore/);
+    await expect(page).toHaveTitle(/Resilienz Architektur für kritische Systeme/);
   });
 
   test("displays German heading and subtitle", async ({ page }) => {
     await page.goto("/de");
 
-    const heading = page.getByRole("heading", { name: "Willkommen bei GlobalCore" });
+    const heading = page.getByRole("heading", { name: "Resilienz Architektur für kritische Systeme" });
     await expect(heading).toBeVisible();
 
     const subtitle = page.getByText(
-      "Professionelle Beratungsdienstleistungen für digitale Transformation und Geschäftswachstum"
+      "Unabhängige Zielarchitektur und Entscheidungs-Governance für operationale Resilienz und Cyber-Compliance (DORA, NIS2)."
     );
     await expect(subtitle).toBeVisible();
   });
@@ -125,8 +125,8 @@ test.describe("Homepage (German /de)", () => {
   test("renders German CTA buttons", async ({ page }) => {
     await page.goto("/de");
 
-    const primaryCta = page.getByRole("link", { name: "Kontakt aufnehmen" });
-    const secondaryCta = page.getByRole("link", { name: "Mehr erfahren" });
+    const primaryCta = page.getByRole("link", { name: "Erstgespräch vereinbaren" });
+    const secondaryCta = page.getByRole("link", { name: "So arbeiten wir (FRAS™)" });
 
     await expect(primaryCta).toBeVisible();
     await expect(secondaryCta).toBeVisible();
@@ -135,8 +135,8 @@ test.describe("Homepage (German /de)", () => {
   test("German CTA buttons link to correct pages", async ({ page }) => {
     await page.goto("/de");
 
-    const primaryCta = page.getByRole("link", { name: "Kontakt aufnehmen" });
-    const secondaryCta = page.getByRole("link", { name: "Mehr erfahren" });
+    const primaryCta = page.getByRole("link", { name: "Erstgespräch vereinbaren" });
+    const secondaryCta = page.getByRole("link", { name: "So arbeiten wir (FRAS™)" });
 
     await expect(primaryCta).toHaveAttribute("href", "/de/kontakt");
     await expect(secondaryCta).toHaveAttribute("href", "/de/ueber-uns");
