@@ -5,11 +5,11 @@ interface Props {
   title: string;
   subtitle: string;
   primaryCta: {
-    text: string;
+    label: string;
     href: string;
   };
   secondaryCta?: {
-    text: string;
+    label: string;
     href: string;
   };
   image?: string;
@@ -31,13 +31,13 @@ const { title, subtitle, primaryCta, secondaryCta, image } = Astro.props;
 
       <div class="flex flex-col sm:flex-row gap-4 justify-center" data-testid="hero-cta-container">
         <Button variant="primary" size="lg" href={primaryCta.href}>
-          {primaryCta.text}
+          {primaryCta.label}
         </Button>
 
         {
           secondaryCta && (
             <Button variant="outline" size="lg" href={secondaryCta.href}>
-              {secondaryCta.text}
+              {secondaryCta.label}
             </Button>
           )
         }

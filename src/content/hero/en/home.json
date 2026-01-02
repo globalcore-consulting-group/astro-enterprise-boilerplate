@@ -1,12 +1,12 @@
 {
-  "title": "Welcome to GlobalCore",
+  "title": "Resilience Architecture for Critical Systems",
   "subtitle": "Professional consulting services for digital transformation and business growth",
   "primaryCta": {
-    "text": "Get in touch",
+    "label": "Book an Intro Call",
     "href": "/contact"
   },
   "secondaryCta": {
-    "text": "Learn more",
-    "href": "/about"
+    "label": "How We Work (FRAS™)",
+    "href": "/how-we-work"
   }
 }

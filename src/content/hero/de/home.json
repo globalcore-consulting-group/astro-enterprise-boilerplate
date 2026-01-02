@@ -1,12 +1,12 @@
 {
-  "title": "Willkommen bei GlobalCore",
-  "subtitle": "Professionelle Beratungsdienstleistungen für digitale Transformation und Geschäftswachstum",
+  "title": "Resilienz Architektur für kritische Systeme",
+  "subtitle": "Unabhängige Zielarchitektur und Entscheidungs-Governance für operationale Resilienz und Cyber-Compliance (DORA, NIS2).",
   "primaryCta": {
-    "text": "Kontakt aufnehmen",
+    "label": "Erstgespräch vereinbaren",
     "href": "/de/kontakt"
   },
   "secondaryCta": {
-    "text": "Mehr erfahren",
+    "label": "So arbeiten wir (FRAS™)",
     "href": "/de/ueber-uns"
   }
 }
