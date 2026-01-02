@@ -173,8 +173,8 @@ npm run typecheck        # Run TypeScript compiler check
 
 ### Test Priority
 
-1. **HIGH (Must Test):** Domain entities, use-cases, mappers, Zod schemas
-2. **MEDIUM (Should Test):** Content Collections, complex components
+1. **HIGH (Must Test):** Domain value objects, entities, use-cases, mappers
+2. **MEDIUM (Should Test):** Content Collections, complex components, Zod schemas at boundaries
 3. **LOW (Optional):** Simple presentational components, utilities
 
 ### Data Migration Strategy
@@ -338,7 +338,8 @@ src/
 
   // === CLEAN ARCHITECTURE ===
   domain/
-    entities/               ← Business types/interfaces (Service, Project, Testimonial...)
+    value-objects/          ← Pure types with validation (Locale, Slug, Url...)
+    entities/               ← Business objects with identity (Service, Project, Testimonial...)
 
   application/
     use-cases/              ← Business logic (getServices, getProjectBySlug...)
@@ -627,7 +628,7 @@ export const collections = {
 
 ### Testing Priority
 
-1. **High:** Domain entities, use-cases, mappers
+1. **High:** Domain value objects, entities, use-cases, mappers
 2. **Medium:** Complex components with logic
 3. **Low:** Pure presentational components
 

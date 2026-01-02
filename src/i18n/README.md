@@ -314,12 +314,34 @@ const content = await getEntry("pages", `${lang}/${canonicalRoute}`);
 
 ## Adding a New Language
 
-### 1. Add locale to domain entity
+### 1. Add locale to domain value object
 
 ```typescript
-// src/domain/entities/Locale.ts
-export const LocaleSchema = z.enum(["en", "de", "fr"]); // Add "fr"
-export const SUPPORTED_LOCALES: Locale[] = ["en", "de", "fr"];
+// src/domain/value-objects/Locale/Locale.ts
+export const SUPPORTED_LOCALES = ["en", "de", "fr"] as const; // Add "fr"
+export type Locale = (typeof SUPPORTED_LOCALES)[number];
+
+// The Set is auto-updated from SUPPORTED_LOCALES
+const SUPPORTED_LOCALE_SET: ReadonlySet<string> = new Set(SUPPORTED_LOCALES);
+```
+
+**Update the tests:**
+
+```typescript
+// src/domain/value-objects/Locale/Locale.test.ts
+it("exposes supported locales and default locale", () => {
+  expect(SUPPORTED_LOCALES).toEqual(["en", "de", "fr"]); // Add "fr"
+  expect(DEFAULT_LOCALE).toBe("en");
+});
+
+it("validates locales with a runtime guard", () => {
+  expect(isValidLocale("en")).toBe(true);
+  expect(isValidLocale("de")).toBe(true);
+  expect(isValidLocale("fr")).toBe(true); // Add test for "fr"
+
+  expect(isValidLocale("es")).toBe(false);
+  // ... rest of negative tests
+});
 ```
 
 ### 2. Update Astro config

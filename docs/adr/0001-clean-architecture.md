@@ -313,7 +313,7 @@ export async function getHeroContent(locale: string) {
 
 ## Migration Path
 
-### Phase 1: Foundation (Current - MVP)
+### Phase 1: Foundation (Completed ✅)
 
 ✅ **Scaffold folders:**
 
@@ -323,12 +323,28 @@ src/application/
 src/infrastructure/
 ```
 
-✅ **Add domain entities with Zod:**
+✅ **Implement domain value objects with zero dependencies:**
 
 ```typescript
-// src/domain/entities/Locale.ts
-export const LocaleSchema = z.enum(["en", "de"]);
-export type Locale = z.infer<typeof LocaleSchema>;
+// src/domain/value-objects/Locale/Locale.ts
+// Pure TypeScript, no Zod or other dependencies
+export const SUPPORTED_LOCALES = ["en", "de"] as const;
+export type Locale = (typeof SUPPORTED_LOCALES)[number];
+
+const SUPPORTED_LOCALE_SET: ReadonlySet<string> = new Set(SUPPORTED_LOCALES);
+
+export function isValidLocale(value: unknown): value is Locale {
+  return typeof value === "string" && SUPPORTED_LOCALE_SET.has(value);
+}
+```
+
+✅ **Modular structure with colocated tests:**
+
+```
+src/domain/value-objects/
+├── Locale/         # Language validation
+├── Slug/           # URL-safe slugs
+└── Url/            # Safe URLs (XSS prevention)
 ```
 
 ✅ **Use Content Collections directly in pages:**
@@ -339,7 +355,9 @@ const heroContent = await getEntry("hero", `${locale}/home`);
 ---
 ```
 
-**Goal:** Structure in place, minimal overhead
+**Goal:** Structure in place, zero-dependency domain, minimal overhead
+
+**Status:** Complete. Domain layer has 3 value objects with 8 unit tests.
 
 ---
 
@@ -446,6 +464,7 @@ We'll know Clean Architecture was the right choice if:
 
 ## Revision History
 
-| Date       | Author | Changes                                     |
-| ---------- | ------ | ------------------------------------------- |
-| 2025-12-29 | MMA    | Initial draft - Clean Architecture decision |
+| Date       | Author | Changes                                                                         |
+| ---------- | ------ | ------------------------------------------------------------------------------- |
+| 2025-12-29 | MMA    | Initial draft - Clean Architecture decision                                     |
+| 2026-01-02 | MMA    | Updated Phase 1 to reflect zero-dependency value objects implementation (3 VOs) |

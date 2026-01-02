@@ -1,7 +1,7 @@
 # GlobalCore Website Boilerplate - Stakeholder Summary
 
 **Project:** GlobalCore Astro Website Boilerplate
-**Status:** Content Collections Modularized (87% Progress to v1.0.0)
+**Status:** Domain Value Objects Implemented (87% Progress to v1.0.0)
 **Last Updated:** 2026-01-02
 
 ---
@@ -98,8 +98,9 @@ We're building a **production-ready, enterprise-grade Astro website boilerplate*
   - Container API pattern for testing Astro components
 - ✅ **Test Suite Written**
   - 15 unit tests for Button component (83% coverage)
+  - 8 unit tests for domain value objects (Locale, Slug, Url)
   - 15 E2E tests for homepage (11 EN, 4 DE - responsive, interactive, i18n)
-  - All 30 tests passing in ~4.5 seconds
+  - All 38 tests passing in ~4.5 seconds
 - ✅ **No-Mocks Approach Implemented**
   - Uses Astro Container API to render real components
   - No mocking libraries needed
@@ -124,10 +125,13 @@ We're building a **production-ready, enterprise-grade Astro website boilerplate*
 **Completed:**
 
 - ✅ **Clean Architecture Layers**
-  - Domain layer with Locale entity and Zod validation
+  - **Domain layer with value objects** - Zero dependencies, pure TypeScript
+  - **Locale value object** - Language validation with Set-based type guards
+  - **Slug value object** - URL-safe slug validation and normalization
+  - **Url value object** - Safe URL validation (rejects XSS vectors like `javascript:`)
+  - Modular structure: Each value object in folder with colocated tests
   - Application layer scaffolded (use-cases/, ports/)
   - Infrastructure layer scaffolded (repositories/, mappers/)
-  - Type guards: `isValidLocale()`, `getLocaleOrDefault()`
 - ✅ **Type-Safe i18n System**
   - Astro i18n routing configured (EN default, DE with /de prefix)
   - Type-safe translation helper with full TypeScript autocomplete
@@ -202,6 +206,64 @@ src/content/
 ├── config.ts         # Clean imports
 └── hero/, seo/, pageSections/  # Content data (EN/DE)
 ```
+
+---
+
+### 6. **Domain Value Objects** ✅
+
+**Purpose:** Type-safe, validated domain primitives with zero external dependencies
+
+**Completed:**
+
+- ✅ **Zero-Dependency Philosophy**
+  - Pure TypeScript with native JavaScript APIs only
+  - No npm packages (not even Zod) in domain layer
+  - Maximum portability across all JavaScript runtimes
+  - Lightweight and fast runtime validation
+
+- ✅ **Three Value Objects Implemented**
+  - **Locale** - Supported language codes with O(1) Set-based validation
+  - **Slug** - URL-safe identifiers with normalization (`toSlug()`)
+  - **Url** - Safe URLs rejecting dangerous schemes (XSS prevention)
+
+- ✅ **Modular Architecture**
+  - Each value object in own folder with colocated tests
+  - Barrel exports for clean imports: `import { Locale, Slug, Url } from "@/domain"`
+  - 8 unit tests covering validation, edge cases, security
+
+- ✅ **Security-First Design**
+  - Url value object rejects `javascript:`, `data:`, `vbscript:` schemes
+  - Prevents XSS attacks from user-provided URLs
+  - Fail-fast assertions for boundary validation
+
+**Business Value:**
+
+- **Type safety without runtime cost** - Native type guards are fast
+- **Security by design** - Dangerous inputs rejected at domain level
+- **Maximum portability** - Works in any JavaScript environment
+- **Zero dependency risk** - Never breaks due to package updates
+- **Easy to test** - Pure functions with no mocks needed
+
+**Structure:**
+
+```
+src/domain/
+├── value-objects/
+│   ├── Locale/
+│   │   ├── Locale.ts       # Implementation
+│   │   ├── Locale.test.ts  # 3 tests
+│   │   └── index.ts
+│   ├── Slug/
+│   │   ├── Slug.ts         # Implementation
+│   │   ├── Slug.test.ts    # 2 tests
+│   │   └── index.ts
+│   └── Url/
+│       ├── Url.ts          # Implementation
+│       ├── Url.test.ts     # 3 tests
+│       └── index.ts
+```
+
+**Documentation:** [src/domain/README.md](../src/domain/README.md)
 
 ---
 
