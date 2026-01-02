@@ -1,28 +1,15 @@
-import { defineCollection, z } from "astro:content";
-
 /**
- * Hero collection schema
- * Used for hero sections on pages
+ * Content Collections Configuration
+ *
+ * Collections are defined in ./_collections/
+ * Schemas are defined in ./_schemas/
  */
-const heroCollection = defineCollection({
-  type: "data",
-  schema: z.object({
-    title: z.string().min(1, "Title is required"),
-    subtitle: z.string().min(1, "Subtitle is required"),
-    primaryCta: z.object({
-      text: z.string().min(1),
-      href: z.string().min(1),
-    }),
-    secondaryCta: z
-      .object({
-        text: z.string().min(1),
-        href: z.string().min(1),
-      })
-      .optional(),
-    image: z.string().optional(),
-  }),
-});
+import { heroCollection } from "./_collections/hero";
+import { seoCollection } from "./_collections/seo";
+import { pageSectionsCollection } from "./_collections/pageSections";
 
 export const collections = {
   hero: heroCollection,
+  seo: seoCollection,
+  pageSections: pageSectionsCollection,
 };
