@@ -2,6 +2,9 @@
 import { getEntry } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Hero from "@/components/sections/Hero/Hero.astro";
+import CardsSection from "@/components/sections/CardsSection/CardsSection.astro";
+import OneLinerSection from "@/components/sections/OneLinerSection/OneLinerSection.astro";
+import CtaStripSection from "@/components/sections/CtaStripSection/CtaStripSection.astro";
 
 // Fetch hero content for EN locale
 const heroContent = await getEntry("hero", "en/home");
@@ -11,10 +14,33 @@ if (!heroContent) {
 }
 
 const { title, subtitle, primaryCta, secondaryCta } = heroContent.data;
+
+// Fetch page sections for EN locale
+const pageSectionsContent = await getEntry("pageSections", "en/home");
+
+if (!pageSectionsContent) {
+  throw new Error("Page sections content not found for EN locale");
+}
+
+const { sections } = pageSectionsContent.data;
 ---
 
 <Layout title={title}>
   <main>
     <Hero title={title} subtitle={subtitle} primaryCta={primaryCta} secondaryCta={secondaryCta} />
+
+    {/* Render all page sections based on type */}
+    {
+      sections.map((section) => {
+        switch (section.type) {
+          case "cards":
+            return <CardsSection section={section} />;
+          case "oneLiner":
+            return <OneLinerSection section={section} />;
+          case "ctaStrip":
+            return <CtaStripSection section={section} />;
+        }
+      })
+    }
   </main>
 </Layout>
