@@ -1,13 +1,13 @@
 # Session Summary - 2026-01-03
 
 **Last Updated:** 2026-01-03
-**Session Focus:** Homepage Implementation with Sections, Navbar, Footer, and SEO (Session 8)
+**Session Focus:** Placeholder Pages & Route Translation (Session 9)
 
 ---
 
 ## 🎯 Tasks for Next Session (PRIORITY)
 
-**Homepage is now production-ready with all sections!** ✅
+**All homepage links now work - no 404s!** ✅
 
 Next priorities for v1.0.0:
 
@@ -16,13 +16,95 @@ Next priorities for v1.0.0:
 
 **Post v1.0.0:**
 
-3. **Feature Development** - Add Services, About, or Contact pages
-4. **Testing Enhancement** - Update E2E tests for new sections, add accessibility tests
+3. **Content Development** - Fill in placeholder pages (About, Services, Contact, Domains)
+4. **Testing Enhancement** - Update E2E tests for new pages, add accessibility tests
 5. **Performance Optimization** - Lazy loading, image optimization
 
 ---
 
 ## ✅ Completed This Session
+
+### Session 9 (2026-01-03): Placeholder Pages & Route Translation
+
+**Goal:** Create placeholder pages for all homepage links and fix i18n routing
+
+#### Problem Identified
+
+- Homepage had many broken links (404s) for pages that didn't exist
+- "Offerings" vs "Services" naming inconsistency
+- Language switcher not translating route slugs correctly
+- German navigation links pointing to non-existent English routes
+
+#### Changes Made (5 atomic commits)
+
+1. **`846d9ad` - refactor(content): rename 'Offerings' to 'Services' in EN content**
+   - Changed section title from "Offerings" to "Services"
+   - Updated hero secondary CTA to link to `/about#how-we-work`
+   - Updated all service card links from `/offerings` to `/services`
+   - Updated CTA strip button label and link
+
+2. **`8ebe7a1` - refactor(content): update DE content with translated route slugs**
+   - Updated hero CTAs to use German slugs (`/de/kontakt`, `/de/ueber-uns#how-we-work`)
+   - Fixed service links: `/de/offerings` → `/de/dienstleistungen`
+   - Fixed domain links: `/de/domains` → `/de/domaenen`
+   - Fixed CTA strip links to use proper German slugs
+
+3. **`76967ab` - feat(pages): add EN placeholder pages to prevent 404s**
+   - Created `/about` with `#how-we-work` anchor section
+   - Created `/services` with 4 service anchor sections (frame-sprint, architect-blueprint, model-validation, steer-retainer)
+   - Created `/contact` placeholder
+   - Created `/domains` with 6 domain anchor sections
+   - Created `/privacy` placeholder
+   - Created `/imprint` placeholder
+   - All pages show "Coming Soon" message with back-to-home link
+
+4. **`5fcf856` - feat(pages): add DE catch-all route for translated page slugs**
+   - Created `[lang]/[...slug].astro` to handle German routes
+   - Route translations mapping: ueber-uns, dienstleistungen, kontakt, domaenen, datenschutz, impressum
+   - Included anchor sections for about, services, and domains pages
+   - All pages show "Diese Seite kommt bald" message
+
+5. **`51cddbb` - fix(navbar): add route translation for language switcher and nav links**
+   - Added `routeTranslations` mapping for EN↔DE route conversion
+   - Updated `getLocalizedUrl()` to translate route slugs for German locale
+   - Fixed language switcher to correctly map routes when switching languages
+     - `/contact` ↔ `/de/kontakt`
+     - `/about` ↔ `/de/ueber-uns`
+     - `/services` ↔ `/de/dienstleistungen`
+     - `/domains` ↔ `/de/domaenen`
+   - Fixed navbar links to use translated slugs in German locale
+
+#### Technical Achievements
+
+1. **Route Translation System**
+   - Bidirectional EN↔DE slug mapping in Navbar
+   - Language switcher now properly translates routes instead of just adding/removing `/de` prefix
+   - Consistent route translations across all components
+
+2. **Page Structure**
+   - 6 EN placeholder pages created
+   - 6 DE pages via catch-all route with proper German slugs
+   - All pages include appropriate anchor sections for future content
+
+3. **Build Results**
+   - ✅ **14 pages generated** (8 pages: 2 homepages + 6 EN pages + 6 DE pages)
+   - ✅ **No 404s** - All homepage links now work
+   - ✅ **TypeScript clean** - No errors
+   - ✅ **Build successful**
+
+#### Route Translations Established
+
+| EN Route    | DE Route               | Description    |
+| ----------- | ---------------------- | -------------- |
+| `/`         | `/de`                  | Homepage       |
+| `/about`    | `/de/ueber-uns`        | About page     |
+| `/services` | `/de/dienstleistungen` | Services page  |
+| `/contact`  | `/de/kontakt`          | Contact page   |
+| `/domains`  | `/de/domaenen`         | Domains page   |
+| `/privacy`  | `/de/datenschutz`      | Privacy policy |
+| `/imprint`  | `/de/impressum`        | Imprint/Legal  |
+
+---
 
 ### Session 8 (2026-01-03): Homepage Implementation
 
