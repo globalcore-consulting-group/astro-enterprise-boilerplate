@@ -1,0 +1,178 @@
+---
+import { t, getNamespace } from "@/i18n/translations";
+import type { Locale } from "@/domain";
+import Button from "@/components/starwind/button/Button.astro";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const navItems = getNamespace(locale, "nav");
+
+// Build URL for locale
+const getLocalizedUrl = (path: string) => {
+  if (locale === "en") {
+    return path;
+  }
+  return `/${locale}${path}`;
+};
+
+// Get alternate locale and its URL
+const alternateLocale: Locale = locale === "en" ? "de" : "en";
+const currentPath = Astro.url.pathname;
+
+// Calculate alternate URL
+let alternateUrl: string;
+if (locale === "en") {
+  // Going from EN to DE: add /de prefix
+  alternateUrl = `/de${currentPath}`;
+} else {
+  // Going from DE to EN: remove /de prefix
+  alternateUrl = currentPath.replace(/^\/de/, "") || "/";
+}
+---
+
+<header
+  class="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+>
+  <nav class="container mx-auto px-4 md:px-6 max-w-7xl" aria-label="Main navigation">
+    <div class="flex h-16 items-center justify-between">
+      {/* Logo */}
+      <div class="flex items-center">
+        <a href={getLocalizedUrl("/")} class="text-xl font-bold text-foreground hover:text-primary transition-colors">
+          GlobalCore
+        </a>
+      </div>
+
+      {/* Desktop Navigation */}
+      <div class="hidden md:flex md:items-center md:gap-6">
+        <div class="flex items-center gap-6">
+          <a
+            href={getLocalizedUrl("/")}
+            class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+          >
+            {navItems.home}
+          </a>
+          <a
+            href={getLocalizedUrl("/about")}
+            class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+          >
+            {navItems.about}
+          </a>
+          <a
+            href={getLocalizedUrl("/services")}
+            class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+          >
+            {navItems.services}
+          </a>
+          <a
+            href={getLocalizedUrl("/contact")}
+            class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+          >
+            {navItems.contact}
+          </a>
+        </div>
+
+        {/* Language Switcher */}
+        <div class="flex items-center gap-2 ml-4 border-l pl-4">
+          <Button href={alternateUrl} variant="ghost" size="sm" class="uppercase font-medium">
+            {alternateLocale}
+          </Button>
+        </div>
+      </div>
+
+      {/* Mobile Menu Button */}
+      <button
+        type="button"
+        class="md:hidden inline-flex items-center justify-center rounded-md p-2 text-muted-foreground hover:bg-accent hover:text-accent-foreground focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary"
+        aria-controls="mobile-menu"
+        aria-expanded="false"
+        id="mobile-menu-button"
+      >
+        <span class="sr-only">Open main menu</span>
+        {/* Icon when menu is closed */}
+        <svg
+          class="block h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          aria-hidden="true"
+          data-slot="icon-menu"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
+        </svg>
+        {/* Icon when menu is open */}
+        <svg
+          class="hidden h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          aria-hidden="true"
+          data-slot="icon-close"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+
+    {/* Mobile menu, show/hide based on menu state */}
+    <div class="hidden md:hidden" id="mobile-menu">
+      <div class="space-y-1 px-2 pb-3 pt-2">
+        <a
+          href={getLocalizedUrl("/")}
+          class="block rounded-md px-3 py-2 text-base font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+        >
+          {navItems.home}
+        </a>
+        <a
+          href={getLocalizedUrl("/about")}
+          class="block rounded-md px-3 py-2 text-base font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+        >
+          {navItems.about}
+        </a>
+        <a
+          href={getLocalizedUrl("/services")}
+          class="block rounded-md px-3 py-2 text-base font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+        >
+          {navItems.services}
+        </a>
+        <a
+          href={getLocalizedUrl("/contact")}
+          class="block rounded-md px-3 py-2 text-base font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+        >
+          {navItems.contact}
+        </a>
+        {/* Mobile Language Switcher */}
+        <div class="border-t pt-2 mt-2">
+          <a
+            href={alternateUrl}
+            class="block rounded-md px-3 py-2 text-base font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground uppercase"
+          >
+            {alternateLocale}
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<script>
+  // Mobile menu toggle
+  const button = document.getElementById("mobile-menu-button");
+  const menu = document.getElementById("mobile-menu");
+  const iconMenu = document.querySelector("[data-slot='icon-menu']");
+  const iconClose = document.querySelector("[data-slot='icon-close']");
+
+  button?.addEventListener("click", () => {
+    const expanded = button.getAttribute("aria-expanded") === "true";
+    button.setAttribute("aria-expanded", String(!expanded));
+    menu?.classList.toggle("hidden");
+    iconMenu?.classList.toggle("hidden");
+    iconMenu?.classList.toggle("block");
+    iconClose?.classList.toggle("hidden");
+    iconClose?.classList.toggle("block");
+  });
+</script>
