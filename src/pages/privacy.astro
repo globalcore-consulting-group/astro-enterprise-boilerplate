@@ -1,0 +1,23 @@
+---
+import Layout from "@/layouts/Layout.astro";
+
+const locale = "en";
+const title = "Privacy Policy";
+---
+
+<Layout title={title} locale={locale}>
+  <main class="container mx-auto px-4 md:px-6 max-w-7xl py-12 md:py-24">
+    <div class="max-w-3xl mx-auto text-center">
+      <h1 class="text-4xl md:text-5xl font-bold text-foreground mb-6">
+        {title}
+      </h1>
+      <p class="text-lg text-muted-foreground mb-8">This page is coming soon.</p>
+      <a
+        href="/"
+        class="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-primary rounded-lg hover:bg-primary/90 transition-colors"
+      >
+        Back to Home
+      </a>
+    </div>
+  </main>
+</Layout>
