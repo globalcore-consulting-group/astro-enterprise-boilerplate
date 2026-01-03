@@ -1,0 +1,59 @@
+---
+import type { SeoMetadata } from "@/content/_schemas/seo";
+import type { Locale } from "@/domain";
+
+interface Props {
+  seo: SeoMetadata;
+  locale: Locale;
+  canonicalUrl?: string;
+}
+
+const { seo, locale, canonicalUrl } = Astro.props;
+const { title, description, noIndex } = seo;
+
+// Build the full canonical URL if not provided
+const fullCanonicalUrl = canonicalUrl || Astro.url.href;
+
+// Determine alternate locale URLs
+const alternateLocale: Locale = locale === "en" ? "de" : "en";
+const currentPath = Astro.url.pathname;
+
+// Calculate alternate URL
+let alternateUrl: string;
+if (locale === "en") {
+  alternateUrl = `${Astro.site}/de${currentPath}`;
+} else {
+  const pathWithoutLang = currentPath.replace(/^\/de/, "") || "/";
+  alternateUrl = `${Astro.site}${pathWithoutLang}`;
+}
+---
+
+{/* Primary Meta Tags */}
+<title>{title}</title>
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+
+{/* Robots */}
+{noIndex && <meta name="robots" content="noindex, nofollow" />}
+
+{/* Canonical URL */}
+<link rel="canonical" href={fullCanonicalUrl} />
+
+{/* Alternate Language Links */}
+<link rel="alternate" hreflang={locale} href={fullCanonicalUrl} />
+<link rel="alternate" hreflang={alternateLocale} href={alternateUrl} />
+<link rel="alternate" hreflang="x-default" href={Astro.site || fullCanonicalUrl} />
+
+{/* Open Graph / Facebook */}
+<meta property="og:type" content="website" />
+<meta property="og:url" content={fullCanonicalUrl} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:locale" content={locale === "en" ? "en_US" : "de_DE"} />
+<meta property="og:locale:alternate" content={alternateLocale === "en" ? "en_US" : "de_DE"} />
+
+{/* Twitter */}
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={fullCanonicalUrl} />
+<meta property="twitter:title" content={title} />
+<meta property="twitter:description" content={description} />

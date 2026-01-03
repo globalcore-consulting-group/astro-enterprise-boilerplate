@@ -34,9 +34,13 @@ if (!pageSectionsContent) {
 }
 
 const { sections } = pageSectionsContent.data;
+
+// Fetch SEO metadata for current locale
+const seoContent = await getEntry("seo", `${locale}/home`);
+const seo = seoContent?.data;
 ---
 
-<Layout title={title} locale={locale}>
+<Layout title={title} locale={locale} seo={seo}>
   <main>
     <Hero title={title} subtitle={subtitle} primaryCta={primaryCta} secondaryCta={secondaryCta} />
 

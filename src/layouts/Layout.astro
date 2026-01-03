@@ -2,26 +2,46 @@
 import "@/styles/starwind.css";
 import Navbar from "@/components/common/Navbar/Navbar.astro";
 import Footer from "@/components/common/Footer/Footer.astro";
+import SEO from "@/components/common/SEO/SEO.astro";
 import type { Locale } from "@/domain";
+import type { SeoMetadata } from "@/content/_schemas/seo";
 import { DEFAULT_LOCALE } from "@/domain";
 
 interface Props {
   title: string;
   locale?: Locale;
+  seo?: SeoMetadata;
+  description?: string;
 }
 
-const { title, locale = DEFAULT_LOCALE } = Astro.props;
+const { title, locale = DEFAULT_LOCALE, seo, description } = Astro.props;
+
+// Fallback description if neither SEO nor description is provided
+const fallbackDescription =
+  locale === "en"
+    ? "Resilience Architecture for Critical Systems. Independent consulting for decision-ready architecture."
+    : "Resilienz Architektur für kritische Systeme. Unabhängige Beratung für entscheidungsreife Architektur.";
 ---
 
 <!doctype html>
 <html lang={locale}>
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Astro description" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <title>Globalcore | {title}</title>
+
+    {/* SEO Component or Fallback */}
+    {
+      seo ? (
+        <SEO seo={seo} locale={locale} />
+      ) : (
+        <>
+          <title>Globalcore | {title}</title>
+          <meta name="description" content={description || fallbackDescription} />
+        </>
+      )
+    }
   </head>
   <body>
     <Navbar locale={locale} />

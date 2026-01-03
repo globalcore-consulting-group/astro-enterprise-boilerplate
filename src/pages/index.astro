@@ -23,9 +23,13 @@ if (!pageSectionsContent) {
 }
 
 const { sections } = pageSectionsContent.data;
+
+// Fetch SEO metadata for EN locale
+const seoContent = await getEntry("seo", "en/home");
+const seo = seoContent?.data;
 ---
 
-<Layout title={title} locale="en">
+<Layout title={title} locale="en" seo={seo}>
   <main>
     <Hero title={title} subtitle={subtitle} primaryCta={primaryCta} secondaryCta={secondaryCta} />
 
