@@ -27,7 +27,7 @@ npm run dev          # Start dev server at localhost:4321
 
 ## Project Status
 
-> 🚀 **Progress: 87% to v1.0.0** (13 of 15 core items complete)
+> 🚀 **Progress: 90% to v1.0.0** (18 of 20 core items complete)
 
 ### ✅ Done
 
@@ -52,6 +52,11 @@ npm run dev          # Start dev server at localhost:4321
 - [x] **Documentation** (Layer READMEs: domain, application, infrastructure, i18n + 4 ADRs)
 - [x] **Pre-push hook** (typecheck + unit tests + E2E tests, ~9s total)
 - [x] **Modular Content Collections** (\_schemas/ and \_collections/ structure)
+- [x] **Domain Value Objects** (Locale, Slug, Url with zero dependencies)
+- [x] **Production Homepage** (All sections: Hero, Cards, OneLiner, CtaStrip)
+- [x] **Starwind UI Card** (v1.3.0 installed with barrel export fix)
+- [x] **Navigation Components** (Navbar with mobile menu + language switcher, Footer)
+- [x] **SEO Component** (Dynamic meta tags, Open Graph, Twitter cards, hreflang)
 
 ### ⏳ Pending Setup
 
