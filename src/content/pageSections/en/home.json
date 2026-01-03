@@ -23,30 +23,30 @@
     },
     {
       "type": "cards",
-      "id": "offerings",
-      "anchor": "offerings",
-      "title": "Offerings",
+      "id": "services",
+      "anchor": "services",
+      "title": "Services",
       "intro": "Four productized engagement formats that map to FRAS™.",
       "items": [
         {
           "title": "FRAME Sprint",
           "text": "Fast orientation: dependencies, constraints, priorities, and decision context.",
-          "href": "/offerings#frame-sprint"
+          "href": "/services#frame-sprint"
         },
         {
           "title": "ARCHITECT Blueprint",
           "text": "Target architecture (FRAB) with principles, guardrails, governance, and sequencing.",
-          "href": "/offerings#architect-blueprint"
+          "href": "/services#architect-blueprint"
         },
         {
           "title": "MODEL Validation",
           "text": "Scenario-based validation of critical architecture slices—evidence for decision readiness.",
-          "href": "/offerings#model-validation"
+          "href": "/services#model-validation"
         },
         {
           "title": "STEER Retainer",
           "text": "Architecture integrity assurance: stage-gates, ADRs, dashboards, and steering signals.",
-          "href": "/offerings#steer-retainer"
+          "href": "/services#steer-retainer"
         }
       ]
     },
@@ -102,7 +102,7 @@
       "id": "home-cta",
       "title": "Ready to align architecture and decisions?",
       "primary": { "label": "Book an Intro Call", "href": "/contact" },
-      "secondary": { "label": "Explore Offerings", "href": "/offerings" }
+      "secondary": { "label": "Explore Services", "href": "/services" }
     }
   ]
 }
