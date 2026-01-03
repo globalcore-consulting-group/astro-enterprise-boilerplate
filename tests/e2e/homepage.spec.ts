@@ -48,7 +48,7 @@ test.describe("Homepage", () => {
     const secondaryCta = heroContainer.getByRole("link", { name: "How We Work (FRAS™)" });
 
     await expect(primaryCta).toHaveAttribute("href", "/contact");
-    await expect(secondaryCta).toHaveAttribute("href", "/how-we-work");
+    await expect(secondaryCta).toHaveAttribute("href", "/about#how-we-work");
   });
 
   test.describe("Responsive Design", () => {
@@ -144,6 +144,6 @@ test.describe("Homepage (German /de)", () => {
     const secondaryCta = heroContainer.getByRole("link", { name: "So arbeiten wir (FRAS™)" });
 
     await expect(primaryCta).toHaveAttribute("href", "/de/kontakt");
-    await expect(secondaryCta).toHaveAttribute("href", "/de/ueber-uns");
+    await expect(secondaryCta).toHaveAttribute("href", "/de/ueber-uns#how-we-work");
   });
 });
