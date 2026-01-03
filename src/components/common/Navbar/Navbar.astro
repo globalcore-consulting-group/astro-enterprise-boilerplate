@@ -10,26 +10,53 @@ interface Props {
 const { locale } = Astro.props;
 const navItems = getNamespace(locale, "nav");
 
-// Build URL for locale
+// Route translations mapping
+const routeTranslations: Record<string, Record<string, string>> = {
+  en: {
+    about: "ueber-uns",
+    services: "dienstleistungen",
+    contact: "kontakt",
+    domains: "domaenen",
+    privacy: "datenschutz",
+    imprint: "impressum",
+  },
+  de: {
+    "ueber-uns": "about",
+    dienstleistungen: "services",
+    kontakt: "contact",
+    domaenen: "domains",
+    datenschutz: "privacy",
+    impressum: "imprint",
+  },
+};
+
+// Build URL for locale with route translation
 const getLocalizedUrl = (path: string) => {
   if (locale === "en") {
     return path;
   }
-  return `/${locale}${path}`;
+  // For German, translate the route slug
+  const slug = path.slice(1); // Remove leading /
+  const translatedSlug = routeTranslations.en[slug] || slug;
+  return translatedSlug ? `/${locale}/${translatedSlug}` : `/${locale}`;
 };
 
 // Get alternate locale and its URL
 const alternateLocale: Locale = locale === "en" ? "de" : "en";
 const currentPath = Astro.url.pathname;
 
-// Calculate alternate URL
+// Calculate alternate URL with route translation
 let alternateUrl: string;
 if (locale === "en") {
-  // Going from EN to DE: add /de prefix
-  alternateUrl = `/de${currentPath}`;
+  // Going from EN to DE: translate route slug
+  const slug = currentPath.slice(1); // Remove leading /
+  const translatedSlug = routeTranslations.en[slug] || slug;
+  alternateUrl = translatedSlug ? `/de/${translatedSlug}` : "/de";
 } else {
-  // Going from DE to EN: remove /de prefix
-  alternateUrl = currentPath.replace(/^\/de/, "") || "/";
+  // Going from DE to EN: translate route slug
+  const slug = currentPath.replace(/^\/de\/?/, ""); // Remove /de/ prefix
+  const translatedSlug = routeTranslations.de[slug] || slug;
+  alternateUrl = translatedSlug ? `/${translatedSlug}` : "/";
 }
 ---
 
