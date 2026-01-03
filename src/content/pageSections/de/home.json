@@ -31,22 +31,22 @@
         {
           "title": "FRAME Sprint",
           "text": "Schnelle Orientierung: Abhängigkeiten, Constraints, Prioritäten und Entscheidungskontext.",
-          "href": "/de/offerings#frame-sprint"
+          "href": "/de/dienstleistungen#frame-sprint"
         },
         {
           "title": "ARCHITECT Blueprint",
           "text": "Zielarchitektur (FRAB) mit Prinzipien, Guardrails, Governance und Sequencing.",
-          "href": "/de/offerings#architect-blueprint"
+          "href": "/de/dienstleistungen#architect-blueprint"
         },
         {
           "title": "MODEL Validierung",
           "text": "Szenariobasierte Validierung kritischer Architekturslices—Evidenz für Decision Readiness.",
-          "href": "/de/offerings#model-validation"
+          "href": "/de/dienstleistungen#model-validation"
         },
         {
           "title": "STEER Retainer",
           "text": "Architecture Integrity Assurance: Stage-Gates, ADRs, Dashboards und Steering-Signale.",
-          "href": "/de/offerings#steer-retainer"
+          "href": "/de/dienstleistungen#steer-retainer"
         }
       ]
     },
@@ -60,32 +60,32 @@
         {
           "title": "Energy & Infrastructure Resilience",
           "text": "Power, Cooling, Grid-Constraints, Microgrids—Architektur für hochkritische Infrastruktur.",
-          "href": "/de/domains#energy-infrastructure"
+          "href": "/de/domaenen#energy-infrastructure"
         },
         {
           "title": "Digital & Cyber Resilience",
           "text": "Operational Resilience und Cyber-Anforderungen in komplexen Service-Landschaften.",
-          "href": "/de/domains#digital-cyber"
+          "href": "/de/domaenen#digital-cyber"
         },
         {
           "title": "Finance Resilience",
           "text": "Entscheidungsreife Finance- und Risk-Architekturen unter Stress und Daten-Constraints.",
-          "href": "/de/domains#finance"
+          "href": "/de/domaenen#finance"
         },
         {
           "title": "Customer Value & Revenue Resilience",
           "text": "Architektur, die Wertschöpfung schützt, wenn Kanäle, Daten oder Märkte kippen.",
-          "href": "/de/domains#customer-value"
+          "href": "/de/domaenen#customer-value"
         },
         {
           "title": "Regulated Operations / Health",
           "text": "Resilienz und Integrität in regulierten, sicherheitskritischen Operations-Umfeldern.",
-          "href": "/de/domains#health"
+          "href": "/de/domaenen#health"
         },
         {
           "title": "ESG Data Resilience & Auditability",
           "text": "Auditierbare ESG-Datenarchitektur: Traceability, Controls und Evidence.",
-          "href": "/de/domains#esg"
+          "href": "/de/domaenen#esg"
         }
       ]
     },
@@ -101,8 +101,8 @@
       "type": "ctaStrip",
       "id": "home-cta",
       "title": "Bereit für Klarheit und Integrität?",
-      "primary": { "label": "Erstgespräch vereinbaren", "href": "/de/contact" },
-      "secondary": { "label": "Leistungen ansehen", "href": "/de/offerings" }
+      "primary": { "label": "Erstgespräch vereinbaren", "href": "/de/kontakt" },
+      "secondary": { "label": "Leistungen ansehen", "href": "/de/dienstleistungen" }
     }
   ]
 }
