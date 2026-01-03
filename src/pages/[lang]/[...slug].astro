@@ -1,0 +1,153 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { SUPPORTED_LOCALES, DEFAULT_LOCALE, getLocaleOrDefault } from "@/domain";
+import type { Locale } from "@/domain";
+
+export async function getStaticPaths() {
+  // Route translations mapping (as per AGENTS.md)
+  const routeTranslations: Record<string, string> = {
+    "ueber-uns": "about",
+    dienstleistungen: "services",
+    kontakt: "contact",
+    domaenen: "domains",
+    datenschutz: "privacy",
+    impressum: "imprint",
+  };
+
+  const locales = SUPPORTED_LOCALES.filter((locale) => locale !== DEFAULT_LOCALE);
+  const germanSlugs = Object.keys(routeTranslations);
+
+  return locales.flatMap((locale) =>
+    germanSlugs.map((slug) => ({
+      params: { lang: locale, slug },
+    }))
+  );
+}
+
+// Route translations (duplicated for component scope)
+const routeTranslations: Record<string, string> = {
+  "ueber-uns": "about",
+  dienstleistungen: "services",
+  kontakt: "contact",
+  domaenen: "domains",
+  datenschutz: "privacy",
+  impressum: "imprint",
+};
+
+const locale: Locale = getLocaleOrDefault(Astro.params.lang);
+const germanSlug = Astro.params.slug;
+
+// Map German slug to English page title
+const englishSlug = routeTranslations[germanSlug || ""];
+
+// Get page title based on slug
+const getPageTitle = (slug: string): string => {
+  const titles: Record<string, string> = {
+    "ueber-uns": "Über uns",
+    dienstleistungen: "Dienstleistungen",
+    kontakt: "Kontakt",
+    domaenen: "Domänen",
+    datenschutz: "Datenschutz",
+    impressum: "Impressum",
+  };
+  return titles[slug] || "Seite";
+};
+
+const title = getPageTitle(germanSlug || "");
+
+// Check if this is the "about" page with "how-we-work" anchor
+const isAboutPage = englishSlug === "about";
+const isServicesPage = englishSlug === "services";
+const isDomainsPage = englishSlug === "domains";
+---
+
+<Layout title={title} locale={locale}>
+  <main class="container mx-auto px-4 md:px-6 max-w-7xl py-12 md:py-24">
+    <div class="max-w-3xl mx-auto text-center">
+      <h1 class="text-4xl md:text-5xl font-bold text-foreground mb-6">
+        {title}
+      </h1>
+      <p class="text-lg text-muted-foreground mb-8">Diese Seite kommt bald.</p>
+      <a
+        href="/de"
+        class="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-primary rounded-lg hover:bg-primary/90 transition-colors"
+      >
+        Zurück zur Startseite
+      </a>
+    </div>
+
+    {/* About page - Add "How We Work" section */}
+    {
+      isAboutPage && (
+        <div id="how-we-work" class="mt-24 max-w-3xl mx-auto">
+          <h2 class="text-3xl font-bold text-foreground mb-4">So arbeiten wir</h2>
+          <p class="text-muted-foreground">FRAS™ Inhalte kommen bald.</p>
+        </div>
+      )
+    }
+
+    {/* Services page - Add anchor sections */}
+    {
+      isServicesPage && (
+        <div class="mt-24 max-w-3xl mx-auto space-y-16">
+          <div id="frame-sprint">
+            <h2 class="text-2xl font-bold text-foreground mb-2">FRAME Sprint</h2>
+            <p class="text-muted-foreground">Inhalte kommen bald.</p>
+          </div>
+
+          <div id="architect-blueprint">
+            <h2 class="text-2xl font-bold text-foreground mb-2">ARCHITECT Blueprint</h2>
+            <p class="text-muted-foreground">Inhalte kommen bald.</p>
+          </div>
+
+          <div id="model-validation">
+            <h2 class="text-2xl font-bold text-foreground mb-2">MODEL Validierung</h2>
+            <p class="text-muted-foreground">Inhalte kommen bald.</p>
+          </div>
+
+          <div id="steer-retainer">
+            <h2 class="text-2xl font-bold text-foreground mb-2">STEER Retainer</h2>
+            <p class="text-muted-foreground">Inhalte kommen bald.</p>
+          </div>
+        </div>
+      )
+    }
+
+    {/* Domains page - Add anchor sections */}
+    {
+      isDomainsPage && (
+        <div class="mt-24 max-w-3xl mx-auto space-y-16">
+          <div id="energy-infrastructure">
+            <h2 class="text-2xl font-bold text-foreground mb-2">Energy & Infrastructure Resilience</h2>
+            <p class="text-muted-foreground">Inhalte kommen bald.</p>
+          </div>
+
+          <div id="digital-cyber">
+            <h2 class="text-2xl font-bold text-foreground mb-2">Digital & Cyber Resilience</h2>
+            <p class="text-muted-foreground">Inhalte kommen bald.</p>
+          </div>
+
+          <div id="finance">
+            <h2 class="text-2xl font-bold text-foreground mb-2">Finance Resilience</h2>
+            <p class="text-muted-foreground">Inhalte kommen bald.</p>
+          </div>
+
+          <div id="customer-value">
+            <h2 class="text-2xl font-bold text-foreground mb-2">Customer Value & Revenue Resilience</h2>
+            <p class="text-muted-foreground">Inhalte kommen bald.</p>
+          </div>
+
+          <div id="health">
+            <h2 class="text-2xl font-bold text-foreground mb-2">Regulated Operations / Health</h2>
+            <p class="text-muted-foreground">Inhalte kommen bald.</p>
+          </div>
+
+          <div id="esg">
+            <h2 class="text-2xl font-bold text-foreground mb-2">ESG Data Resilience & Auditability</h2>
+            <p class="text-muted-foreground">Inhalte kommen bald.</p>
+          </div>
+        </div>
+      )
+    }
+  </main>
+</Layout>
