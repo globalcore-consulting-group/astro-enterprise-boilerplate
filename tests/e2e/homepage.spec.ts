@@ -16,33 +16,36 @@ test.describe("Homepage", () => {
     await expect(subtitle).toBeVisible();
   });
 
-  test("renders CTA buttons", async ({ page }) => {
+  test("renders Hero CTA buttons", async ({ page }) => {
     await page.goto("/");
 
-    // Check both CTA buttons are present
-    const primaryCta = page.getByRole("link", { name: "Book an Intro Call" });
-    const secondaryCta = page.getByRole("link", { name: "How We Work (FRAS™)" });
+    // Check Hero section CTA buttons (using test ID for scoping)
+    const heroContainer = page.getByTestId("hero-cta-container");
+    const primaryCta = heroContainer.getByRole("link", { name: "Book an Intro Call" });
+    const secondaryCta = heroContainer.getByRole("link", { name: "How We Work (FRAS™)" });
 
     await expect(primaryCta).toBeVisible();
     await expect(secondaryCta).toBeVisible();
   });
 
-  test("CTA buttons have correct styling", async ({ page }) => {
+  test("Hero CTA buttons have correct styling", async ({ page }) => {
     await page.goto("/");
 
-    const primaryCta = page.getByRole("link", { name: "Book an Intro Call" });
+    const heroContainer = page.getByTestId("hero-cta-container");
+    const primaryCta = heroContainer.getByRole("link", { name: "Book an Intro Call" });
     await expect(primaryCta).toHaveAttribute("class", /bg-primary/);
     await expect(primaryCta).toHaveAttribute("data-slot", "button");
 
-    const secondaryCta = page.getByRole("link", { name: "How We Work (FRAS™)" });
+    const secondaryCta = heroContainer.getByRole("link", { name: "How We Work (FRAS™)" });
     await expect(secondaryCta).toHaveAttribute("class", /border/);
   });
 
-  test("CTA buttons link to correct pages", async ({ page }) => {
+  test("Hero CTA buttons link to correct pages", async ({ page }) => {
     await page.goto("/");
 
-    const primaryCta = page.getByRole("link", { name: "Book an Intro Call" });
-    const secondaryCta = page.getByRole("link", { name: "How We Work (FRAS™)" });
+    const heroContainer = page.getByTestId("hero-cta-container");
+    const primaryCta = heroContainer.getByRole("link", { name: "Book an Intro Call" });
+    const secondaryCta = heroContainer.getByRole("link", { name: "How We Work (FRAS™)" });
 
     await expect(primaryCta).toHaveAttribute("href", "/contact");
     await expect(secondaryCta).toHaveAttribute("href", "/how-we-work");
@@ -122,21 +125,23 @@ test.describe("Homepage (German /de)", () => {
     await expect(subtitle).toBeVisible();
   });
 
-  test("renders German CTA buttons", async ({ page }) => {
+  test("renders German Hero CTA buttons", async ({ page }) => {
     await page.goto("/de");
 
-    const primaryCta = page.getByRole("link", { name: "Erstgespräch vereinbaren" });
-    const secondaryCta = page.getByRole("link", { name: "So arbeiten wir (FRAS™)" });
+    const heroContainer = page.getByTestId("hero-cta-container");
+    const primaryCta = heroContainer.getByRole("link", { name: "Erstgespräch vereinbaren" });
+    const secondaryCta = heroContainer.getByRole("link", { name: "So arbeiten wir (FRAS™)" });
 
     await expect(primaryCta).toBeVisible();
     await expect(secondaryCta).toBeVisible();
   });
 
-  test("German CTA buttons link to correct pages", async ({ page }) => {
+  test("German Hero CTA buttons link to correct pages", async ({ page }) => {
     await page.goto("/de");
 
-    const primaryCta = page.getByRole("link", { name: "Erstgespräch vereinbaren" });
-    const secondaryCta = page.getByRole("link", { name: "So arbeiten wir (FRAS™)" });
+    const heroContainer = page.getByTestId("hero-cta-container");
+    const primaryCta = heroContainer.getByRole("link", { name: "Erstgespräch vereinbaren" });
+    const secondaryCta = heroContainer.getByRole("link", { name: "So arbeiten wir (FRAS™)" });
 
     await expect(primaryCta).toHaveAttribute("href", "/de/kontakt");
     await expect(secondaryCta).toHaveAttribute("href", "/de/ueber-uns");
