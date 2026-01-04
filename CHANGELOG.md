@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 1.1.0 (2026-01-04)
+
+- feat(ci): add automated release workflow with semantic-release ([e09886c](https://github.com/globalcore-consulting-group/globalcore-website/commit/e09886c))
+- docs: update all documentation for v1.0.0 completion ([886e848](https://github.com/globalcore-consulting-group/globalcore-website/commit/886e848)), closes [#17](https://github.com/globalcore-consulting-group/globalcore-website/issues/17)
+
 ## 1.0.0 (2026-01-04)
 
 - feat(components): add Hero section component ([eab2513](https://github.com/globalcore-consulting-group/globalcore-website/commit/eab2513))
