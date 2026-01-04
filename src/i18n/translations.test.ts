@@ -1,5 +1,133 @@
 import { describe, it, expect } from "vitest";
-import { buildPath, getRouteKeyFromPath, getRouteSlugs } from "./translations";
+import { t, getNamespace, buildPath, getRouteKeyFromPath, getRouteSlugs, translations } from "./translations";
+
+describe("Translation Functions", () => {
+  describe("t", () => {
+    it("should return correct EN translations for nav namespace", () => {
+      expect(t("en", "nav", "home")).toBe("Home");
+      expect(t("en", "nav", "about")).toBe("About");
+      expect(t("en", "nav", "services")).toBe("Services");
+      expect(t("en", "nav", "contact")).toBe("Contact");
+      expect(t("en", "nav", "domains")).toBe("Domains");
+    });
+
+    it("should return correct DE translations for nav namespace", () => {
+      expect(t("de", "nav", "home")).toBe("Startseite");
+      expect(t("de", "nav", "about")).toBe("Über uns");
+      expect(t("de", "nav", "services")).toBe("Dienstleistungen");
+      expect(t("de", "nav", "contact")).toBe("Kontakt");
+      expect(t("de", "nav", "domains")).toBe("Domänen");
+    });
+
+    it("should return correct EN translations for ui namespace", () => {
+      expect(t("en", "ui", "learnMore")).toBe("Learn more");
+      expect(t("en", "ui", "getStarted")).toBe("Get started");
+      expect(t("en", "ui", "backToHome")).toBe("Back to Home");
+      expect(t("en", "ui", "comingSoon")).toBe("This page is coming soon.");
+      expect(t("en", "ui", "loading")).toBe("Loading...");
+    });
+
+    it("should return correct DE translations for ui namespace", () => {
+      expect(t("de", "ui", "learnMore")).toBe("Mehr erfahren");
+      expect(t("de", "ui", "getStarted")).toBe("Jetzt starten");
+      expect(t("de", "ui", "backToHome")).toBe("Zurück zur Startseite");
+      expect(t("de", "ui", "comingSoon")).toBe("Diese Seite kommt bald.");
+      expect(t("de", "ui", "loading")).toBe("Wird geladen...");
+    });
+
+    it("should return correct translations for footer namespace", () => {
+      expect(t("en", "footer", "privacyPolicy")).toBe("Privacy Policy");
+      expect(t("de", "footer", "privacyPolicy")).toBe("Datenschutz");
+      expect(t("en", "footer", "imprint")).toBe("Imprint");
+      expect(t("de", "footer", "imprint")).toBe("Impressum");
+      expect(t("en", "footer", "allRightsReserved")).toBe("All rights reserved.");
+      expect(t("de", "footer", "allRightsReserved")).toBe("Alle Rechte vorbehalten.");
+    });
+
+    it("should return correct translations for sections namespace", () => {
+      expect(t("en", "sections", "howWeWork")).toBe("How We Work");
+      expect(t("de", "sections", "howWeWork")).toBe("So arbeiten wir");
+      expect(t("en", "sections", "frameSprint")).toBe("FRAME Sprint");
+      expect(t("de", "sections", "frameSprint")).toBe("FRAME Sprint");
+    });
+  });
+
+  describe("getNamespace", () => {
+    it("should return entire nav namespace for EN", () => {
+      const navEN = getNamespace("en", "nav");
+      expect(navEN).toEqual({
+        home: "Home",
+        about: "About",
+        services: "Services",
+        contact: "Contact",
+        domains: "Domains",
+      });
+    });
+
+    it("should return entire nav namespace for DE", () => {
+      const navDE = getNamespace("de", "nav");
+      expect(navDE).toEqual({
+        home: "Startseite",
+        about: "Über uns",
+        services: "Dienstleistungen",
+        contact: "Kontakt",
+        domains: "Domänen",
+      });
+    });
+
+    it("should return entire routes namespace for EN", () => {
+      const routesEN = getNamespace("en", "routes");
+      expect(routesEN.about).toBe("about");
+      expect(routesEN.services).toBe("services");
+      expect(routesEN.contact).toBe("contact");
+    });
+
+    it("should return entire routes namespace for DE", () => {
+      const routesDE = getNamespace("de", "routes");
+      expect(routesDE.about).toBe("ueber-uns");
+      expect(routesDE.services).toBe("dienstleistungen");
+      expect(routesDE.contact).toBe("kontakt");
+    });
+  });
+
+  describe("Translation schema consistency", () => {
+    it("should have the same namespace keys across all locales", () => {
+      const enNamespaces = Object.keys(translations.en);
+      const deNamespaces = Object.keys(translations.de);
+      expect(enNamespaces).toEqual(deNamespaces);
+    });
+
+    it("should have the same nav keys across all locales", () => {
+      const enNavKeys = Object.keys(translations.en.nav);
+      const deNavKeys = Object.keys(translations.de.nav);
+      expect(enNavKeys).toEqual(deNavKeys);
+    });
+
+    it("should have the same ui keys across all locales", () => {
+      const enUiKeys = Object.keys(translations.en.ui);
+      const deUiKeys = Object.keys(translations.de.ui);
+      expect(enUiKeys).toEqual(deUiKeys);
+    });
+
+    it("should have the same footer keys across all locales", () => {
+      const enFooterKeys = Object.keys(translations.en.footer);
+      const deFooterKeys = Object.keys(translations.de.footer);
+      expect(enFooterKeys).toEqual(deFooterKeys);
+    });
+
+    it("should have the same routes keys across all locales", () => {
+      const enRoutesKeys = Object.keys(translations.en.routes);
+      const deRoutesKeys = Object.keys(translations.de.routes);
+      expect(enRoutesKeys).toEqual(deRoutesKeys);
+    });
+
+    it("should have the same sections keys across all locales", () => {
+      const enSectionsKeys = Object.keys(translations.en.sections);
+      const deSectionsKeys = Object.keys(translations.de.sections);
+      expect(enSectionsKeys).toEqual(deSectionsKeys);
+    });
+  });
+});
 
 describe("Route Helpers", () => {
   describe("buildPath", () => {
