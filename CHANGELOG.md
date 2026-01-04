@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## <small>1.1.1 (2026-01-04)</small>
+
+- Merge branch 'main' of https://github.com/globalcore-consulting-group/globalcore-website ([0f835a8](https://github.com/globalcore-consulting-group/globalcore-website/commit/0f835a8))
+- refactor(navbar): replace class with suggested by tailwindcss ([86ab0d6](https://github.com/globalcore-consulting-group/globalcore-website/commit/86ab0d6))
+
 ## 1.1.0 (2026-01-04)
 
 - feat(ci): add automated release workflow with semantic-release ([e09886c](https://github.com/globalcore-consulting-group/globalcore-website/commit/e09886c))
