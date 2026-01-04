@@ -1,8 +1,9 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import { t, buildPath } from "@/i18n/translations";
 
 const locale = "en";
-const title = "Privacy Policy";
+const title = t(locale, "footer", "privacyPolicy");
 ---
 
 <Layout title={title} locale={locale}>
@@ -11,12 +12,12 @@ const title = "Privacy Policy";
       <h1 class="text-4xl md:text-5xl font-bold text-foreground mb-6">
         {title}
       </h1>
-      <p class="text-lg text-muted-foreground mb-8">This page is coming soon.</p>
+      <p class="text-lg text-muted-foreground mb-8">{t(locale, "ui", "comingSoon")}</p>
       <a
-        href="/"
+        href={buildPath("home", locale)}
         class="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-primary rounded-lg hover:bg-primary/90 transition-colors"
       >
-        Back to Home
+        {t(locale, "ui", "backToHome")}
       </a>
     </div>
   </main>

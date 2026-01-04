@@ -1,6 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import { t } from "@/i18n/translations";
+import { t, buildPath } from "@/i18n/translations";
 
 const locale = "en";
 const title = t(locale, "nav", "services");
@@ -12,35 +12,35 @@ const title = t(locale, "nav", "services");
       <h1 class="text-4xl md:text-5xl font-bold text-foreground mb-6">
         {title}
       </h1>
-      <p class="text-lg text-muted-foreground mb-8">This page is coming soon.</p>
+      <p class="text-lg text-muted-foreground mb-8">{t(locale, "ui", "comingSoon")}</p>
       <a
-        href="/"
+        href={buildPath("home", locale)}
         class="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-primary rounded-lg hover:bg-primary/90 transition-colors"
       >
-        Back to Home
+        {t(locale, "ui", "backToHome")}
       </a>
     </div>
 
     {/* Anchor sections for service offerings */}
     <div class="mt-24 max-w-3xl mx-auto space-y-16">
       <div id="frame-sprint">
-        <h2 class="text-2xl font-bold text-foreground mb-2">FRAME Sprint</h2>
-        <p class="text-muted-foreground">Content coming soon.</p>
+        <h2 class="text-2xl font-bold text-foreground mb-2">{t(locale, "sections", "frameSprint")}</h2>
+        <p class="text-muted-foreground">{t(locale, "ui", "contentComingSoon")}</p>
       </div>
 
       <div id="architect-blueprint">
-        <h2 class="text-2xl font-bold text-foreground mb-2">ARCHITECT Blueprint</h2>
-        <p class="text-muted-foreground">Content coming soon.</p>
+        <h2 class="text-2xl font-bold text-foreground mb-2">{t(locale, "sections", "architectBlueprint")}</h2>
+        <p class="text-muted-foreground">{t(locale, "ui", "contentComingSoon")}</p>
       </div>
 
       <div id="model-validation">
-        <h2 class="text-2xl font-bold text-foreground mb-2">MODEL Validation</h2>
-        <p class="text-muted-foreground">Content coming soon.</p>
+        <h2 class="text-2xl font-bold text-foreground mb-2">{t(locale, "sections", "modelValidation")}</h2>
+        <p class="text-muted-foreground">{t(locale, "ui", "contentComingSoon")}</p>
       </div>
 
       <div id="steer-retainer">
-        <h2 class="text-2xl font-bold text-foreground mb-2">STEER Retainer</h2>
-        <p class="text-muted-foreground">Content coming soon.</p>
+        <h2 class="text-2xl font-bold text-foreground mb-2">{t(locale, "sections", "steerRetainer")}</h2>
+        <p class="text-muted-foreground">{t(locale, "ui", "contentComingSoon")}</p>
       </div>
     </div>
   </main>

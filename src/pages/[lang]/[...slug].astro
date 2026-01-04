@@ -2,63 +2,42 @@
 import Layout from "@/layouts/Layout.astro";
 import { SUPPORTED_LOCALES, DEFAULT_LOCALE, getLocaleOrDefault } from "@/domain";
 import type { Locale } from "@/domain";
+import { t, getRouteSlugs, getRouteKeyFromPath, buildPath } from "@/i18n/translations";
 
 export async function getStaticPaths() {
-  // Route translations mapping (as per AGENTS.md)
-  const routeTranslations: Record<string, string> = {
-    "ueber-uns": "about",
-    dienstleistungen: "services",
-    kontakt: "contact",
-    domaenen: "domains",
-    datenschutz: "privacy",
-    impressum: "imprint",
-  };
-
   const locales = SUPPORTED_LOCALES.filter((locale) => locale !== DEFAULT_LOCALE);
-  const germanSlugs = Object.keys(routeTranslations);
 
   return locales.flatMap((locale) =>
-    germanSlugs.map((slug) => ({
+    getRouteSlugs(locale).map((slug) => ({
       params: { lang: locale, slug },
     }))
   );
 }
 
-// Route translations (duplicated for component scope)
-const routeTranslations: Record<string, string> = {
-  "ueber-uns": "about",
-  dienstleistungen: "services",
-  kontakt: "contact",
-  domaenen: "domains",
-  datenschutz: "privacy",
-  impressum: "imprint",
-};
-
 const locale: Locale = getLocaleOrDefault(Astro.params.lang);
-const germanSlug = Astro.params.slug;
+const localizedSlug = Astro.params.slug;
 
-// Map German slug to English page title
-const englishSlug = routeTranslations[germanSlug || ""];
+// Extract route key from localized path to determine which page we're on
+const routeKey = getRouteKeyFromPath(`/${locale}/${localizedSlug}`);
 
-// Get page title based on slug
-const getPageTitle = (slug: string): string => {
-  const titles: Record<string, string> = {
-    "ueber-uns": "Über uns",
-    dienstleistungen: "Dienstleistungen",
-    kontakt: "Kontakt",
-    domaenen: "Domänen",
-    datenschutz: "Datenschutz",
-    impressum: "Impressum",
-  };
-  return titles[slug] || "Seite";
+// Get page title from translations based on route key
+const getPageTitle = (): string => {
+  if (!routeKey) return "Seite"; // Fallback
+
+  // Map route keys to translation keys
+  if (routeKey === "privacy") return t(locale, "footer", "privacyPolicy");
+  if (routeKey === "imprint") return t(locale, "footer", "imprint");
+
+  // Default: use nav translation
+  return t(locale, "nav", routeKey as any);
 };
 
-const title = getPageTitle(germanSlug || "");
+const title = getPageTitle();
 
-// Check if this is the "about" page with "how-we-work" anchor
-const isAboutPage = englishSlug === "about";
-const isServicesPage = englishSlug === "services";
-const isDomainsPage = englishSlug === "domains";
+// Check which page type for anchor sections
+const isAboutPage = routeKey === "about";
+const isServicesPage = routeKey === "services";
+const isDomainsPage = routeKey === "domains";
 ---
 
 <Layout title={title} locale={locale}>
@@ -67,12 +46,12 @@ const isDomainsPage = englishSlug === "domains";
       <h1 class="text-4xl md:text-5xl font-bold text-foreground mb-6">
         {title}
       </h1>
-      <p class="text-lg text-muted-foreground mb-8">Diese Seite kommt bald.</p>
+      <p class="text-lg text-muted-foreground mb-8">{t(locale, "ui", "comingSoon")}</p>
       <a
-        href="/de"
+        href={buildPath("home", locale)}
         class="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-primary rounded-lg hover:bg-primary/90 transition-colors"
       >
-        Zurück zur Startseite
+        {t(locale, "ui", "backToHome")}
       </a>
     </div>
 
@@ -80,8 +59,8 @@ const isDomainsPage = englishSlug === "domains";
     {
       isAboutPage && (
         <div id="how-we-work" class="mt-24 max-w-3xl mx-auto">
-          <h2 class="text-3xl font-bold text-foreground mb-4">So arbeiten wir</h2>
-          <p class="text-muted-foreground">FRAS™ Inhalte kommen bald.</p>
+          <h2 class="text-3xl font-bold text-foreground mb-4">{t(locale, "sections", "howWeWork")}</h2>
+          <p class="text-muted-foreground">{t(locale, "sections", "howWeWorkContent")}</p>
         </div>
       )
     }
@@ -91,23 +70,23 @@ const isDomainsPage = englishSlug === "domains";
       isServicesPage && (
         <div class="mt-24 max-w-3xl mx-auto space-y-16">
           <div id="frame-sprint">
-            <h2 class="text-2xl font-bold text-foreground mb-2">FRAME Sprint</h2>
-            <p class="text-muted-foreground">Inhalte kommen bald.</p>
+            <h2 class="text-2xl font-bold text-foreground mb-2">{t(locale, "sections", "frameSprint")}</h2>
+            <p class="text-muted-foreground">{t(locale, "ui", "contentComingSoon")}</p>
           </div>
 
           <div id="architect-blueprint">
-            <h2 class="text-2xl font-bold text-foreground mb-2">ARCHITECT Blueprint</h2>
-            <p class="text-muted-foreground">Inhalte kommen bald.</p>
+            <h2 class="text-2xl font-bold text-foreground mb-2">{t(locale, "sections", "architectBlueprint")}</h2>
+            <p class="text-muted-foreground">{t(locale, "ui", "contentComingSoon")}</p>
           </div>
 
           <div id="model-validation">
-            <h2 class="text-2xl font-bold text-foreground mb-2">MODEL Validierung</h2>
-            <p class="text-muted-foreground">Inhalte kommen bald.</p>
+            <h2 class="text-2xl font-bold text-foreground mb-2">{t(locale, "sections", "modelValidation")}</h2>
+            <p class="text-muted-foreground">{t(locale, "ui", "contentComingSoon")}</p>
           </div>
 
           <div id="steer-retainer">
-            <h2 class="text-2xl font-bold text-foreground mb-2">STEER Retainer</h2>
-            <p class="text-muted-foreground">Inhalte kommen bald.</p>
+            <h2 class="text-2xl font-bold text-foreground mb-2">{t(locale, "sections", "steerRetainer")}</h2>
+            <p class="text-muted-foreground">{t(locale, "ui", "contentComingSoon")}</p>
           </div>
         </div>
       )
@@ -118,33 +97,33 @@ const isDomainsPage = englishSlug === "domains";
       isDomainsPage && (
         <div class="mt-24 max-w-3xl mx-auto space-y-16">
           <div id="energy-infrastructure">
-            <h2 class="text-2xl font-bold text-foreground mb-2">Energy & Infrastructure Resilience</h2>
-            <p class="text-muted-foreground">Inhalte kommen bald.</p>
+            <h2 class="text-2xl font-bold text-foreground mb-2">{t(locale, "sections", "energyInfrastructure")}</h2>
+            <p class="text-muted-foreground">{t(locale, "ui", "contentComingSoon")}</p>
           </div>
 
           <div id="digital-cyber">
-            <h2 class="text-2xl font-bold text-foreground mb-2">Digital & Cyber Resilience</h2>
-            <p class="text-muted-foreground">Inhalte kommen bald.</p>
+            <h2 class="text-2xl font-bold text-foreground mb-2">{t(locale, "sections", "digitalCyber")}</h2>
+            <p class="text-muted-foreground">{t(locale, "ui", "contentComingSoon")}</p>
           </div>
 
           <div id="finance">
-            <h2 class="text-2xl font-bold text-foreground mb-2">Finance Resilience</h2>
-            <p class="text-muted-foreground">Inhalte kommen bald.</p>
+            <h2 class="text-2xl font-bold text-foreground mb-2">{t(locale, "sections", "financeResilience")}</h2>
+            <p class="text-muted-foreground">{t(locale, "ui", "contentComingSoon")}</p>
           </div>
 
           <div id="customer-value">
-            <h2 class="text-2xl font-bold text-foreground mb-2">Customer Value & Revenue Resilience</h2>
-            <p class="text-muted-foreground">Inhalte kommen bald.</p>
+            <h2 class="text-2xl font-bold text-foreground mb-2">{t(locale, "sections", "customerValue")}</h2>
+            <p class="text-muted-foreground">{t(locale, "ui", "contentComingSoon")}</p>
           </div>
 
           <div id="health">
-            <h2 class="text-2xl font-bold text-foreground mb-2">Regulated Operations / Health</h2>
-            <p class="text-muted-foreground">Inhalte kommen bald.</p>
+            <h2 class="text-2xl font-bold text-foreground mb-2">{t(locale, "sections", "regulatedHealth")}</h2>
+            <p class="text-muted-foreground">{t(locale, "ui", "contentComingSoon")}</p>
           </div>
 
           <div id="esg">
-            <h2 class="text-2xl font-bold text-foreground mb-2">ESG Data Resilience & Auditability</h2>
-            <p class="text-muted-foreground">Inhalte kommen bald.</p>
+            <h2 class="text-2xl font-bold text-foreground mb-2">{t(locale, "sections", "esgData")}</h2>
+            <p class="text-muted-foreground">{t(locale, "ui", "contentComingSoon")}</p>
           </div>
         </div>
       )

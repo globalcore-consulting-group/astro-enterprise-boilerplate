@@ -1,8 +1,9 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import { t, buildPath } from "@/i18n/translations";
 
 const locale = "en";
-const title = "Domains";
+const title = t(locale, "nav", "domains");
 ---
 
 <Layout title={title} locale={locale}>
@@ -11,45 +12,45 @@ const title = "Domains";
       <h1 class="text-4xl md:text-5xl font-bold text-foreground mb-6">
         {title}
       </h1>
-      <p class="text-lg text-muted-foreground mb-8">This page is coming soon.</p>
+      <p class="text-lg text-muted-foreground mb-8">{t(locale, "ui", "comingSoon")}</p>
       <a
-        href="/"
+        href={buildPath("home", locale)}
         class="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-primary rounded-lg hover:bg-primary/90 transition-colors"
       >
-        Back to Home
+        {t(locale, "ui", "backToHome")}
       </a>
     </div>
 
     {/* Anchor sections for domains */}
     <div class="mt-24 max-w-3xl mx-auto space-y-16">
       <div id="energy-infrastructure">
-        <h2 class="text-2xl font-bold text-foreground mb-2">Energy & Infrastructure Resilience</h2>
-        <p class="text-muted-foreground">Content coming soon.</p>
+        <h2 class="text-2xl font-bold text-foreground mb-2">{t(locale, "sections", "energyInfrastructure")}</h2>
+        <p class="text-muted-foreground">{t(locale, "ui", "contentComingSoon")}</p>
       </div>
 
       <div id="digital-cyber">
-        <h2 class="text-2xl font-bold text-foreground mb-2">Digital & Cyber Resilience</h2>
-        <p class="text-muted-foreground">Content coming soon.</p>
+        <h2 class="text-2xl font-bold text-foreground mb-2">{t(locale, "sections", "digitalCyber")}</h2>
+        <p class="text-muted-foreground">{t(locale, "ui", "contentComingSoon")}</p>
       </div>
 
       <div id="finance">
-        <h2 class="text-2xl font-bold text-foreground mb-2">Finance Resilience</h2>
-        <p class="text-muted-foreground">Content coming soon.</p>
+        <h2 class="text-2xl font-bold text-foreground mb-2">{t(locale, "sections", "financeResilience")}</h2>
+        <p class="text-muted-foreground">{t(locale, "ui", "contentComingSoon")}</p>
       </div>
 
       <div id="customer-value">
-        <h2 class="text-2xl font-bold text-foreground mb-2">Customer Value & Revenue Resilience</h2>
-        <p class="text-muted-foreground">Content coming soon.</p>
+        <h2 class="text-2xl font-bold text-foreground mb-2">{t(locale, "sections", "customerValue")}</h2>
+        <p class="text-muted-foreground">{t(locale, "ui", "contentComingSoon")}</p>
       </div>
 
       <div id="health">
-        <h2 class="text-2xl font-bold text-foreground mb-2">Regulated Operations / Health</h2>
-        <p class="text-muted-foreground">Content coming soon.</p>
+        <h2 class="text-2xl font-bold text-foreground mb-2">{t(locale, "sections", "regulatedHealth")}</h2>
+        <p class="text-muted-foreground">{t(locale, "ui", "contentComingSoon")}</p>
       </div>
 
       <div id="esg">
-        <h2 class="text-2xl font-bold text-foreground mb-2">ESG Data Resilience & Auditability</h2>
-        <p class="text-muted-foreground">Content coming soon.</p>
+        <h2 class="text-2xl font-bold text-foreground mb-2">{t(locale, "sections", "esgData")}</h2>
+        <p class="text-muted-foreground">{t(locale, "ui", "contentComingSoon")}</p>
       </div>
     </div>
   </main>
