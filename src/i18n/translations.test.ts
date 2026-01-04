@@ -137,7 +137,7 @@ describe("Route Helpers", () => {
       expect(buildPath("contact", "en")).toBe("/contact");
       expect(buildPath("domains", "en")).toBe("/domains");
       expect(buildPath("privacy", "en")).toBe("/privacy");
-      expect(buildPath("imprint", "en")).toBe("/impressum");
+      expect(buildPath("imprint", "en")).toBe("/imprint");
     });
 
     it("should build DE paths with locale prefix and translated slugs", () => {
@@ -162,7 +162,7 @@ describe("Route Helpers", () => {
       expect(getRouteKeyFromPath("/contact")).toBe("contact");
       expect(getRouteKeyFromPath("/domains")).toBe("domains");
       expect(getRouteKeyFromPath("/privacy")).toBe("privacy");
-      expect(getRouteKeyFromPath("/impressum")).toBe("imprint");
+      expect(getRouteKeyFromPath("/imprint")).toBe("imprint");
     });
 
     it("should extract route key from DE paths", () => {
@@ -198,7 +198,7 @@ describe("Route Helpers", () => {
       expect(slugs).toContain("contact");
       expect(slugs).toContain("domains");
       expect(slugs).toContain("privacy");
-      expect(slugs).toContain("impressum");
+      expect(slugs).toContain("imprint");
       expect(slugs).not.toContain(""); // home should be excluded
     });
 
