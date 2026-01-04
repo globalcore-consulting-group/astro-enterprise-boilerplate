@@ -44,7 +44,7 @@ export const translations = {
       contact: "contact",
       domains: "domains",
       privacy: "privacy",
-      imprint: "impressum",
+      imprint: "imprint",
     },
     sections: {
       howWeWork: "How We Work",
