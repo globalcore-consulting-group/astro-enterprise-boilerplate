@@ -1,13 +1,13 @@
-# Session Summary - 2026-01-03
+# Session Summary - 2026-01-04
 
-**Last Updated:** 2026-01-03
-**Session Focus:** Placeholder Pages & Route Translation (Session 9)
+**Last Updated:** 2026-01-04
+**Session Focus:** i18n System Refactoring (Session 10)
 
 ---
 
 ## 🎯 Tasks for Next Session (PRIORITY)
 
-**All homepage links now work - no 404s!** ✅
+**i18n refactoring complete - all text centralized!** ✅
 
 Next priorities for v1.0.0:
 
@@ -17,12 +17,109 @@ Next priorities for v1.0.0:
 **Post v1.0.0:**
 
 3. **Content Development** - Fill in placeholder pages (About, Services, Contact, Domains)
-4. **Testing Enhancement** - Update E2E tests for new pages, add accessibility tests
+4. **Testing Enhancement** - Add accessibility tests, improve E2E coverage
 5. **Performance Optimization** - Lazy loading, image optimization
 
 ---
 
 ## ✅ Completed This Session
+
+### Session 10 (2026-01-04): i18n System Refactoring
+
+**Goal:** Eliminate all hardcoded text and centralize translations in i18n system
+
+#### Problem Identified
+
+- Hardcoded text scattered across multiple files (Navbar, Footer, pages)
+- Route translations duplicated in multiple places
+- No route helper functions for building paths
+- Language switcher had hardcoded logic for EN↔DE toggle
+- Section headings repeated across EN and DE pages
+
+#### Changes Made (5 commits)
+
+1. **`4f79fbd` - feat(i18n): expand translations.ts with comprehensive namespaces and route helpers**
+   - Added 5 namespaces: `nav`, `ui`, `footer`, `routes`, `sections`
+   - Created 3 route helper functions:
+     - `buildPath(routeKey, locale)` - Build full path with locale prefix and translated slug
+     - `getRouteKeyFromPath(path)` - Extract route key from any localized path
+     - `getRouteSlugs(locale)` - Get all route slugs for locale (for getStaticPaths)
+   - Centralized all route slug mappings in `routes` namespace
+   - Made solution scalable for N languages (not hardcoded to EN/DE)
+
+2. **`7616647` - refactor(components): replace hardcoded text with t() helper**
+   - Refactored Footer.astro: Removed 5 ternary operators, now uses `t()` helper
+   - Refactored Navbar.astro: Removed 60+ lines of duplicated route mappings
+   - Language switcher now uses `getRouteKeyFromPath()` and `buildPath()`
+   - Simplified from 86 lines to 34 lines in components
+
+3. **`bee781f` - refactor(pages): use t() and buildPath() in all placeholder pages**
+   - Refactored 6 EN pages: about, contact, services, domains, privacy, imprint
+   - Refactored catch-all route `[lang]/[...slug].astro` to be locale-agnostic
+   - Fixed variable naming: `germanSlug` → `localizedSlug`
+   - All section headings now use `t(locale, "sections", ...)`
+   - All route links use `buildPath()` helper
+
+4. **`36dcf57` - test(i18n): add comprehensive tests for route helpers**
+   - 13 tests for route helper functions
+   - Tests for buildPath(), getRouteKeyFromPath(), getRouteSlugs()
+   - Language switching scenario tests
+
+5. **`21583fc` - test(i18n): add comprehensive tests for t() and getNamespace() functions**
+   - 16 tests for t() function across all namespaces
+   - 4 tests for getNamespace() function
+   - 6 schema consistency tests (ensures EN/DE always have matching keys)
+   - **Total: 29 passing tests for i18n system**
+
+#### Impact
+
+**Before:**
+
+- Hardcoded text in 8+ files
+- Route translations duplicated in 3 places
+- Ternary operators for locale-specific text
+- 60+ lines of duplicated route mappings
+
+**After:**
+
+- Single source of truth: `src/i18n/translations.ts`
+- All text uses `t()` helper with full TypeScript autocomplete
+- All routes use `buildPath()` helper
+- Scalable for adding future languages (FR, ES, etc.)
+- 100% test coverage for i18n system (29 tests)
+
+#### Technical Details
+
+**New namespaces in translations.ts:**
+
+- `nav` - Navigation labels (home, about, services, contact, domains)
+- `ui` - UI elements (buttons, states, aria labels)
+- `footer` - Footer text (legal links, copyright, company description)
+- `routes` - Route slug mappings for all locales
+- `sections` - Section headings (temporary, will move to Content Collections)
+
+**Route helper examples:**
+
+```typescript
+buildPath("about", "en"); // "/about"
+buildPath("about", "de"); // "/de/ueber-uns"
+getRouteKeyFromPath("/de/ueber-uns"); // "about"
+getRouteSlugs("de"); // ["ueber-uns", "dienstleistungen", ...]
+```
+
+**Files updated:**
+
+- `src/i18n/translations.ts` - Expanded from ~150 to ~245 lines
+- `src/components/common/Footer/Footer.astro` - Simplified using t()
+- `src/components/common/Navbar/Navbar.astro` - Removed duplicated logic
+- All 6 EN placeholder pages - Using t() and buildPath()
+- `src/pages/[lang]/[...slug].astro` - Locale-agnostic implementation
+- `src/i18n/translations.test.ts` - 29 comprehensive tests
+- **Documentation updated:** AGENTS.md, src/i18n/README.md
+
+---
+
+## ✅ Completed Previous Sessions
 
 ### Session 9 (2026-01-03): Placeholder Pages & Route Translation
 

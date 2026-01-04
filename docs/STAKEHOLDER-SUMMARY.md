@@ -1,8 +1,8 @@
 # GlobalCore Website Boilerplate - Stakeholder Summary
 
 **Project:** GlobalCore Astro Website Boilerplate
-**Status:** Production-Ready Homepage Complete (87% Progress to v1.0.0)
-**Last Updated:** 2026-01-03
+**Status:** Production-Ready Homepage Complete (90% Progress to v1.0.0)
+**Last Updated:** 2026-01-04
 
 ---
 
@@ -10,10 +10,10 @@
 
 We're building a **production-ready, enterprise-grade Astro website boilerplate** that will serve as the foundation for GlobalCore's web presence and future projects. The boilerplate prioritizes **code quality, maintainability, testing, and developer experience** while following industry best practices.
 
-**Current Progress:** 13 of 15 core components complete
+**Current Progress:** 14 of 15 core components complete
 **Next Milestone:** v1.0.0 Reusable Boilerplate Template
 
-**Latest Achievement:** ✅ **All homepage links now work - placeholder pages created with proper i18n routing**
+**Latest Achievement:** ✅ **i18n system refactored - all text centralized with comprehensive test coverage (29 tests)**
 
 ---
 
@@ -98,11 +98,12 @@ We're building a **production-ready, enterprise-grade Astro website boilerplate*
   - @testing-library/dom for DOM utilities
   - @testing-library/jest-dom for custom matchers
   - Container API pattern for testing Astro components
-- ✅ **Test Suite Written**
+- ✅ **Test Suite Written** (Updated 2026-01-04)
   - 15 unit tests for Button component (83% coverage)
   - 8 unit tests for domain value objects (Locale, Slug, Url)
+  - 29 unit tests for i18n system (t(), route helpers, schema consistency)
   - 15 E2E tests for homepage (11 EN, 4 DE - responsive, interactive, i18n)
-  - All 38 tests passing in ~4.5 seconds
+  - All 67 tests passing in ~5 seconds
 - ✅ **No-Mocks Approach Implemented**
   - Uses Astro Container API to render real components
   - No mocking libraries needed
@@ -134,11 +135,18 @@ We're building a **production-ready, enterprise-grade Astro website boilerplate*
   - Modular structure: Each value object in folder with colocated tests
   - Application layer scaffolded (use-cases/, ports/)
   - Infrastructure layer scaffolded (repositories/, mappers/)
-- ✅ **Type-Safe i18n System**
+- ✅ **Type-Safe i18n System** (Updated 2026-01-04)
   - Astro i18n routing configured (EN default, DE with /de prefix)
-  - Type-safe translation helper with full TypeScript autocomplete
-  - Namespace pattern for organizing translations
+  - Type-safe translation helper `t()` with full TypeScript autocomplete
+  - 5 organized namespaces: nav, ui, footer, routes, sections
+  - **3 route helper functions:**
+    - `buildPath(routeKey, locale)` - Build locale-specific paths
+    - `getRouteKeyFromPath(path)` - Extract route key from any path
+    - `getRouteSlugs(locale)` - Generate static paths for locales
   - Date format configuration per locale
+  - **All hardcoded text eliminated** - Single source of truth in translations.ts
+  - **100% test coverage** - 29 passing tests for i18n system
+  - Scalable for N languages (not hardcoded to EN/DE)
 - ✅ **Content Collections**
   - Hero collection with Zod schema validation
   - Locale-based folder organization (en/, de/)

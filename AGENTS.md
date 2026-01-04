@@ -414,22 +414,149 @@ src/
                                       /de/kontakt → contact
 ```
 
-### Route Translations Map
+### i18n Usage Conventions
+
+**CRITICAL:** Never hardcode text or routes. Always use the i18n system.
+
+#### Translation Function - t()
+
+Use the type-safe `t()` helper for all UI text:
 
 ```typescript
-// src/i18n/routes.ts
-export const routeTranslations = {
+import { t } from "@/i18n/translations";
+
+// ✅ CORRECT - Use t() helper
+<button>{t(locale, "ui", "getStarted")}</button>
+<h1>{t(locale, "nav", "about")}</h1>
+
+// ❌ WRONG - Never hardcode text
+<button>Get Started</button>
+<h1>About</h1>
+```
+
+**Available namespaces:**
+
+- `nav` - Navigation labels (home, about, services, contact, domains)
+- `ui` - UI elements (buttons, states, aria labels)
+- `footer` - Footer-specific text (legal links, copyright)
+- `routes` - Route slug translations (used by helpers, not directly)
+- `sections` - Section headings (temporary, will move to Content Collections)
+
+#### Route Helpers
+
+Always use route helpers for building paths and extracting route keys:
+
+```typescript
+import { buildPath, getRouteKeyFromPath, getRouteSlugs } from "@/i18n/translations";
+
+// ✅ CORRECT - Build locale-specific paths
+<a href={buildPath("about", locale)}>About</a>
+// EN: /about
+// DE: /de/ueber-uns
+
+// ✅ CORRECT - Extract route key from path for language switcher
+const routeKey = getRouteKeyFromPath(Astro.url.pathname);
+const alternateUrl = buildPath(routeKey, alternateLocale);
+
+// ✅ CORRECT - Generate static paths in getStaticPaths()
+export function getStaticPaths() {
+  return getRouteSlugs("de").map(slug => ({ params: { slug } }));
+}
+
+// ❌ WRONG - Never hardcode route logic
+<a href={locale === "en" ? "/about" : "/de/ueber-uns"}>About</a>
+```
+
+**Route helper functions:**
+
+- `buildPath(routeKey, locale)` - Build full path with locale prefix and translated slug
+- `getRouteKeyFromPath(path)` - Extract route key from any localized path
+- `getRouteSlugs(locale)` - Get all route slugs for a locale (for getStaticPaths)
+
+#### What Goes Where
+
+**translations.ts (UI text):**
+
+- ✅ Navigation labels, button text, form labels
+- ✅ Error messages, loading states
+- ✅ Aria labels, accessibility text
+- ✅ Route slug mappings (in `routes` namespace)
+
+**Content Collections (dynamic content):**
+
+- ✅ Hero sections, feature descriptions
+- ✅ Service offerings, project descriptions
+- ✅ Blog posts, case studies
+
+```typescript
+// ✅ CORRECT - UI text in translations.ts
+const buttonLabel = t(locale, "ui", "learnMore");
+
+// ✅ CORRECT - Content from Content Collections
+const heroContent = await getEntry("hero", `${locale}/home`);
+```
+
+#### Common Mistakes to Avoid
+
+```typescript
+// ❌ WRONG - Hardcoded text
+<p>This page is coming soon.</p>
+
+// ✅ CORRECT
+<p>{t(locale, "ui", "comingSoon")}</p>
+
+// ❌ WRONG - Hardcoded route building
+const deUrl = locale === "de" ? `/de/${slug}` : `/${slug}`;
+
+// ✅ CORRECT
+const url = buildPath(routeKey, locale);
+
+// ❌ WRONG - Ternary operators for locale-specific text
+{locale === "en" ? "Privacy Policy" : "Datenschutz"}
+
+// ✅ CORRECT
+{t(locale, "footer", "privacyPolicy")}
+
+// ❌ WRONG - Duplicated route mappings
+const routeMap = { about: "ueber-uns", services: "dienstleistungen" };
+
+// ✅ CORRECT - Use existing helpers
+const slugs = getRouteSlugs("de");
+```
+
+### Route Translations Map
+
+Route translations are centralized in `src/i18n/translations.ts`:
+
+```typescript
+// src/i18n/translations.ts (excerpt)
+export const translations = {
   en: {
-    about: "about",
-    services: "services",
-    contact: "contact",
+    routes: {
+      home: "",
+      about: "about",
+      services: "services",
+      contact: "contact",
+      domains: "domains",
+      privacy: "privacy",
+      imprint: "impressum",
+    },
   },
   de: {
-    about: "ueber-uns",
-    services: "dienstleistungen",
-    contact: "kontakt",
+    routes: {
+      home: "",
+      about: "ueber-uns",
+      services: "dienstleistungen",
+      contact: "kontakt",
+      domains: "domaenen",
+      privacy: "datenschutz",
+      imprint: "impressum",
+    },
   },
 } as const;
+
+// Route helpers automatically use this mapping
+buildPath("about", "de"); // "/de/ueber-uns"
 ```
 
 ---
