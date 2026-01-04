@@ -1,5 +1,5 @@
 ---
-import { t, getNamespace } from "@/i18n/translations";
+import { t, getNamespace, buildPath, getRouteKeyFromPath } from "@/i18n/translations";
 import type { Locale } from "@/domain";
 import Button from "@/components/starwind/button/Button.astro";
 
@@ -10,54 +10,14 @@ interface Props {
 const { locale } = Astro.props;
 const navItems = getNamespace(locale, "nav");
 
-// Route translations mapping
-const routeTranslations: Record<string, Record<string, string>> = {
-  en: {
-    about: "ueber-uns",
-    services: "dienstleistungen",
-    contact: "kontakt",
-    domains: "domaenen",
-    privacy: "datenschutz",
-    imprint: "impressum",
-  },
-  de: {
-    "ueber-uns": "about",
-    dienstleistungen: "services",
-    kontakt: "contact",
-    domaenen: "domains",
-    datenschutz: "privacy",
-    impressum: "imprint",
-  },
-};
-
-// Build URL for locale with route translation
-const getLocalizedUrl = (path: string) => {
-  if (locale === "en") {
-    return path;
-  }
-  // For German, translate the route slug
-  const slug = path.slice(1); // Remove leading /
-  const translatedSlug = routeTranslations.en[slug] || slug;
-  return translatedSlug ? `/${locale}/${translatedSlug}` : `/${locale}`;
-};
-
-// Get alternate locale and its URL
+// Get alternate locale and calculate its URL
 const alternateLocale: Locale = locale === "en" ? "de" : "en";
-const currentPath = Astro.url.pathname;
-
-// Calculate alternate URL with route translation
-let alternateUrl: string;
-if (locale === "en") {
-  // Going from EN to DE: translate route slug
-  const slug = currentPath.slice(1); // Remove leading /
-  const translatedSlug = routeTranslations.en[slug] || slug;
-  alternateUrl = translatedSlug ? `/de/${translatedSlug}` : "/de";
-} else {
-  // Going from DE to EN: translate route slug
-  const slug = currentPath.replace(/^\/de\/?/, ""); // Remove /de/ prefix
-  const translatedSlug = routeTranslations.de[slug] || slug;
-  alternateUrl = translatedSlug ? `/${translatedSlug}` : "/";
-}
+const currentRouteKey = getRouteKeyFromPath(Astro.url.pathname);
+const alternateUrl = currentRouteKey
+  ? buildPath(currentRouteKey, alternateLocale)
+  : alternateLocale === "en"
+    ? "/"
+    : "/de";
 ---
 
 <header
@@ -67,7 +27,10 @@ if (locale === "en") {
     <div class="flex h-16 items-center justify-between">
       {/* Logo */}
       <div class="flex items-center">
-        <a href={getLocalizedUrl("/")} class="text-xl font-bold text-foreground hover:text-primary transition-colors">
+        <a
+          href={buildPath("home", locale)}
+          class="text-xl font-bold text-foreground hover:text-primary transition-colors"
+        >
           GlobalCore
         </a>
       </div>
@@ -76,25 +39,25 @@ if (locale === "en") {
       <div class="hidden md:flex md:items-center md:gap-6">
         <div class="flex items-center gap-6">
           <a
-            href={getLocalizedUrl("/")}
+            href={buildPath("home", locale)}
             class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
             {navItems.home}
           </a>
           <a
-            href={getLocalizedUrl("/about")}
+            href={buildPath("about", locale)}
             class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
             {navItems.about}
           </a>
           <a
-            href={getLocalizedUrl("/services")}
+            href={buildPath("services", locale)}
             class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
             {navItems.services}
           </a>
           <a
-            href={getLocalizedUrl("/contact")}
+            href={buildPath("contact", locale)}
             class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
             {navItems.contact}
@@ -117,7 +80,7 @@ if (locale === "en") {
         aria-expanded="false"
         id="mobile-menu-button"
       >
-        <span class="sr-only">Open main menu</span>
+        <span class="sr-only">{t(locale, "ui", "openMenu")}</span>
         {/* Icon when menu is closed */}
         <svg
           class="block h-6 w-6"
@@ -149,25 +112,25 @@ if (locale === "en") {
     <div class="hidden md:hidden" id="mobile-menu">
       <div class="space-y-1 px-2 pb-3 pt-2">
         <a
-          href={getLocalizedUrl("/")}
+          href={buildPath("home", locale)}
           class="block rounded-md px-3 py-2 text-base font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground"
         >
           {navItems.home}
         </a>
         <a
-          href={getLocalizedUrl("/about")}
+          href={buildPath("about", locale)}
           class="block rounded-md px-3 py-2 text-base font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground"
         >
           {navItems.about}
         </a>
         <a
-          href={getLocalizedUrl("/services")}
+          href={buildPath("services", locale)}
           class="block rounded-md px-3 py-2 text-base font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground"
         >
           {navItems.services}
         </a>
         <a
-          href={getLocalizedUrl("/contact")}
+          href={buildPath("contact", locale)}
           class="block rounded-md px-3 py-2 text-base font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground"
         >
           {navItems.contact}
