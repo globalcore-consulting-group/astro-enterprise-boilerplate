@@ -1,33 +1,120 @@
 # Session Summary - 2026-01-04
 
 **Last Updated:** 2026-01-04
-**Session Focus:** Boilerplate Repository Creation (Session 11)
+**Session Focus:** semantic-release v1.0.0 + CI/CD Strategy (Session 12)
 
 ---
 
 ## 🎯 Tasks for Next Session (PRIORITY)
 
-**Boilerplate repository created successfully!** ✅
+**v1.0.0 RELEASED!** ✅ semantic-release complete, CI/CD in progress
 
-Next priorities for v1.0.0:
+Next steps to complete CI/CD:
 
-1. **semantic-release** - Automated versioning and changelog
-   - Configure semantic-release for automated version bumps
-   - Generate CHANGELOG.md from commit history
-   - Create version tags automatically
-   - Push final version to boilerplate with tags
-   - Remove boilerplate remote after final sync
-2. **GitHub Actions CI/CD** - Automated deployment pipeline
+1. **Commit and push ADR 0005** - CI/CD workflow strategy documentation
+2. **Update README.md** - Add CI/CD workflow documentation
+3. **Create deploy workflow** - `.github/workflows/deploy.yml` for self-hosted runner
+4. **Push all to boilerplate** - Final sync with boilerplate repository
+5. **Remove boilerplate remote** - Clean up after final sync
+6. **Test workflows** - Verify release→deploy sequence works
 
-**Post v1.0.0:**
+**Current State:**
 
-3. **Content Development** - Fill in placeholder pages (About, Services, Contact, Domains)
-4. **Testing Enhancement** - Add accessibility tests, improve E2E coverage
-5. **Performance Optimization** - Lazy loading, image optimization
+- ✅ Release workflow created (`.github/workflows/release.yml`)
+- ✅ ADR 0005 created (sequential workflow strategy)
+- ✅ v1.0.0 tagged and released
+- ⏳ Deploy workflow pending
+- ⏳ README update pending
+
+**Post CI/CD:**
+
+7. **Content Development** - Fill in placeholder pages (About, Services, Contact, Domains)
+8. **Testing Enhancement** - Add accessibility tests, improve E2E coverage
+9. **Performance Optimization** - Lazy loading, image optimization
 
 ---
 
 ## ✅ Completed This Session
+
+### Session 12 (2026-01-04): semantic-release v1.0.0 + CI/CD Strategy
+
+**Goal:** Complete semantic-release setup and begin CI/CD automation
+
+#### semantic-release v1.0.0 ✅
+
+**Installed and configured:**
+
+- semantic-release with @semantic-release/changelog and @semantic-release/git plugins
+- `.releaserc.mjs` configuration (aligned with project's .mjs pattern)
+- Conventional commits analysis with release rules
+- Automatic CHANGELOG generation from commit history
+
+**Generated and released:**
+
+- CHANGELOG.md with complete history (104 commits organized by type)
+- v1.0.0 git tag
+- Updated package.json to 1.0.0
+- Pushed to both globalcore-website and astro-enterprise-boilerplate repositories
+- All 67 tests passing (52 unit + 15 E2E)
+
+#### CI/CD Strategy (Partial) ⏳
+
+**Completed:**
+
+- ADR 0005: CI/CD Workflow Strategy with Sequential Release then Deploy
+  - Documented decision for two separate workflows
+  - Release workflow (GitHub runners) → Deploy workflow (self-hosted)
+  - Sequential execution to ensure Docker images tagged with correct version
+  - Addresses race condition concern for version-tagged Docker images
+- Created `.github/workflows/release.yml`:
+  - Runs on ubuntu-latest (free GitHub runners)
+  - Executes full test suite (typecheck + unit + E2E)
+  - Runs semantic-release automatically
+  - Creates version tags and CHANGELOG when commits warrant it
+- Pushed release workflow to both repositories
+
+**Pending (for next session):**
+
+- Create `.github/workflows/deploy.yml` (self-hosted runner workflow)
+- Update README.md with CI/CD documentation
+- Final push to boilerplate repository
+- Remove boilerplate remote after sync
+- Test complete release→deploy workflow
+
+#### Changes Made (2 commits)
+
+1. **`08661ad` - feat(release): add semantic-release configuration**
+   - Installed semantic-release with changelog and git plugins
+   - Created .releaserc.mjs with conventional commits analysis
+   - Added release and release:dry scripts to package.json
+   - Configured to skip npm publish (not an npm package)
+
+2. **`e09886c` - feat(ci): add automated release workflow with semantic-release**
+   - Created GitHub Actions workflow for automated versioning
+   - Runs on every push to main branch
+   - Executes full test suite before release
+   - Uses GitHub's GITHUB_TOKEN for authentication
+   - Runs on free GitHub runners (ubuntu-latest)
+
+**Note:** semantic-release automatically created commit `9b51c63` for the v1.0.0 release
+
+#### Key Decisions
+
+**Sequential Workflows (not parallel):**
+
+- Deploy workflow waits for release workflow using `workflow_run` trigger
+- Ensures Docker images are tagged with correct semantic version
+- Prevents race condition where deploy might finish before release creates tag
+- Slight delay (~2-3 min) acceptable for version consistency
+
+**Docker Image Tagging:**
+
+- Images will be tagged with semantic version (e.g., `globalcore-website:v1.1.0`)
+- Plus `latest` tag for continuous updates
+- Enables easy rollback to specific versions
+- Version history tracked in Docker registry
+
+---
 
 ### Session 11 (2026-01-04): Boilerplate Repository Creation
 

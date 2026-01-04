@@ -411,7 +411,56 @@ git push --tags        # Push release to repository
 
 ---
 
-### 10. **Placeholder Pages & Route Translation System** ✅
+### 10. **GitHub Actions Release Workflow** ⏳ (Partial)
+
+**Purpose:** Automated testing and versioning on every push to main
+
+**Completed:**
+
+- ✅ **Created release workflow** (`.github/workflows/release.yml`)
+  - Runs on GitHub runners (ubuntu-latest, free)
+  - Triggered on every push to main branch
+  - Full test suite execution (typecheck + unit + E2E)
+  - Automatic semantic-release when tests pass
+  - Creates version tags and CHANGELOG when needed
+- ✅ **ADR 0005 created** - CI/CD Workflow Strategy
+  - Documented decision for sequential workflows
+  - Release workflow → Deploy workflow (not parallel)
+  - Ensures Docker images tagged with correct version
+  - Prevents race conditions
+
+**Pending:**
+
+- ⏳ **Deploy workflow** (`.github/workflows/deploy.yml`)
+  - Will run on self-hosted runners
+  - Triggered after release workflow completes
+  - Build Docker image with semantic version tag
+  - Deploy to production server
+- ⏳ **README.md update** - Document workflow usage
+
+**Business Value:**
+
+- Zero manual intervention for releases
+- Tests run automatically on every push
+- Version bumps based on commit messages
+- Professional CI/CD pipeline
+- Ready for production deployment
+
+**Technical Implementation:**
+
+Workflow sequence:
+
+1. Push to main → Release workflow runs
+2. Tests execute (typecheck + unit + E2E)
+3. semantic-release analyzes commits
+4. Creates tag if commits warrant it (e.g., v1.1.0)
+5. Deploy workflow waits for release to complete
+6. Builds Docker image: `globalcore-website:v1.1.0` + `latest`
+7. Deploys to server
+
+---
+
+### 11. **Placeholder Pages & Route Translation System** ✅
 
 **Purpose:** Prevent 404 errors and establish proper i18n routing structure
 

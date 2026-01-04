@@ -59,10 +59,11 @@ npm run dev          # Start dev server at localhost:4321
 - [x] **SEO Component** (Dynamic meta tags, Open Graph, Twitter cards, hreflang)
 - [x] **Boilerplate Repository** (astro-enterprise-boilerplate with comprehensive README)
 - [x] **semantic-release** (v1.0.0 released with automated CHANGELOG generation)
+- [x] **GitHub Actions Release Workflow** (automated testing + versioning on push to main)
 
-### ⏳ Post v1.0.0
+### ⏳ In Progress
 
-- [ ] GitHub Action for deploy (CI/CD automation)
+- [ ] GitHub Actions Deploy Workflow (self-hosted runner, Docker deployment)
 
 > ⚠️ **Note:** Sections in this document describe the target setup. Check this checklist to know what's actually available.
 
