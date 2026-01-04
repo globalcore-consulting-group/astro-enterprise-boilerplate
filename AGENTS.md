@@ -2,7 +2,7 @@
 
 > **This file provides context and guidelines for AI coding agents working on this project.**
 >
-> **Last updated:** 2026-01-02 | **Version:** 1.1.0
+> **Last updated:** 2026-01-04 | **Version:** 1.0.0
 
 ---
 
@@ -27,7 +27,7 @@ npm run dev          # Start dev server at localhost:4321
 
 ## Project Status
 
-> 🚀 **Progress: 92% to v1.0.0** (19 of 20 core items complete)
+> 🎉 **v1.0.0 COMPLETE!** (20 of 20 core items) - Boilerplate Ready
 
 ### ✅ Done
 
@@ -43,7 +43,7 @@ npm run dev          # Start dev server at localhost:4321
 - [x] Path aliases (@/\*)
 - [x] Tailwind CSS v4
 - [x] Starwind UI (Button component)
-- [x] Vitest + Testing Library (15 unit tests, 83% coverage)
+- [x] Vitest + Testing Library (52 unit tests, 83% coverage)
 - [x] Playwright (15 E2E tests: 11 EN, 4 DE)
 - [x] **Zod** (transitive dependency from Astro 3.25.76)
 - [x] **Clean Architecture folder structure** (domain/, application/, infrastructure/)
@@ -58,11 +58,11 @@ npm run dev          # Start dev server at localhost:4321
 - [x] **Navigation Components** (Navbar with mobile menu + language switcher, Footer)
 - [x] **SEO Component** (Dynamic meta tags, Open Graph, Twitter cards, hreflang)
 - [x] **Boilerplate Repository** (astro-enterprise-boilerplate with comprehensive README)
+- [x] **semantic-release** (v1.0.0 released with automated CHANGELOG generation)
 
-### ⏳ Pending Setup
+### ⏳ Post v1.0.0
 
-- [ ] semantic-release (50% complete - repo created, awaiting configuration)
-- [ ] GitHub Action for deploy
+- [ ] GitHub Action for deploy (CI/CD automation)
 
 > ⚠️ **Note:** Sections in this document describe the target setup. Check this checklist to know what's actually available.
 
